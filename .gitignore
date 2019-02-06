@@ -1,0 +1,20 @@
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# Dependency caches
+vendor/
+node_modules/
+
+# Rubbish
+cache/
+log/
+target/
+obj/
+build/
+.DS_Store
+desktop.ini
+
+# Security
+.env
