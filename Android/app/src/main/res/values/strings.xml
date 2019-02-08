@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PLFGD</string>
+    <string name="send_response">Répondre</string>
+    <string name="replay">Rejouer</string>
+    <string name="good_response">Vous avez bien répondu</string>
+    <string name="bad_response">Vous avez mal répondu</string>
+    <string name="wait">Merci de patienter</string>
 </resources>

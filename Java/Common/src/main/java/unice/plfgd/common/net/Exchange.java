@@ -1,12 +1,20 @@
 package unice.plfgd.common.net;
 
+import java.io.Serializable;
+
 /**
  * This class *must* be used when exchanging data over WebSocket.
  */
-public class Exchange {
+public class Exchange implements Serializable {
 	private String action;
 	private Packet payload;
 	private Exception error;
+
+	public Exchange(String action, Packet payload, Exception error){
+		this.action = action;
+		this.payload = payload;
+		this.error = error;
+	}
 
 	private Exchange(String action) {
 		this.action = action;

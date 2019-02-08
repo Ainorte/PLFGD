@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
-        main.java.srcDirs+= "../../../Java/Common/src/main/java"
+        main.java.srcDirs+= "../../Java/Common/src/main/java"
     }
     buildTypes {
         release {
@@ -34,4 +34,5 @@ dependencies {
         exclude group: 'org.json', module: 'json'
         // car cela est dans le java android
     }
+    //implementation 'com.google.code.gson:gson:2.8.5' fonctionne pas pour le coté serveur
 }

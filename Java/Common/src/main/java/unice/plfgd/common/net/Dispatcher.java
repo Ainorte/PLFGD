@@ -1,12 +1,8 @@
-package unice.plfgd.server;
+package unice.plfgd.common.net;
 
-import unice.plfgd.common.Move;
-import unice.plfgd.common.net.Identifier;
-import unice.plfgd.server.handlers.Handler;
+import unice.plfgd.common.data.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Dispatcher {
@@ -14,9 +10,8 @@ public class Dispatcher {
 	public final Object newConnectionLock = new Object();
 
 	// Data (Custom data class?)
-	private Identifier remoteClient;
-	private int toFind;
-	private final List<Move> lastMoves = new ArrayList<>();
+	private User remoteClient;
+	private String toFind;
 
 	public Dispatcher set(String action, Handler handler) {
 		this.actions.put(action, handler);
@@ -28,23 +23,19 @@ public class Dispatcher {
 		return this.actions.get(action);
 	}
 
-	public Identifier getRemoteClient() {
+	public User getRemoteClient() {
 		return remoteClient;
 	}
 
-	public void setRemoteClient(Identifier remoteClient) {
+	public void setRemoteClient(User remoteClient) {
 		this.remoteClient = remoteClient;
 	}
 
-	public int getToFind() {
+	public String getToFind() {
 		return toFind;
 	}
 
-	public void setToFind(int toFind) {
+	public void setToFind(String toFind) {
 		this.toFind = toFind;
-	}
-
-	public List<Move> getLastMoves() {
-		return lastMoves;
 	}
 }

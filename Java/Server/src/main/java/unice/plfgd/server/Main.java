@@ -1,8 +1,9 @@
 package unice.plfgd.server;
 
 import com.corundumstudio.socketio.Configuration;
-import unice.plfgd.server.handlers.Answer;
-import unice.plfgd.server.handlers.Ident;
+import unice.plfgd.common.net.Dispatcher;
+import unice.plfgd.server.handlers.AnswerHandler;
+import unice.plfgd.server.handlers.IdentHandler;
 
 
 /**
@@ -21,8 +22,8 @@ public class Main {
 		var server = new Server(
 				config,
 				new Dispatcher()
-						.set("ident", new Ident())
-						.set("question", new Answer())
+						.set("ident", new IdentHandler())
+						.set("question", new AnswerHandler())
 		);
 		server.start();
 
