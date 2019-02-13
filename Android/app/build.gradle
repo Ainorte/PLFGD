@@ -14,9 +14,15 @@ android {
         main.java.srcDirs+= "../../Java/Common/src/main/java"
     }
     buildTypes {
+        debug{
+            resValue "string", "SERVER_DOMAIN", SERVER_DOMAIN
+            resValue "string", "SERVER_PORT", SERVER_PORT
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "SERVER_DOMAIN", SERVER_DOMAIN
+            resValue "string", "SERVER_PORT", SERVER_PORT
         }
     }
 }

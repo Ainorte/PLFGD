@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         User user = new User("Android Device");
-        connexion = new Connexion("http://10.0.2.2:10101", user, this);
+        connexion = new Connexion("http://" + getBaseContext().getString(R.string.SERVER_DOMAIN) + ":" + getBaseContext().getString(R.string.SERVER_PORT), user, this);
 
         //On met le text de text_button sur le bouton
 
