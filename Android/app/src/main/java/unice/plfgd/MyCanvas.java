@@ -13,7 +13,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import unice.plfgd.common.forme.Point;
+
 
 public class MyCanvas extends View {
 
@@ -35,49 +36,12 @@ public class MyCanvas extends View {
 		paint.setStrokeWidth(10f);
 	}
 
-
-
 	@Override protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawPath(path,paint);
 
 	}
 
-	public class Point{
-		private final float px;
-		private final float  py;
-		public Point(float x, float y){
-			px = x;
-			py = y;
-		};
-		public float getpx() {
-			return px;
-		}
-
-		public float getpy(){
-			return py;
-		}
-
-		@Override
-		public String toString() {
-			return "[" + px + ";" + py + "]";
-		}
-
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) return true;
-			if (o == null || getClass() != o.getClass()) return false;
-			Point point = (Point) o;
-			return Float.compare(point.px, px) == 0 &&
-					Float.compare(point.py, py) == 0;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(px, py);
-		}
-	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
