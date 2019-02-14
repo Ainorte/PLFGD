@@ -1,8 +1,9 @@
 package unice.plfgd.common.forme;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Point {
+public class Point implements Serializable {
 
     protected double x;
     protected double y;

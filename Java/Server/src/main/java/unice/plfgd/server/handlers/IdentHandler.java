@@ -2,7 +2,10 @@ package unice.plfgd.server.handlers;
 
 import unice.plfgd.common.data.Question;
 import unice.plfgd.common.data.User;
-import unice.plfgd.common.net.*;
+import unice.plfgd.common.net.Dispatcher;
+import unice.plfgd.common.net.Exchange;
+import unice.plfgd.common.net.Handler;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.server.Log;
 
 public class IdentHandler implements Handler {
