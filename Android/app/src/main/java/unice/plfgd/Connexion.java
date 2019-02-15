@@ -4,6 +4,7 @@ import android.util.Log;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.data.Question;
 import unice.plfgd.common.data.Result;
 import unice.plfgd.common.data.User;
@@ -59,6 +60,9 @@ public class Connexion {
                         Log.d("result","Result : " + result.isRight());
                         mainActivity.changeText((result.isRight()) ? R.string.good_response : R.string.bad_response);
 
+                    }
+                    else if(packet.getAction().equals("draw")){
+                        Draw draw = (Draw) packet.getPayload();
                     }
                     else {
                         error = new UnknownActionError("No handler implemented for action " + packet.getAction());

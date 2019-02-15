@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import unice.plfgd.common.data.Answer;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.data.User;
+import unice.plfgd.common.forme.Point;
 import unice.plfgd.common.net.Exchange;
 
 import java.io.ByteArrayOutputStream;
@@ -138,10 +140,11 @@ public class MainActivity extends AppCompatActivity {
 
 				// test pour recupe le tableau des points et le mettre dans un TextView
 				TextView txt = findViewById(R.id.canvasTest);
-				txt.setText(Arrays.deepToString(myCanvas.coords.toArray()));
-
+				Object[] tab = myCanvas.coords.toArray();
+				Point[] points = Arrays.copyOf(tab, tab.length, Point[].class);
+				txt.setText(Arrays.deepToString(tab));
+				connexion.sendMessage(Exchange.with("draw").payload(new Draw(points)));
 			}
-
 		});
 	}
 
