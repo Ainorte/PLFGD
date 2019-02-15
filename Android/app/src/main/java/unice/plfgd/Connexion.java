@@ -63,6 +63,7 @@ public class Connexion {
                     }
                     else if(packet.getAction().equals("draw")){
                         Draw draw = (Draw) packet.getPayload();
+                        mainActivity.displayDrawing(draw.getPoints());
                     }
                     else {
                         error = new UnknownActionError("No handler implemented for action " + packet.getAction());

@@ -5,17 +5,29 @@ import java.util.Objects;
 
 public class Point implements Serializable {
 
-    protected double x;
+	protected double x;
     protected double y;
     protected double xG;
     protected double yG;
+	protected boolean start;
+
+	public boolean isStart() {
+		return start;
+	}
+
 
     public Point(double x, double y){
         this.x = x;
         this.y = y;
         this.xG = x;
         this.yG = y;
+        this.start = false;
     }
+
+	public Point(double x, double y,boolean b){
+    	this(x,y);
+    	this.start = b;
+	}
 
     public void setX(double x){
         this.x = x;
@@ -46,21 +58,22 @@ public class Point implements Serializable {
         return "[" + x + ";" + y + "]";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return Double.compare(point.getX(), x) == 0 &&
-                Double.compare(point.getY(), y) == 0;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Point point = (Point) o;
+		return Double.compare(point.x, x) == 0 &&
+				Double.compare(point.y, y) == 0 &&
+				start == point.start;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y, start);
+	}
 
-    public double calculeDistanceG(){
+	public double calculeDistanceG(){
         return Math.sqrt(Math.pow(x - xG, 2)
                 + Math.pow(y - yG, 2));
     }

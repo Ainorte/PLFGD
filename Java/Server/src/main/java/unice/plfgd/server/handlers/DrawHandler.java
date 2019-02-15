@@ -13,7 +13,7 @@ public class DrawHandler implements Handler {
 	@Override
 	public Exchange invoke(Dispatcher dispatcher, Packet data) {
 		final Draw draw = (Draw) data;
-		Log.log(Log.State.GREEN, Arrays.deepToString(draw.getPoints()));
+		Log.log(Log.State.GREEN, draw.getPoints().toString());
 		return Exchange.with("draw").payload(new Draw(draw.getPoints()));
 	}
 }
