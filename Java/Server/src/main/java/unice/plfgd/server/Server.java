@@ -65,12 +65,8 @@ public class Server {
 			}
 
 			// If a dispatcher sent null, we assume we're closing the server.
-			if (response == null) {
-				synchronized (this.requestDispatcher.newConnectionLock) {
-					this.requestDispatcher.newConnectionLock.notify();
-				}
+			if (response != null) {
+				client.sendEvent("message", (Object) Serializer.ObjectToBytes(response));
 			}
-
-			client.sendEvent("message", (Object) Serializer.ObjectToBytes(response));
 	}
 }

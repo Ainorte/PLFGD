@@ -23,6 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Connexion connexion;
+    Button button;
 	Button button_edit;
 	TextView text_edit;
 	EditText text_input;
@@ -32,26 +33,123 @@ public class MainActivity extends AppCompatActivity {
 	Button button_save;
 	MyCanvas myCanvas;
 
+	String text_bouton = "Envoi texte";
+	String nom_joueur = "Joueur 1";
+	String forme = "Carre";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.accueil);
 
-		myCanvas = (MyCanvas) findViewById(R.id.My_Canvas);
 
         User user = new User("Android Device");
         connexion = new Connexion("http://" + getBaseContext().getString(R.string.SERVER_DOMAIN) + ":" + getBaseContext().getString(R.string.SERVER_PORT), user, this);
 
-        //On met le text de text_button sur le bouton
 
-		text_edit= (TextView)findViewById(R.id.text_edit);
-		text_edit.setText(R.string.wait);
-        text_input = (EditText)findViewById(R.id.text_input);
-		button_edit = (Button) findViewById(R.id.button_edit);
-		button_edit.setText(R.string.send_response);
-		addListenerOnButton_edit();
-		addListenerOnButton_main();
+		final TextView helloTextView = (TextView) findViewById(R.id.accueil_text);
+		helloTextView.setText("Bienvenue " + nom_joueur);
+		addListenerOnButton_des();
     }
+
+	public void addListenerOnButton_des() {
+
+		button = (Button) findViewById(R.id.but_des);
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				setContentView(R.layout.dessin);
+				//R.id.canvasTest.setContentView(myCanvas);
+				// button_second n'existe pas encore
+				// oblige de le cree il n'existe pas
+				TextView nomjoueur = findViewById(R.id.des_text);
+				nomjoueur.setText("Dessine un " + forme);
+				addListenerOnButton_Val();
+				addListenerOnButton_desreset();
+			}
+
+		});
+	}
+
+	public void addListenerOnButton_accueil() {
+
+		button = (Button) findViewById(R.id.res_retour);
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				setContentView(R.layout.accueil);
+				final TextView helloTextView = (TextView) findViewById(R.id.accueil_text);
+				helloTextView.setText("Bienvenue " + nom_joueur);
+				addListenerOnButton_des();
+
+			}
+
+		});
+	}
+
+	public void addListenerOnButton_desreset() {
+
+		button = (Button) findViewById(R.id.des_reset);
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				setContentView(R.layout.dessin);
+				TextView nomjoueur = findViewById(R.id.des_text);
+				nomjoueur.setText("Dessine un " + forme);
+				addListenerOnButton_Val();
+				addListenerOnButton_desreset();
+			}
+
+		});
+	}
+
+	public void addListenerOnButton_Val() {
+
+		button = (Button) findViewById(R.id.des_button);
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas2);
+
+
+				// test pour recupe le tableau des points et le mettre dans un TextView
+				Object[] tab = myCanvas.coords.toArray();
+				Point[] points = Arrays.copyOf(tab, tab.length, Point[].class);
+				connexion.sendMessage(Exchange.with("draw").payload(new Draw(myCanvas.coords)));
+
+			}
+
+		});
+	}
+
+	public void addListenerOnButton_rejouer() {
+
+		button = (Button) findViewById(R.id.res_rejouer);
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				setContentView(R.layout.dessin);
+				TextView nomjoueur = findViewById(R.id.des_text);
+				nomjoueur.setText("Dessine un " + forme);
+				addListenerOnButton_Val();
+				addListenerOnButton_desreset();
+			}
+
+		});
+	}
 
 	public void addListenerOnButton_edit() {
 
@@ -156,12 +254,11 @@ public class MainActivity extends AppCompatActivity {
 		myCanvas.post(new Runnable() {
 			@Override
 			public void run() {
-				setContentView(R.layout.activity_second);
+				setContentView(R.layout.dessin_resultat);
 
-				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas);
+				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas_res);
+				myCanvas.b = 1;
 				myCanvas.coords = tab;
-				myCanvas.paint.setColor(Color.BLUE);
-				myCanvas.setBackgroundColor(Color.GRAY);
 				for(Point p : tab){
 					if (p.isStart()) {
 						myCanvas.path.moveTo((float) p.getX(), (float) p.getY());
@@ -170,8 +267,13 @@ public class MainActivity extends AppCompatActivity {
 						myCanvas.path.lineTo((float) p.getX(), (float) p.getY());
 					}
 				}
-				addListenerOnButton_save();
-				addListenerOnButton_clear();
+				TextView text = findViewById(R.id.resultat_text);
+				text.setText("Bien jouer !");
+				TextView coment = findViewById(R.id.res_coment);
+				coment.setText("Tu sais dessiner !");
+				addListenerOnButton_accueil();
+				addListenerOnButton_rejouer();
+				myCanvas.b = 0;
 			}
 		});
 	}
