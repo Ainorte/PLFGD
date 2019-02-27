@@ -18,6 +18,7 @@ public class IdentHandler implements Handler {
 		Log.log("The remote user is " + remoteUser.getName());
 
 		// We send a "Question" request to the client
-		return Exchange.with("question").payload(new Question("Merci de saisir Nice."));
+		//return Exchange.with("question").payload(new Question("Merci de saisir Nice."));
+		return null;
 	}
 }
