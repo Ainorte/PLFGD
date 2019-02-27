@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 					}
 					else {
 						//myCanvas.path.lineTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
-						myCanvas.path.moveTo((float) p.getX() , (float) p.getY());
+						myCanvas.path.lineTo((float) p.getX() , (float) p.getY());
 					}
 				}
 				/*
@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
 				text.setText("Bien jouer !");
 				TextView coment = findViewById(R.id.res_coment);
 				coment.setText("Tu sais dessiner !");
+				//coment.setText(Arrays.deepToString(tab.toArray()));
 				addListenerOnButton_accueil();
 				addListenerOnButton_rejouer();
 				myCanvas.b = 0;
