@@ -49,19 +49,17 @@ public class MyCanvas extends View {
 		float xPos = event.getX();
 		float yPos = event.getY();
 
-		Point fe = new Point(xPos,yPos);
-
-		if (!coords.contains(fe)) {
-			coords.add(fe);
-		}
+		Point fe = null;
 
 		switch(event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				path.moveTo(xPos,yPos);
-				return true;
+				fe = new Point(xPos,yPos, true);
+				break;
 
 			case MotionEvent.ACTION_MOVE:
 				path.lineTo(xPos,yPos);
+				fe = new Point(xPos,yPos);
 				break;
 
 			case MotionEvent.ACTION_UP:
@@ -70,6 +68,11 @@ public class MyCanvas extends View {
 			default:
 				return false;
 		}
+
+		if (fe != null && !coords.contains(fe)) {
+			coords.add(fe);
+		}
+
 		invalidate();
 		return true;
 	}

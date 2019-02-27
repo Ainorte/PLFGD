@@ -1,6 +1,7 @@
 package unice.plfgd;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,9 @@ import unice.plfgd.common.forme.Point;
 import unice.plfgd.common.net.Exchange;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -143,39 +146,34 @@ public class MainActivity extends AppCompatActivity {
 				Object[] tab = myCanvas.coords.toArray();
 				Point[] points = Arrays.copyOf(tab, tab.length, Point[].class);
 				txt.setText(Arrays.deepToString(tab));
-				connexion.sendMessage(Exchange.with("draw").payload(new Draw(points)));
+				connexion.sendMessage(Exchange.with("draw").payload(new Draw(myCanvas.coords)));
 			}
 		});
 	}
 
-	public void saveDrawing()
+	public void displayDrawing(final List<Point> tab)
 	{
+		myCanvas.post(new Runnable() {
+			@Override
+			public void run() {
+				setContentView(R.layout.activity_second);
 
-		View view = findViewById(R.id.My_Canvas);
-		Bitmap whatTheUserDrewBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-
-		//Bitmap whatTheUserDrewBitmap = view.getDrawingCache();
-		// don't forget to clear it (see above) or you just get duplicates
-
-		// almost always you will want to reduce res from the very high screen res
-		whatTheUserDrewBitmap =
-				ThumbnailUtils.extractThumbnail(whatTheUserDrewBitmap, 256, 256);
-		// NOTE that's an incredibly useful trick for cropping/resizing squares
-		// while handling all memory problems etc
-		// http://stackoverflow.com/a/17733530/294884
-
-        /*
-        // you can now save the bitmap to a file, or display it in an ImageView:
-        ImageView testArea = ...
-        testArea.setImageBitmap( whatTheUserDrewBitmap );
-        */
-
-		// these days you often need a "byte array". for example,
-		// to save to parse.com or other cloud services
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		whatTheUserDrewBitmap.compress(Bitmap.CompressFormat.PNG, 0, baos);
-		byte[] yourByteArray;
-		yourByteArray = baos.toByteArray();
+				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas);
+				myCanvas.coords = tab;
+				myCanvas.paint.setColor(Color.BLUE);
+				myCanvas.setBackgroundColor(Color.GRAY);
+				for(Point p : tab){
+					if (p.isStart()) {
+						myCanvas.path.moveTo((float) p.getX(), (float) p.getY());
+					}
+					else {
+						myCanvas.path.lineTo((float) p.getX(), (float) p.getY());
+					}
+				}
+				addListenerOnButton_save();
+				addListenerOnButton_clear();
+			}
+		});
 	}
 
 }
