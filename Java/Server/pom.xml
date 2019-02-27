@@ -13,13 +13,12 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<compiler.source>1.11</compiler.source>
-		<compiler.target>1.11</compiler.target>
+		<compiler.source>11</compiler.source>
+		<compiler.target>11</compiler.target>
 	</properties>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
-
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -27,13 +26,13 @@
 				<version>1.6.0</version>
 				<executions>
 					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
+							<goals>
+								<goal>java</goal>
+							</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>unice.plfgd.common.Main</mainClass>
+					<mainClass>unice.plfgd.server.Main</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
