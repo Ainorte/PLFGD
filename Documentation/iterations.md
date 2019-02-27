@@ -26,6 +26,7 @@
 
 ## 2019-03-14 : LIVRAISON 04 : Jeu de reconnaissance
 
+- Authentification d'utilisateurs
 - Jeu où le serveur demande de dessiner une forme géométrique
 - Système de points
 
