@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View arg0) {
 
+				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas2);
 				setContentView(R.layout.dessin);
 				TextView nomjoueur = findViewById(R.id.des_text);
 				nomjoueur.setText("Dessine un " + forme);
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 				// test pour recupe le tableau des points et le mettre dans un TextView
 				Object[] tab = myCanvas.coords.toArray();
 				Point[] points = Arrays.copyOf(tab, tab.length, Point[].class);
-				connexion.sendMessage(Exchange.with("draw").payload(new Draw(myCanvas.coords)));
+				connexion.sendMessage(Exchange.with("draw").payload(new Draw(myCanvas.coords,myCanvas.getWidth(),myCanvas.getHeight())));
 
 			}
 
@@ -151,28 +153,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	public void addListenerOnButton_edit() {
 
-		button_edit.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-			    if(button_edit.getText().equals(getResources().getString(R.string.send_response))) {
-                    text_edit.setText(R.string.wait);
-                    button_edit.setText(R.string.replay);
-                    String res = text_input.getText().toString();
-                    connexion.sendMessage(Exchange.with("question").payload(new Answer(res)));
-                }
-			    else {
-                    text_edit.setText(R.string.wait);
-                    button_edit.setText(R.string.send_response);
-                    connexion.play();
-                    text_input.setText("");
-                }
-			}
-
-		});
-	}
 
 	public void changeText(final String message){
 		text_edit.post(new Runnable() {
@@ -191,86 +172,40 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	//Modif change de fenetre xml
-
-	public void addListenerOnButton_main() {
-
-		button_main = (Button) findViewById(R.id.button_main);
-
-		button_main.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				setContentView(R.layout.activity_second);
-				//R.id.canvasTest.setContentView(myCanvas);
-				// button_second n'existe pas encore
-				addListenerOnButton_clear();
-				addListenerOnButton_save();
-			}
-
-		});
-	}
 
 
-	public void addListenerOnButton_clear() {
 
-		button_clear = (Button) findViewById(R.id.clear_canvas);
-
-		button_clear.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-
-				setContentView(R.layout.activity_second);
-				addListenerOnButton_save();
-				addListenerOnButton_clear();
-			}
-
-		});
-	}
-
-	public void addListenerOnButton_save() {
-
-		button_save = (Button) findViewById(R.id.save_canvas);
-
-		button_save.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas);
-
-				// test pour recupe le tableau des points et le mettre dans un TextView
-				TextView txt = findViewById(R.id.canvasTest);
-				Object[] tab = myCanvas.coords.toArray();
-				Point[] points = Arrays.copyOf(tab, tab.length, Point[].class);
-				txt.setText(Arrays.deepToString(tab));
-				connexion.sendMessage(Exchange.with("draw").payload(new Draw(myCanvas.coords)));
-			}
-		});
-	}
-
-	public void displayDrawing(final List<Point> tab)
+	public void displayDrawing(final Draw d)
 	{
+		final List<Point> tab = d.getPoints();
 		myCanvas.post(new Runnable() {
 			@Override
 			public void run() {
 				setContentView(R.layout.dessin_resultat);
-
 				myCanvas = (MyCanvas) findViewById(R.id.My_Canvas_res);
 				myCanvas.b = 1;
 				myCanvas.coords = tab;
 				for(Point p : tab){
 					if (p.isStart()) {
-						myCanvas.path.moveTo((float) p.getX(), (float) p.getY());
+						//myCanvas.path.moveTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
+						myCanvas.path.moveTo((float) p.getX() , (float) p.getY());
 					}
 					else {
-						myCanvas.path.lineTo((float) p.getX(), (float) p.getY());
+						//myCanvas.path.lineTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
+						myCanvas.path.lineTo((float) p.getX() , (float) p.getY());
 					}
 				}
+				/*
+				taille global fenetre :
+				DisplayMetrics metrics = getBaseContext().getResources().getDisplayMetrics();
+				int w = metrics.widthPixels;
+				int h = metrics.heightPixels;
+				*/
 				TextView text = findViewById(R.id.resultat_text);
 				text.setText("Bien jouer !");
 				TextView coment = findViewById(R.id.res_coment);
 				coment.setText("Tu sais dessiner !");
+				//coment.setText(Arrays.deepToString(tab.toArray()));
 				addListenerOnButton_accueil();
 				addListenerOnButton_rejouer();
 				myCanvas.b = 0;

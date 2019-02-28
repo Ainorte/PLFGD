@@ -2,6 +2,12 @@
 
 L3 - Projet de licence
 
+## Table of contents
+
+- [Iterations](./Documentation/iterations.md)
+- [Set up guide](./Documentation/setup.md)
+- [GUI documentation](./Documentation/IHM/DocumentationIHM.md)
+
 ## Group
 
 - William Poitevin: Ainorte

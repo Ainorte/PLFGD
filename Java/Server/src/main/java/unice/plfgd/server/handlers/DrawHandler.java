@@ -14,6 +14,6 @@ public class DrawHandler implements Handler {
 	public Exchange invoke(Dispatcher dispatcher, Packet data) {
 		final Draw draw = (Draw) data;
 		Log.log(Log.State.GREEN, draw.getPoints().toString());
-		return Exchange.with("draw").payload(new Draw(draw.getPoints()));
+		return Exchange.with("draw").payload(new Draw(draw.getPoints(),draw.getLar(), draw.getHaut()));
 	}
 }
