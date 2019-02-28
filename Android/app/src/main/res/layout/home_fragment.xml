@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context=".MainActivity"
 >
 
 	<TextView
 
 			android:textSize="32sp"
-			android:id="@+id/accueil_text"
+			android:id="@+id/home_welcome"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text=""
+			android:text="@string/welcome"
 			android:layout_marginTop="20dp"
 			android:layout_marginLeft="20dp"
 			android:layout_marginRight="20dp"
@@ -22,12 +20,12 @@
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintBottom_toTopOf="@id/but_des"
+			app:layout_constraintBottom_toTopOf="@id/connect_button"
 
 	/>
 
 	<Button
-			android:id="@+id/but_des"
+			android:id="@+id/connect_button"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="15dp"
@@ -35,10 +33,10 @@
 			android:layout_marginRight="15dp"
 			android:layout_marginBottom="15dp"
 			android:padding="30dp"
-			android:text="Dessiner une forme"
+			android:text="@string/connect"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/accueil_text"
+			app:layout_constraintTop_toBottomOf="@id/home_welcome"
 	/>
 
 

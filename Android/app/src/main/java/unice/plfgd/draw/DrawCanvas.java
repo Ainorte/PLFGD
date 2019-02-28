@@ -1,4 +1,4 @@
-package unice.plfgd;
+package unice.plfgd.draw;
 
 
 import android.content.Context;
@@ -10,22 +10,24 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import unice.plfgd.common.forme.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-import unice.plfgd.common.forme.Point;
 
 
-public class MyCanvas extends View {
+public class DrawCanvas extends View {
 
-	Paint paint;
-	Path path;
-	List<Point> coords;
+	private Paint paint;
+	private Path path;
+	private List<Point> coords;
 
-	int b = 1;
+	private boolean active;
 
-	public MyCanvas(Context context, @Nullable AttributeSet attrs) {
+	public DrawCanvas(Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
+
+		active = true;
 
 		coords = new ArrayList<>();
 
@@ -38,16 +40,31 @@ public class MyCanvas extends View {
 		paint.setStrokeWidth(10f);
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public List<Point> getCoords() {
+		return coords;
+	}
+
+	public void setCoords(List<Point> coords) {
+		this.coords = coords;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawPath(path, paint);
 
 	}
 
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if (b == 1) {
+		if (isActive()) {
 			float xPos = event.getX();
 			float yPos = event.getY();
 
@@ -81,5 +98,20 @@ public class MyCanvas extends View {
 		return false;
 	}
 
+	public void reset(){
+		active = true;
+
+		coords = new ArrayList<>();
+
+		paint = new Paint();
+		path = new Path();
+		paint.setAntiAlias(true);
+		paint.setColor(Color.RED);
+		paint.setStrokeJoin(Paint.Join.ROUND);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(10f);
+
+		invalidate();
+	}
 }
 
