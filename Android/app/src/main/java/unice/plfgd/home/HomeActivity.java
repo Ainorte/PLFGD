@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import unice.plfgd.R;
 import unice.plfgd.tools.ActivityTools;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 public class HomeActivity extends AppCompatActivity {
 
 	private HomePresenter mPresenter;

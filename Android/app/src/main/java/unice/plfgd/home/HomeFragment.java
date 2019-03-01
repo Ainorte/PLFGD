@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +32,34 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	public void onResume(){
 		super.onResume();
 		mPresenter.start();
+		mConnectButton.setText(R.string.connect);
+		mConnectButton.setEnabled(true);
 	}
 
 	@Override
 	public void setPresenter(@NonNull HomeContract.Presenter presenter) {
 		this.mPresenter = presenter;
+	}
+
+	@Override
+	public void onSocketReset(Connexion.ResetSocketMessage message) {
+
+		switch (message){
+			case TIMEOUT:
+				Snackbar.make(getView(),R.string.host_unreachable,Snackbar.LENGTH_LONG).show();
+				break;
+			case CONNEXION_LOST:
+				Snackbar.make(getView(),R.string.connexionLost,Snackbar.LENGTH_LONG).show();
+				break;
+		}
+
+		getView().post(new Runnable() {
+			@Override
+			public void run() {
+				mConnectButton.setText(R.string.connect);
+				mConnectButton.setEnabled(true);
+			}
+		});
 	}
 
 	@Nullable

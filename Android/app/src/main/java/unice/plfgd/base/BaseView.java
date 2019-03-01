@@ -1,4 +1,9 @@
 package unice.plfgd.base;
 
-public interface BaseView {
+import unice.plfgd.tools.Connexion;
+
+public interface BaseView<T> {
+	void setPresenter(T presenter);
+	void onSocketReset(Connexion.ResetSocketMessage message);
 }
+

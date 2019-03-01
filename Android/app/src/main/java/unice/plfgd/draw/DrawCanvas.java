@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Point;
 
 import java.util.ArrayList;
@@ -96,6 +97,23 @@ public class DrawCanvas extends View {
 			return true;
 		}
 		return false;
+	}
+
+	public void drawResult(Draw draw){
+		coords = draw.getPoints();
+
+		for(Point p : coords){
+			if (p.isStart()) {
+				//myCanvas.path.moveTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
+				path.moveTo((float) p.getX() , (float) p.getY());
+			}
+			else {
+				//myCanvas.path.lineTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
+				path.lineTo((float) p.getX() , (float) p.getY());
+			}
+		}
+
+		invalidate();
 	}
 
 	public void reset(){
