@@ -1,8 +1,9 @@
 package unice.plfgd.common.forme;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Segment {
+public class Segment implements Serializable {
 
 	protected Point p1;
 	protected Point p2;
