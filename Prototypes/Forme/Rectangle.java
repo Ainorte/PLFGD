@@ -1,3 +1,8 @@
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.ArrayList;
+
 public class Rectangle extends AbstractForme {
 
     protected double h;
@@ -27,21 +32,22 @@ public class Rectangle extends AbstractForme {
         return bary + aire + perim;
     }
 
-    public Segment[] make(){
+    public List<Point> make(){
         Point A = new Point(G.getX() - l/2, G.getY() + h/2);
         Point B = new Point(G.getX() + l/2, G.getY() + h/2);
         Point C = new Point(G.getX() + l/2, G.getY() - h/2);
         Point D = new Point(G.getX() - l/2, G.getY() - h/2);
         Segment[] segmentsRect = new Segment[]{new Segment(A,B), new Segment(B,C), new Segment(C,D), new Segment(D,A)};
-        for(Segment seg : segmentsRect) seg.rotation(G.getX(), G.getY(), rot);
-        
-        return segmentsRect;
+        for(Segment seg : segmentsRect) seg.rotation(this.getG(), rot);
+        List<Point> listPts = new ArrayList<>();
+        for(Segment seg : segmentsRect) listPts.addAll(GenerationPoints.generatePtsFromSeg(seg, 10));
+        return listPts;
     }
 
     public static void main(String[] args) {
-        Rectangle test1 = new Rectangle(new Point(4,5), 4, 5, 0);
-        System.out.println(test1.make()[0].getP1().getX());
+        Rectangle test1 = new Rectangle(new Point(0,0), 100, 200, 90);
         System.out.println(test1.toString());
+        System.out.println(test1.make().size());
     }
 
 }

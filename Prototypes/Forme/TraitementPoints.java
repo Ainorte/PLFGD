@@ -1,9 +1,42 @@
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.*;
+
 
 public class TraitementPoints {
+
+    static public List<Point> sanitize(List<Point> pointList, double tolerance){
+		if(pointList.size() < 3){
+			return  pointList;
+		}
+		Segment l = new Segment(pointList.get(0),pointList.get(pointList.size()-1));
+		// Find the point furthest away from the line segment
+		double maxDistance = -1;
+		Point pz = null;
+		int indexOfFurthestPoint = -1;
+		for(int i = 2; i < pointList.size()-1; ++i){
+			Point pi = pointList.get(i);
+			if (l.distPtToSeg(pi) > maxDistance) {
+				maxDistance = l.distPtToSeg(pi);
+				pz = pi;
+				indexOfFurthestPoint = i;
+			}
+		}
+		if(maxDistance <= tolerance){
+			List<Point> result = Arrays.asList(pointList.get(0),pointList.get(pointList.size()-1));
+			return result;
+			}
+        else {// Recursively handle the parts
+            List<Point> left = sanitize(pointList.subList(0, indexOfFurthestPoint), tolerance);
+            List<Point> right = sanitize(pointList.subList(indexOfFurthestPoint, pointList.size() - 1), tolerance);
+            List<Point> result = new ArrayList<>();
+            result.addAll(left);
+            result.addAll(right);
+            Set<Point> set = new LinkedHashSet<>();
+            set.addAll(result);
+            result.clear();
+            result.addAll(set);
+			return result;
+		}
+	}
 
     static public List<Point> filterPointsByInterval(List<Point> pts, int itv){
         List<Point> new_pts = new ArrayList<>();
@@ -38,7 +71,7 @@ public class TraitementPoints {
             if(listSize - i < itv) itv = listSize % itv;
             Segment seg = new Segment(pts.get(i), pts.get(i+itv-1));
             Point barycentre = MethodesForme.barycentre(pts.subList(i, i+itv));
-            if(seg.isPointInAxis(barycentre, 0.5)) new_segs.add(seg);  
+            if(seg.isPointInAxis(barycentre, 1500)) new_segs.add(seg);  
         }
         return new_segs;
     }
@@ -62,72 +95,6 @@ public class TraitementPoints {
         return new_segs;
     }
 
-    static List<Point> generatePtsFromSeg(Segment seg, int pas){
-        List<Point> newListPts = new ArrayList<>();
-        List<Double> listX = new ArrayList<>();
-        List<Double> listY = new ArrayList<>();
-        double x1 = seg.getP1().getX();
-        double y1 = seg.getP1().getY();
-        double x2 = seg.getP2().getX();
-        double y2 = seg.getP2().getY();
-        double nbPasX = (x1 - x2) != 0 ? Math.abs(x1 - x2)/pas : 0;
-        double nbPasY = (y1 - y2) != 0 ? Math.abs(y1 - y2)/pas : 0;
-        double maxNbPas = Math.max(nbPasX, nbPasY);
-        double ratio = nbPasX < nbPasY ? nbPasY / nbPasX : nbPasX / nbPasY;
-        double petitPas = pas / ratio;
-        listX.add(x1);
-        if(x1 < x2){
-            double x = x1;
-            for(int i = 0; i < maxNbPas; i++){
-                if(nbPasX >= nbPasY){
-                    x += pas;
-                    listX.add(x);
-                } else {
-                    x += petitPas;
-                    listX.add(x);
-                }
-            }
-        } else {
-            double x = x1;
-            for(int i = 0; i < maxNbPas; i++){
-                if(nbPasX >= nbPasY){
-                    x -= pas;
-                    listX.add(x);
-                } else {
-                    x -= petitPas;
-                    listX.add(x);
-                }
-            }
-        }
-        listY.add(y1);
-        if(y1 < y2){
-            double y = y1;
-            for(int i = 0; i < maxNbPas; i++){
-                if(nbPasY >= nbPasX){
-                    y += pas;
-                    listY.add(y);
-                } else {
-                    y += petitPas;
-                    listY.add(y);
-                }
-            }
-        } else {
-            double y = y1;
-            for(int i = 0; i < maxNbPas; i++){
-                if(nbPasY >= nbPasX){
-                    y -= pas;
-                    listY.add(y);
-                } else {
-                    y -= petitPas;
-                    listY.add(y);
-                }
-            }
-        }
-        listX.add(x2);
-        listY.add(y2);
-        for(int i = 0; i < listX.size(); i++) newListPts.add(new Point(listX.get(i), listY.get(i)));
-        return newListPts;
-    }
 
 
     public static void main(String[] args) {
@@ -137,9 +104,7 @@ public class TraitementPoints {
         List<Point> pts3 = filterPointsByDistance(pts1, 2);
         for(Point pt : pts3) System.out.println(pt.getX());
         List<Segment> segs1 = pointsToSegments(pts1, 2);
-        Segment testSeg = new Segment(new Point(10, 20), new Point(470, 2));
         System.out.println(segs1);
         System.out.println(segmentsToSegments(segs1));
-        System.out.println(generatePtsFromSeg(testSeg, 10));
     }
 }
