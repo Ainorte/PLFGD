@@ -8,6 +8,11 @@ public class Point {
     protected double y;
     protected double xG;
     protected double yG;
+    protected boolean start;
+
+    public boolean isStart() {
+        return start;
+    }
 
     public Point(double x, double y){
         this.x = x;
