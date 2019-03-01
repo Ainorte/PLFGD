@@ -38,7 +38,6 @@ public class Point {
         return yG;
     }
 
-    @Override
     public String toString() {
         return "[" + x + ";" + y + "]";
     }
@@ -55,6 +54,16 @@ public class Point {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public void rotation(Point pt0, double rot){
+        rot = Math.toRadians(rot);
+        double x0 = pt0.getX();
+        double y0 = pt0.getY();
+        double new_x = (x - x0) * Math.cos(rot) - (y - y0) * Math.sin(rot) + x0;
+        double new_y = (x - x0) * Math.sin(rot) + (y - y0) * Math.cos(rot) + y0;
+        this.setX(new_x);
+        this.setY(new_y);
     }
 
     public double calculeDistanceG(){

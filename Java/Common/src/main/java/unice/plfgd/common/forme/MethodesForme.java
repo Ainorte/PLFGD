@@ -1,7 +1,6 @@
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.stream.*;
+package unice.plfgd.common.forme;
+
+import java.util.*;
 
 public class MethodesForme {
 
@@ -9,9 +8,9 @@ public class MethodesForme {
     static double toleranceMoment = 0.5;
 
     static Point centreMasse(Point M1, Point M2){
-       double xG = (M1.getX() + M2.getX())/2;
-       double yG = (M1.getY() + M2.getY())/2;
-       return new Point(xG, yG);
+        double xG = (M1.getX() + M2.getX())/2;
+        double yG = (M1.getY() + M2.getY())/2;
+        return new Point(xG, yG);
     }
 
     static Point centreMasse(double x1, double y1, double x2, double y2){
@@ -107,7 +106,7 @@ public class MethodesForme {
         return new Point(new_x, new_y);
     }
 
-    static List<Segment> axesSym(List<Point> pts, double tolerance){
+    /*static List<Segment> axesSym(List<Point> pts, double tolerance){
         List<Segment> listAxesSym = new ArrayList<>();
         Point G = barycentre(pts);
         for(int i = 0; i < pts.size()-1; i++){
@@ -121,9 +120,9 @@ public class MethodesForme {
             }
         }
         return listAxesSym;
-    }
+    } */
 
-    
+
 
     // A revoir
     static double distanceImages(List<Point> pts1, List<Point> pts2) {
@@ -138,7 +137,7 @@ public class MethodesForme {
 
     // A revoir
     static double distanceImagesP(List<Point> pts1, List<Point> pts2) {
-        double p = 2;
+        int p = 2;
         double dist = 0;
         for(Point pt1 : pts1){
             for(Point pt2 : pts2){
@@ -184,7 +183,7 @@ public class MethodesForme {
         double mcC = Math.pow(mc30 - 3 * mc12, 2) + Math.pow(3 * mc21 - mc03, 2);
         double mcD = Math.pow(mc30 + mc12, 2) + Math.pow(mc21 + mc03, 2);
         double mcE = (mc30 - 3 * mc12) * (mc30 + mc12) * (Math.pow(mc30 + mc12, 2) - 3 * Math.pow(mc21 + mc03, 2))
-                    + (3 * mc21 - mc03) * (mc21 + mc03) * (3 * Math.pow(mc30 + mc12, 2) - Math.pow(mc21 + mc03, 2));
+                + (3 * mc21 - mc03) * (mc21 + mc03) * (3 * Math.pow(mc30 + mc12, 2) - Math.pow(mc21 + mc03, 2));
         double mcF = (mc20 - mc02) * (Math.pow(mc30 + mc12, 2) - Math.pow(mc21 + mc03, 2)) + 4 * mc11 * (mc30 + mc12) * (mc21 + mc03);
         double[] invariants = new double[]{mcA, mcB, mcC, mcD, mcE, mcF};
         return invariants;
@@ -197,42 +196,5 @@ public class MethodesForme {
             if(Math.abs(invariants1[i] - invariants2[i]) > tolerance) return false;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        Point a1 = new Point(2.5, 3.3);
-        Point a2 = new Point(4.3, 5.4);
-        Point O = new Point(0, 0);
-        Point A = new Point(0, 5);
-        Point B = new Point(5, 0);
-        Point C = new Point(5, 5);
-        Point D = new Point(3, 3);
-        Point E = new Point(10, 5);
-        Point F = new Point(5, 10);
-        Point G = new Point(10, 10); 
-        List<Point> pts1 = Arrays.asList(a1, a2);
-        List<Point> triangleRect = Arrays.asList(O, A, B);
-        List<Point> carre = Arrays.asList(O, A, B, C);
-        List<Point> carre2 = Arrays.asList(C, E, F, G);
-        List<Point> triangle = Arrays.asList(O, A, D);
-        List<Double> xn = Arrays.asList(2.5, 4.3);
-        List<Double> yn = Arrays.asList(3.3, 5.4);
-        translation(pts1, 2, 2);
-        translation(xn, yn, 2, 2);
-        rotation(a1, 0, 0, 90);
-
-        System.out.println(barycentre(pts1).getX());
-        System.out.println(barycentre(xn, yn).getX());
-        System.out.println("x, y après rotation de 90 : " + a1.getX() + ", " + a1.getY());
-        //System.out.println(findAngle(O, A, B));
-        System.out.println(axesSym(triangleRect, 0.5).size());
-        System.out.println(axesSym(carre, 0.5).size());
-        System.out.println(axesSym(triangle, 0.5).size());
-        //System.out.println(axesSym(triangleRect).get(0).getP2().getX());
-        //System.out.println(axesSym(triangleRect).get(0).getP2().getY());
-        System.out.println(distanceImagesP(carre, triangleRect));
-        System.out.println(calculeMomentCentre(triangle, 0, 1));
-        System.out.println(momentsInvariants(carre)[0]);
-        System.out.println(compareImages(carre, carre2, 0.5));
     }
 }

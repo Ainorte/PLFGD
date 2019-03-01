@@ -1,7 +1,6 @@
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.ArrayList;
+package unice.plfgd.common.forme;
+
+import java.util.*;
 
 public class GenerationPoints {
 
@@ -70,10 +69,5 @@ public class GenerationPoints {
         listY.add(y2);
         for(int i = 0; i < listX.size(); i++) newListPts.add(new Point(listX.get(i), listY.get(i)));
         return newListPts;
-    }
-
-    public static void main(String[] args) {
-        Carre carre1 = new Carre(new Point(50, 50), 100, 0);
-        List<Point> listCarre = carre1.make();
     }
 }
