@@ -1,6 +1,5 @@
 package unice.plfgd.server.handlers;
 
-import unice.plfgd.common.data.Question;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Dispatcher;
 import unice.plfgd.common.net.Exchange;
