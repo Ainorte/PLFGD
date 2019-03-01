@@ -23,6 +23,6 @@ public class util {
 	}
 
 	static public double distToSegment(Point p, Segment l) {
-		return Math.sqrt(distToSegmentSquared(p, l.getStart(), l.getEnd()));
+		return Math.sqrt(distToSegmentSquared(p, l.getP1(), l.getP2()));
 	}
 }
