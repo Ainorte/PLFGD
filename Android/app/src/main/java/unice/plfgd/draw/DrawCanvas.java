@@ -66,19 +66,19 @@ public class DrawCanvas extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (isActive()) {
-			float xPos = event.getX();
-			float yPos = event.getY();
+			double xPos = event.getX();
+			double yPos = event.getY();
 
 			Point fe = null;
 
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
-					path.moveTo(xPos, yPos);
-					fe = new Point(xPos, yPos, true);
+					path.moveTo((float) xPos, (float) yPos);
+					fe = new Point(xPos, yPos);
 					break;
 
 				case MotionEvent.ACTION_MOVE:
-					path.lineTo(xPos, yPos);
+					path.lineTo((float) xPos, (float) yPos);
 					fe = new Point(xPos, yPos);
 					break;
 

@@ -10,19 +10,19 @@ public class util {
 		return sqr(v.getX() - w.getX()) + sqr(v.getY() - w.getY());
 	}
 
-	static public double distToSegmentSquared(Point pt, Point v, Point w) {
+	static public double distToSegmentSquared(Point p, Point v, Point w) {
 		int l2 = (int)dist2(v, w);
 		if (l2 == 0){
-			return dist2(pt, v);
+			return dist2(p, v);
 		}
-		double t = ((pt.getX() - v.getY()) * (w.getX() - v.getY()) + (pt.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
+		double t = ((p.getX() - v.getY()) * (w.getX() - v.getY()) + (p.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
 		t = Math.max(0, Math.min(1, t));
 
 		Point nearest = new Point((v.getX() + t * (w.getX() - v.getX())),(v.getY() + t * (w.getY() - v.getY())));
-		return dist2(pt, nearest);
+		return dist2(p, nearest);
 	}
 
-	static public double distToSegment(Point pt, Segment l) {
-		return Math.sqrt(distToSegmentSquared(pt, l.getStart(), l.getEnd()));
+	static public double distToSegment(Point p, Segment l) {
+		return Math.sqrt(distToSegmentSquared(p, l.getP1(), l.getP2()));
 	}
 }
