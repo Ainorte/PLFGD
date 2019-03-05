@@ -41,5 +41,8 @@ dependencies {
 		exclude group: 'org.json', module: 'json'
 		// car cela est dans le java android
 	}
-	//implementation 'com.google.code.gson:gson:2.8.5' fonctionne pas pour le coté serveur
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.7'
 }

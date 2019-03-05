@@ -1,9 +1,9 @@
-package unice.plfgd.tools.handler;
+package unice.plfgd.tool.handler;
 
 import io.socket.emitter.Emitter;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.home.HomeContract;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 public class ConnectHandler implements Emitter.Listener {
 

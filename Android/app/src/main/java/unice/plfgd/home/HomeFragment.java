@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
 

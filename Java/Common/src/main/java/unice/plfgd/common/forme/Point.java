@@ -11,11 +11,6 @@ public class Point implements Serializable {
     protected double yG;
 	protected boolean start;
 
-	public boolean isStart() {
-		return start;
-	}
-
-
     public Point(double x, double y){
         this.x = x;
         this.y = y;
@@ -24,33 +19,59 @@ public class Point implements Serializable {
         this.start = false;
     }
 
-	public Point(double x, double y,boolean b){
+	public Point(double x, double y, boolean b){
     	this(x,y);
     	this.start = b;
 	}
 
-    public void setX(double x){
+    public Point(double x, double y, double xG, double yG, boolean start) {
         this.x = x;
-    }
-
-    public void setY(double y){
         this.y = y;
+        this.xG = xG;
+        this.yG = yG;
+        this.start = start;
     }
 
-    public double getX(){
+    public Point(){}
+
+    public double getX() {
         return x;
     }
 
-    public double getY(){
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
         return y;
     }
 
-    public double getXG(){
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getxG() {
         return xG;
     }
 
-    public double getYG(){
+    public void setxG(double xG) {
+        this.xG = xG;
+    }
+
+    public double getyG() {
         return yG;
+    }
+
+    public void setyG(double yG) {
+        this.yG = yG;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public void setStart(boolean start) {
+        this.start = start;
     }
 
     @Override
@@ -62,10 +83,10 @@ public class Point implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Point point = (Point) o;
-		return Double.compare(point.x, x) == 0 &&
-				Double.compare(point.y, y) == 0 &&
-				start == point.start;
+		Point pt = (Point) o;
+		return Double.compare(pt.x, x) == 0 &&
+				Double.compare(pt.y, y) == 0 &&
+				start == pt.start;
 	}
 
 	@Override

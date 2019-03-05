@@ -2,13 +2,14 @@ package unice.plfgd.common.data;
 
 import unice.plfgd.common.net.Packet;
 
-import java.io.Serializable;
-
-public class User implements Packet, Serializable {
+public class User extends Packet {
 	private String name;
+
 	public User(String name) {
 		this.name = name;
 	}
+
+	public User(){}
 
 	public String getName() {
 		return name;

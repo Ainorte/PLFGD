@@ -100,7 +100,7 @@ public class DrawCanvas extends View {
 	}
 
 	public void drawResult(Draw draw){
-		coords = draw.getPoints();
+		coords = draw.getPts();
 
 		for(Point p : coords){
 			if (p.isStart()) {

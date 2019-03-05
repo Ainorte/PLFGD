@@ -2,7 +2,7 @@ package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Draw;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 public class ResultPresenter implements ResultContract.Presenter{
 

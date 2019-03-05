@@ -1,7 +1,7 @@
-package unice.plfgd.tools.handler;
+package unice.plfgd.tool.handler;
 
 import io.socket.emitter.Emitter;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 public class DisconnectHandler implements Emitter.Listener {
 

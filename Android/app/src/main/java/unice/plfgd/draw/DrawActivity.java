@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import unice.plfgd.R;
 import unice.plfgd.base.BasePresenter;
-import unice.plfgd.tools.ActivityTools;
+import unice.plfgd.tool.ActivityTools;
 
 public class DrawActivity extends AppCompatActivity {
 

@@ -3,7 +3,7 @@ package unice.plfgd.home;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.User;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 

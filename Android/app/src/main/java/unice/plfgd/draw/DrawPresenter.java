@@ -4,8 +4,7 @@ import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.net.Exchange;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class DrawPresenter implements DrawContract.Presenter {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
-        connexion.sendMessage(Exchange.with("draw").payload(new Draw(points,width,height)));
+        connexion.sendMessage("draw", new Draw(points,width,height));
     }
 
     @Override

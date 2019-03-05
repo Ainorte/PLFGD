@@ -15,7 +15,7 @@ import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tools.Connexion;
+import unice.plfgd.tool.Connexion;
 
 import java.util.Objects;
 
