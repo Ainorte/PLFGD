@@ -33,7 +33,8 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void initSocket() {
-        connexion.openSocket(new User("Android Device"));
+        mView.initSocket();
+    	connexion.openSocket(new User("Android Device"));
     }
 
     @Override

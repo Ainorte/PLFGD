@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				initSocket();
+				mPresenter.initSocket();
 			}
 		});
 		return view;
@@ -80,7 +80,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	public void initSocket() {
 		mConnectButton.setEnabled(false);
 		mConnectButton.setText(R.string.connecting);
-		mPresenter.initSocket();
 	}
 
 	@Override
