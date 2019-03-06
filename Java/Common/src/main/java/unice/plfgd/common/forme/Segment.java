@@ -98,8 +98,20 @@ public class Segment implements Serializable {
 		return Math.acos((OA * OA + OB * OB - AB * AB) / (2 * OA * OB));
 	}
 
-	public double distPtToSeg(Point pt) {
-		return Math.max(MethodesForme.norme(pt, p1), MethodesForme.norme(pt, p2));
+	static public double distToSegmentSquared(Point p, Point v, Point w) {
+		double l2 = Math.pow(MethodesForme.norme(v, w),2);
+		if (l2 == 0){
+			return Math.pow(MethodesForme.norme(p, v),2);
+		}
+		double t = ((p.getX() - v.getY()) * (w.getX() - v.getY()) + (p.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
+		t = Math.max(0, Math.min(1, t));
+
+		Point nearest = new Point((v.getX() + t * (w.getX() - v.getX())),(v.getY() + t * (w.getY() - v.getY())));
+		return Math.pow(MethodesForme.norme(p, nearest),2);
+	}
+
+	public double distPtToSeg(Point p) {
+		return Math.sqrt(distToSegmentSquared(p, p1, p2));
 	}
 
 	//A corriger
