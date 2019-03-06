@@ -18,7 +18,8 @@ public class FormeFactory {
                 listForme = new Carre((Point)forme.get(1),(double)forme.get(2),(double)forme.get(3)).make();
                 break;
             case "triangle":
-                //listForme = new Triangle().make();
+                listForme = new Triangle((Point)forme.get(1),(Point)forme.get(2),(Point)forme.get(3),(Point)forme.get(4),(double)forme.get(5)).make();
+                break;
             case "ellipse":
                 //listForme = new Ellipse().make();
             case "cercle":

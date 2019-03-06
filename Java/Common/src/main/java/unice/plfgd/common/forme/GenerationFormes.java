@@ -6,7 +6,7 @@ public class GenerationFormes {
 
     public static List<Point> generateRandomForme(double l, double h, boolean isCentered){
         List<Point> randForme = new ArrayList<>();
-        int random = (int)(Math.random() * 3 + 1);
+        int random = (int)(Math.random() * 4 + 1);
         switch(random){
             case 1:
                 List<Object> objCarre = new ArrayList<>();
@@ -40,10 +40,32 @@ public class GenerationFormes {
                 objCercle.add(0.0);
                 randForme = FormeFactory.make(objCercle);
                 break;
+            case 4:
+                List<Point> objTriangle = new ArrayList<>();
+                Point A = randPoint(l,h);
+                Point B = randPoint(l,h);
+                Point C = randPoint(l,h);
+                objTriangle.add(A);
+                objTriangle.add(B);
+                objTriangle.add(C);
+                Point G = MethodesForme.barycentre(objTriangle);
+                List<Object> objTriangle2 = new ArrayList<>();
+                objTriangle2.add("triangle");
+                objTriangle2.add(G);
+                objTriangle2.addAll(objTriangle);
+                objTriangle2.add(randRotation());
+                randForme = FormeFactory.make(objTriangle2);
+                break;
             default :
                 System.out.println("error");
         }
         return randForme;
+    }
+
+    public static Point randPoint(double l, double h){
+        double randX = Math.random() * (2*l/3) + l/3;
+        double randY = Math.random() * (2*h/3) + h/3;
+        return new Point(randX, randY);
     }
 
     public static Point randG(double l, double h){
@@ -59,8 +81,7 @@ public class GenerationFormes {
     public static double randL(Point G, double l, double h){
         double maxSize = Math.min(l, h);
         double minDistToEdge = Math.min(l - G.getX(), h - G.getY());
-        double randL = Math.random() * (maxSize - minDistToEdge) + minDistToEdge;
-        return randL;
+        return Math.random() * (maxSize - minDistToEdge) + minDistToEdge;
     }
 
     public static double randRotation(){
