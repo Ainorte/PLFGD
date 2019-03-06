@@ -15,6 +15,7 @@ Boutons :
 
 Ecran d'accueil : Création à l'itération 3 et mise à jour jusqu'a l'itération 7
 	- A-Pseudo : le joueur rentre son pseudo. (création itération 4)
+		- Itération 5 : le joueur peut jouer hors ligne en entrainement
 	- A-Accueil : le joueur choisit un jeu. (mise à jour jusqu'a l'itération 7)
 
 Dessiner une forme : Création à l'itération 3 et mise à jour jusqu'a l'itération 5
@@ -45,6 +46,8 @@ Itération 9 :
 	- RRT-Multi : On choisit un joueur avec qui jouez.
 	La façon de jouer sera la même (voir Rectangle Rond Triangle)
 
+Mode entrainement (hors ligne uniquement) :
+	- Le joueur dessine librement des formes
 
 
 
