@@ -17,7 +17,7 @@ public class Main {
 		Log.log("Starting...");
 
 		Configuration config = new Configuration();
-		config.setHostname("127.0.0.1");
+		config.setHostname("192.168.43.28");
 		config.setPort(10101);
 
 		var server = new Server(
