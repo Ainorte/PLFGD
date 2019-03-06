@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Connexion;
@@ -94,6 +95,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mServerField = view.findViewById(R.id.server_field);
 		mServerField.setText(Connexion.SERVER_DOMAIN_PORT);
 		mUsernameField = view.findViewById(R.id.name_field);
+		mUsernameField.setText(BuildConfig.DEFAULT_NAME);
 
 		return view;
 	}

@@ -17,6 +17,7 @@ android {
         debug{
             buildConfigField "String", "SERVER_DOMAIN", SERVER_DOMAIN
 			buildConfigField "String", "SERVER_PORT", SERVER_PORT
+			buildConfigField "String", "DEFAULT_NAME", DEFAULT_NAME
         }
         release {
             minifyEnabled false

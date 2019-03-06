@@ -1,6 +1,5 @@
-package unice.plfgd.tool.handler.error;
+package unice.plfgd.tool.handler.status;
 
-import unice.plfgd.base.BasePresenter;
 import unice.plfgd.home.HomeContract;
 import unice.plfgd.tool.Connexion;
 import unice.plfgd.tool.handler.AbstractHandler;
