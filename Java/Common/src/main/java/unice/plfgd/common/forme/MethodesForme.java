@@ -21,11 +21,17 @@ public class MethodesForme {
 
     // permet de "recentrer" l'image dessinée.
     // éviter de dire que deux images translatées l'une de l'autre sont différentes.
-    /*static Point barycentre(List<Point> pts){
-        double xB = pts.parallelStream().map(x -> x.getX()).reduce(0.0, (x1, x2) -> x1 + x2)/pts.size();
-        double yB = pts.parallelStream().map(y -> y.getY()).reduce(0.0, (y1, y2) -> y1 + y2)/pts.size();
-        return new Point(xB, yB);
-    }*/
+    static Point barycentre(List<Point> pts){
+        double sumX = 0;
+        double sumY = 0;
+        for(Point pt : pts){
+            sumX += pt.getX();
+            sumY += pt.getY();
+        }
+        sumX = sumX / pts.size();
+        sumY = sumY / pts.size();
+        return new Point(sumX, sumY);
+    }
 
     /*static Point barycentre(List<Double> xn, List<Double> yn){
         double xB = xn.parallelStream().reduce(0.0, (x1, x2) -> x1 + x2)/xn.size();
