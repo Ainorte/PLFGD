@@ -30,7 +30,7 @@ public class Rectangle extends AbstractForme {
         String perim = " et le périmètre est de : " + this.getPerim();
         return bary + aire + perim;
     }
-
+    
     public List<Point> make() {
         Point A = new Point(G.getX() - l / 2, G.getY() + h / 2);
         Point B = new Point(G.getX() + l / 2, G.getY() + h / 2);

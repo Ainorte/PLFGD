@@ -22,7 +22,6 @@ public class Carre extends Rectangle {
 
 
     public List<Point> make(){
-        //Point[] make() à l'avenir quand on aura défini l'écart entre chaque point/pixel
         Point A = new Point(G.getX() - l/2, G.getY() + l/2);
         Point B = new Point(G.getX() + l/2, G.getY() + l/2);
         Point C = new Point(G.getX() + l/2, G.getY() - l/2);
