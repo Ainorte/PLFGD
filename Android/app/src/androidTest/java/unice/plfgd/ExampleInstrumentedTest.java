@@ -7,6 +7,11 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
 /**
@@ -23,4 +28,11 @@ public class ExampleInstrumentedTest {
 
         assertEquals("unice.plfgd", appContext.getPackageName());
     }
+
+    @Test
+	public void TestBLABLACAR1() {
+		onView(withId(R.id.home_welcome)).check(matches(isDisplayed()));          // withId(R.id.my_view) - ViewMatcher
+				//.perform(click())                  // click() - ViewAction
+				//.check(matches(isDisplayed()));   //matches(isDisplayed()) - ViewAssertion
+	}
 }
