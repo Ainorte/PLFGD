@@ -33,14 +33,6 @@ public class Cercle extends Ellipse {
             double y = this.G.getY() + this.a * Math.sin(i * angleParPoints);
             listPts.add(new Point(x, y));
         }
-
         return listPts;
-
-    }
-
-    public static void main(String[] args) {
-        Cercle test1 = new Cercle(new Point(6, 0), 300, 0);
-        System.out.println(test1.toString());
-        System.out.println(test1.make());
     }
 }
