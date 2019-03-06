@@ -13,6 +13,7 @@ public class Log {
 
 	/**
 	 * Logs a message with the given ANSI colour
+	 *
 	 * @param s ANSI colour
 	 * @param m message
 	 * @see State
@@ -38,11 +39,11 @@ public class Log {
 	}
 
 	public static class State {
-		static final String RESET = "\u001B[0m";
 		public static final String RED = "\u001B[31m";
 		public static final String GREEN = "\u001B[32m";
 		public static final String SYS = "\u001B[33m[SYS] ";
 		public static final String BLUE = "\u001B[34m";
+		static final String RESET = "\u001B[0m";
 		static final String WHITE = "\u001B[37m";
 
 		public static String fmt(String State, String msg) {
