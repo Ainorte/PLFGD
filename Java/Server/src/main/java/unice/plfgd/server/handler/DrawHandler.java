@@ -13,9 +13,11 @@ public class DrawHandler extends Handler<Draw> {
 	public void onData(SocketIOClient client, Draw data, AckRequest ackSender) {
 		if(data != null) {
 
-			Log.log(Log.State.GREEN, sanitize(data.getPts(),100).toString());
-			Log.log(Log.State.BLUE,"Reduced input from "+data.getPts().size()+" to "+ sanitize(data.getPts(),100).size());
-			client.sendEvent("draw",new Draw(sanitize(data.getPts(),100),data.getWidth(), data.getHeight()));
+
+			//TODO FIND TOLERANCE IN PERCENTAGE OF DRAW SIZE
+			Log.log(Log.State.GREEN, sanitize(data.getPts(),20).toString());
+			Log.log(Log.State.BLUE,"Reduced input from "+data.getPts().size()+" to "+ sanitize(data.getPts(),20).size());
+			client.sendEvent("draw",new Draw(sanitize(data.getPts(),20),data.getWidth(), data.getHeight()));
 
 		}
 	}
