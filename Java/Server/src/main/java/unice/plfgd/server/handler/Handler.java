@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public abstract class Handler<T extends Packet> implements DataListener<T> {
 	// One rubber duck won't be enough to debug this hellish class if you touch it.
-	// Beware, more than one adventurer has gotten lost in this maze
+	// Beware, for more than one adventurer has gotten lost in this maze
 	public static HashMap<String, Handler<? extends Packet>> buildHandlersMap() {
 		return new HashMap<>();
 	}
