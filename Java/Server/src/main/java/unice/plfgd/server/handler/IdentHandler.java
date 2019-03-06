@@ -9,7 +9,7 @@ public class IdentHandler extends Handler<User> {
 
 	@Override
 	public void onData(SocketIOClient client, User data, AckRequest ackSender) {
-		if(data != null) {
+		if (data != null) {
 			Log.log("The remote user is " + data.getName());
 		}
 	}

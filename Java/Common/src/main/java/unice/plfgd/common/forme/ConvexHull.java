@@ -1,13 +1,8 @@
 package unice.plfgd.common.forme;
 
 import java.util.*;
-import java.util.List;
 
 public class ConvexHull {
-	
-	protected enum Turn {
-		CLOCKWISE, COUNTER_CLOCKWISE, COLLINEAR
-	}
 
 	/**
 	 * Returns true if all points in points are collinear.
@@ -46,7 +41,7 @@ public class ConvexHull {
 	 * @return the convex hull of the points created from xs and ys.
 	 * @throws IllegalArgumentException if xs and ys don't have the same size
 	 */
-	public static List<Point> getConvexHull(int[] xs, int[] ys) throws IllegalArgumentException{
+	public static List<Point> getConvexHull(int[] xs, int[] ys) throws IllegalArgumentException {
 
 		if (xs.length != ys.length) {
 			throw new IllegalArgumentException("xs and ys don't have the same size");
@@ -68,7 +63,7 @@ public class ConvexHull {
 	 *
 	 * @param points the list of points.
 	 * @return the convex hull of the points created from the list
-	 *         points.
+	 * points.
 	 */
 	public static List<Point> getConvexHull(List<Point> points) {
 
@@ -126,8 +121,8 @@ public class ConvexHull {
 	 *
 	 * @param points the list of points to return the lowest point from.
 	 * @return the points with the lowest y coordinate. In case more than
-	 *         1 such point exists, the one with the lowest x coordinate
-	 *         is returned.
+	 * 1 such point exists, the one with the lowest x coordinate
+	 * is returned.
 	 */
 	protected static Point getLowestPoint(List<Point> points) {
 
@@ -217,6 +212,10 @@ public class ConvexHull {
 		} else {
 			return Turn.COLLINEAR;
 		}
+	}
+
+	protected enum Turn {
+		CLOCKWISE, COUNTER_CLOCKWISE, COLLINEAR
 	}
 
 }

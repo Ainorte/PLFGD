@@ -1,7 +1,7 @@
 package unice.plfgd.common.forme;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
 
 public class Segment implements Serializable {
 
@@ -15,6 +15,18 @@ public class Segment implements Serializable {
 		this.p2 = p2;
 		this.coefDir = p1.getX() - p2.getX() != 0 ? (p1.getY() - p2.getY()) / (p1.getX() - p2.getX()) : Double.POSITIVE_INFINITY;
 		this.constReelle = coefDir != Double.POSITIVE_INFINITY ? p1.getY() - coefDir * p1.getX() : Double.NEGATIVE_INFINITY;
+	}
+
+	static public double distToSegmentSquared(Point p, Point v, Point w) {
+		double l2 = Math.pow(MethodesForme.norme(v, w), 2);
+		if (l2 == 0) {
+			return Math.pow(MethodesForme.norme(p, v), 2);
+		}
+		double t = ((p.getX() - v.getY()) * (w.getX() - v.getY()) + (p.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
+		t = Math.max(0, Math.min(1, t));
+
+		Point nearest = new Point((v.getX() + t * (w.getX() - v.getX())), (v.getY() + t * (w.getY() - v.getY())));
+		return Math.pow(MethodesForme.norme(p, nearest), 2);
 	}
 
 	public Point getP1() {
@@ -46,7 +58,6 @@ public class Segment implements Serializable {
 	public List<Point> make() {
 		return GenerationPoints.generatePtsFromSeg(this, 10);
 	}
-
 
 	public Point barycentre() {
 		return new Point((p1.getX() + p2.getX()) / 2, (p1.getY() + p2.getY()) / 2);
@@ -96,18 +107,6 @@ public class Segment implements Serializable {
 		double OB = MethodesForme.norme(p1, pt);
 		double AB = MethodesForme.norme(p2, pt);
 		return Math.acos((OA * OA + OB * OB - AB * AB) / (2 * OA * OB));
-	}
-
-	static public double distToSegmentSquared(Point p, Point v, Point w) {
-		double l2 = Math.pow(MethodesForme.norme(v, w),2);
-		if (l2 == 0){
-			return Math.pow(MethodesForme.norme(p, v),2);
-		}
-		double t = ((p.getX() - v.getY()) * (w.getX() - v.getY()) + (p.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
-		t = Math.max(0, Math.min(1, t));
-
-		Point nearest = new Point((v.getX() + t * (w.getX() - v.getX())),(v.getY() + t * (w.getY() - v.getY())));
-		return Math.pow(MethodesForme.norme(p, nearest),2);
 	}
 
 	public double distPtToSeg(Point p) {
