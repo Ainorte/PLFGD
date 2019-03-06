@@ -1,4 +1,4 @@
-package unice.plfgd.tool.handler.error;
+package unice.plfgd.tool.handler.status;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.tool.Connexion;

@@ -9,10 +9,10 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.handler.error.ConnectHandler;
-import unice.plfgd.tool.handler.error.DisconnectHandler;
+import unice.plfgd.tool.handler.status.ConnectHandler;
+import unice.plfgd.tool.handler.status.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
-import unice.plfgd.tool.handler.error.TimeoutHandler;
+import unice.plfgd.tool.handler.status.TimeoutHandler;
 
 import java.net.URISyntaxException;
 
