@@ -57,11 +57,11 @@ public class Connexion {
             socket = IO.socket(SERVER_URL);
 
             socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
-            socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
-            socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
-            socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
+			socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
+			socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
+			socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
 
-            socket.on("draw", new DrawHandler(this));
+			socket.on("draw", new DrawHandler(this));
         }
 
         catch (URISyntaxException e){

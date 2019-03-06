@@ -74,7 +74,7 @@ public class DrawCanvas extends View {
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					path.moveTo((float) xPos, (float) yPos);
-					fe = new Point(xPos, yPos);
+					fe = new Point(xPos, yPos,true);
 					break;
 
 				case MotionEvent.ACTION_MOVE:
