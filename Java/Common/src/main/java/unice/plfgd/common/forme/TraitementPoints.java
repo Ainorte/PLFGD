@@ -76,4 +76,36 @@ public class TraitementPoints {
 		y = (y - Math.floor(y)) < (Math.ceil(y) - y) ? Math.floor(y) : Math.ceil(y);
 		return new Point(x, y);
 	}
+
+    public static List<Point> maximumAreaEnclosedTriangle(List<Point> pts){
+	    List<Point> sommetsTriangle = new ArrayList<>();
+	    if(pts.size() < 3) return pts;
+	    Point A = pts.get(0);
+	    Point B = pts.get(1);
+	    Point C = pts.get(2);
+	    int a = 0;
+	    int b = 1;
+	    int c = 2;
+
+	    do {
+            while(true){
+                while(new Triangle(new Point(0,0), pts.get(a), pts.get(b), pts.get(c+1), 0).getAire() >= new Triangle(new Point(0,0), pts.get(a), pts.get(b), pts.get(c), 0).getAire()){
+                    c += 1;
+                }
+                while(new Triangle(new Point(0,0), pts.get(a), pts.get(b+1), pts.get(c), 0).getAire() >= new Triangle(new Point(0,0), pts.get(a), pts.get(b), pts.get(c), 0).getAire()){
+                    b += 1;
+                }
+                break;
+            }
+            if(new Triangle(new Point(0,0), pts.get(a), pts.get(b), pts.get(c), 0).getAire() >= new Triangle(new Point(0,0), A, B, C, 0).getAire() ){
+                A = pts.get(a);
+                B = pts.get(b);
+                C = pts.get(c);
+            }
+            a += 1;
+            b = (a == b) ? b+1 : b;
+            c = (b == c) ? c+1 : c;
+        } while (a != 0);
+	    return sommetsTriangle;
+    }
 }
