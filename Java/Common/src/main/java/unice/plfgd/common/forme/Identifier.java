@@ -2,6 +2,7 @@ package unice.plfgd.common.forme;
 
 import unice.plfgd.common.data.Draw;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,10 +30,12 @@ public class Identifier {
 			return result;
 			}
 		else {// Recursively handle the parts
-			List<Point> left = sanitize(pointList.subList(0, indexOfFurthestPoint), tolerance);
-			List<Point> right = sanitize(pointList.subList(indexOfFurthestPoint, pointList.size() - 1), tolerance);
+			ArrayList<Point> left = new ArrayList<Point>(sanitize(pointList.subList(0, indexOfFurthestPoint), tolerance));
+			ArrayList<Point> right = new ArrayList<Point>(sanitize(pointList.subList(indexOfFurthestPoint, pointList.size()), tolerance));
+			if(right.size() != 0) {
+				right.remove(0);
+			}
 
-			right.remove(0);
 			left.addAll(right);
 			return left;
 		}
@@ -42,6 +45,7 @@ public class Identifier {
 		List<Point> pointList = sanitize(draw.getPoints(),tolerance);
 
 		//TODO Identify the shape;
+
 		return "Server was unable to identify drawing";
 	};
 

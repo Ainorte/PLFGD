@@ -9,11 +9,15 @@ import unice.plfgd.server.Log;
 
 import java.util.Arrays;
 
+import static unice.plfgd.common.forme.Identifier.sanitize;
+
 public class DrawHandler implements Handler {
 	@Override
 	public Exchange invoke(Dispatcher dispatcher, Packet data) {
 		final Draw draw = (Draw) data;
-		Log.log(Log.State.GREEN, draw.getPoints().toString());
-		return Exchange.with("draw").payload(new Draw(draw.getPoints(),draw.getLar(), draw.getHaut()));
+
+		Log.log(Log.State.GREEN, sanitize(draw.getPoints(),100).toString());
+		System.out.println("Reduced input from "+draw.getPoints().size()+" to "+ sanitize(draw.getPoints(),100).size());
+		return Exchange.with("draw").payload(new Draw(sanitize(draw.getPoints(),100),draw.getLar(), draw.getHaut()));
 	}
 }
