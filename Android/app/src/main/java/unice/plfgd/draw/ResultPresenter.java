@@ -8,6 +8,7 @@ public class ResultPresenter implements ResultContract.Presenter{
 
     private ResultContract.View mView;
     private Connexion connexion;
+    private Draw result;
 
     public ResultPresenter(@NonNull ResultContract.View view){
         this.mView = view;
@@ -32,14 +33,18 @@ public class ResultPresenter implements ResultContract.Presenter{
         mView.back();
     }
 
-    @Override
-    public void showResult(Draw draw) {
-        if(draw != null)
-            mView.drawResult(draw);
-    }
-
-    @Override
+	@Override
     public void replay() {
         mView.replay();
     }
+
+	@Override
+	public Draw getDraw() {
+		return result;
+	}
+
+	@Override
+	public void setDraw(Draw draw) {
+		this.result = draw;
+	}
 }

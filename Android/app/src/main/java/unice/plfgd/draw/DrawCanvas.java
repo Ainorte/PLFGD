@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import unice.plfgd.common.data.Draw;
@@ -16,12 +17,16 @@ import unice.plfgd.common.forme.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 
 public class DrawCanvas extends View {
 
 	private Paint paint;
 	private Path path;
 	private List<Point> coords;
+
+	private ResultContract.Presenter presenter;
 
 	private boolean active;
 
@@ -39,6 +44,10 @@ public class DrawCanvas extends View {
 		paint.setStrokeJoin(Paint.Join.ROUND);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(10f);
+	}
+
+	public void setPresenter(ResultContract.Presenter presenter) {
+		this.presenter = presenter;
 	}
 
 	public boolean isActive() {
@@ -99,21 +108,37 @@ public class DrawCanvas extends View {
 		return false;
 	}
 
-	public void drawResult(Draw draw){
+	public void drawResult(){
+		Draw draw = presenter.getDraw();
 		coords = draw.getPts();
+		Log.d(TAG, "ancien width = " + draw.getWidth());
+		Log.d(TAG, "ancien height = " + draw.getHeight());
+		double cl = (double) getWidth() / (double) draw.getWidth();
+		double ch = (double) getHeight() / (double) draw.getHeight();
 
 		for(Point p : coords){
 			if (p.isStart()) {
-				//myCanvas.path.moveTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
-				path.moveTo((float) p.getX() , (float) p.getY());
+				path.moveTo((float) (p.getX() * cl), (float) (p.getY() * ch));
+				//path.moveTo((float) p.getX() , (float) p.getY());
 			}
 			else {
-				//myCanvas.path.lineTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
-				path.lineTo((float) p.getX() , (float) p.getY());
+				path.lineTo((float) (p.getX() * cl), (float) (p.getY() * ch));
+				//path.lineTo((float) p.getX() , (float) p.getY());
 			}
 		}
 
 		invalidate();
+	}
+
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		Log.d(TAG, "width = " + getWidth());
+		Log.d(TAG, "height = " + getHeight());
+		if(presenter != null) {
+			drawResult();
+		}
+
 	}
 
 	public void reset(){

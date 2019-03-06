@@ -59,12 +59,14 @@ public class ResultFragment extends Fragment implements ResultContract.View{
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
            mResult = (Draw) getArguments().getSerializable("draw");
+           mPresenter.setDraw(mResult);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.result_fragment,container,false);
 
         mReturn = view.findViewById(R.id.result_back);
@@ -88,22 +90,20 @@ public class ResultFragment extends Fragment implements ResultContract.View{
         mComment.setText(R.string.good_comment);
 
         mCanvas = view.findViewById(R.id.result_canvas);
-        mPresenter.showResult(mResult);
+        mCanvas.setPresenter(mPresenter);
         mCanvas.setActive(false);
 
         return view;
     }
+
+
 
     @Override
     public void back(){
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
-    public void drawResult(Draw draw){
-        mCanvas.drawResult(draw);
-    }
-
-    @Override
+	@Override
     public void replay() {
         FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
 
