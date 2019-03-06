@@ -1,0 +1,13 @@
+Le répère est-il centré? Sinon quels sont les valeurs x, y du point central?
+Quel est la taille du canvas (les points aux extrémités)?
+Quel est la taille du pinceau?
+Quel est le grain (ou la distance entre les points)?
+Peut-on récupérer les sommets?
+J'ai besoin de :
+Récupérer des fichiers textes de données -> tableau d'un segment, d'un triangle, d'un carré, d'un cercle etc...
+
+Objectif:
+Créer un canvas pour générer des formes depuis le Forme Factory (nouvelle activité). 
+Ajouter des boutons pour définir la forme, le centre (voir la translation), la taille, la rotation des formes à afficher.
+Ce qui renvoie donc un tableau avec les différents paramètres pour le Forme Factory.
+Commencer par un segment, ensuite un carré, un rectangle, un triangle, un cercle.

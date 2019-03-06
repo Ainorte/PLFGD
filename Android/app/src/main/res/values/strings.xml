@@ -1,8 +1,26 @@
 <resources>
     <string name="app_name">PLFGD</string>
-    <string name="send_response">Répondre</string>
     <string name="replay">Rejouer</string>
-    <string name="good_response">Vous avez bien répondu</string>
-    <string name="bad_response">Vous avez mal répondu</string>
+    <string name="connect">Se connecter</string>
+    <string name="connecting">Connexion en cours</string>
+    <string name="welcome">Bienvenue sur PLFGD !</string>
+    <string name="connexionLost">Connexion au serveur perdu</string>
+    <string name="host_unreachable">Imposible de joindre le serveur</string>
+    <string name="draw_Title">Dessin</string>
+    <string name="valid">Valider</string>
+    <string name="reset">Reset</string>
+    <string name="draw">Dessine </string>
     <string name="wait">Merci de patienter</string>
+    <string name="back">Retour</string>
+    <string name="good_job">Bien Joué !</string>
+    <string name="good_comment">Tu sais dessiner</string>
+
+
+
+    //Formes
+    <string name="square">un carré</string>
+    <string name="round">un rond</string>
+    <string name="triangle">un triangle</string>
+    <string name="segment">un segment</string>
+    <string name="point">un point</string>
 </resources>

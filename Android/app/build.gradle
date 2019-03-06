@@ -15,30 +15,34 @@ android {
     }
     buildTypes {
         debug{
-            resValue "string", "SERVER_DOMAIN", SERVER_DOMAIN
-            resValue "string", "SERVER_PORT", SERVER_PORT
+            buildConfigField "String", "SERVER_DOMAIN", SERVER_DOMAIN
+			buildConfigField "String", "SERVER_PORT", SERVER_PORT
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "SERVER_DOMAIN", SERVER_DOMAIN
-            resValue "string", "SERVER_PORT", SERVER_PORT
+			buildConfigField "String", "SERVER_DOMAIN", SERVER_DOMAIN
+			buildConfigField "String", "SERVER_PORT", SERVER_PORT
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
-    implementation ('io.socket:socket.io-client:1.0.0') {
-        exclude group: 'org.json', module: 'json'
-        // car cela est dans le java android
-    }
-    //implementation 'com.google.code.gson:gson:2.8.5' fonctionne pas pour le coté serveur
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+	implementation 'com.android.support:appcompat-v7:28.0.0'
+	implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+	testImplementation 'junit:junit:4.12'
+	androidTestImplementation 'com.android.support.test:runner:1.0.2'
+	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+	androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+	implementation('io.socket:socket.io-client:1.0.0') {
+		exclude group: 'org.json', module: 'json'
+		// car cela est dans le java android
+	}
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.9.7'
 }
