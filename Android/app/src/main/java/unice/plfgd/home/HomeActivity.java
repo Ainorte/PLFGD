@@ -17,9 +17,9 @@ public class HomeActivity extends AppCompatActivity {
 
 		//Set up the fragment
 		HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-		if(homeFragment == null){
+		if (homeFragment == null) {
 			homeFragment = HomeFragment.newInstance();
-			ActivityTools.addFragmentToActivity(getSupportFragmentManager(), homeFragment,R.id.contentFrame);
+			ActivityTools.addFragmentToActivity(getSupportFragmentManager(), homeFragment, R.id.contentFrame);
 		}
 
 		//Set up presenter

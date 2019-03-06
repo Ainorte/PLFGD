@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import unice.plfgd.common.data.Draw;
@@ -16,12 +17,16 @@ import unice.plfgd.common.forme.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 
 public class DrawCanvas extends View {
 
 	private Paint paint;
 	private Path path;
 	private List<Point> coords;
+
+	private ResultContract.Presenter presenter;
 
 	private boolean active;
 
@@ -41,8 +46,16 @@ public class DrawCanvas extends View {
 		paint.setStrokeWidth(10f);
 	}
 
+	public void setPresenter(ResultContract.Presenter presenter) {
+		this.presenter = presenter;
+	}
+
 	public boolean isActive() {
 		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public List<Point> getCoords() {
@@ -53,11 +66,8 @@ public class DrawCanvas extends View {
 		this.coords = coords;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override protected void onDraw(Canvas canvas) {
+	@Override
+	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawPath(path, paint);
 
@@ -74,7 +84,7 @@ public class DrawCanvas extends View {
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					path.moveTo((float) xPos, (float) yPos);
-					fe = new Point(xPos, yPos,true);
+					fe = new Point(xPos, yPos, true);
 					break;
 
 				case MotionEvent.ACTION_MOVE:
@@ -99,24 +109,52 @@ public class DrawCanvas extends View {
 		return false;
 	}
 
-	public void drawResult(Draw draw){
+	public void drawResult() {
+		Draw draw = presenter.getDraw();
 		coords = draw.getPts();
+		Log.d(TAG, "ancien width = " + draw.getWidth());
+		Log.d(TAG, "ancien height = " + draw.getHeight());
+		double cl = (double) getWidth() / (double) draw.getWidth();
+		double ch = (double) getHeight() / (double) draw.getHeight();
+		boolean b = (ch >= cl);
+		if (b) {
+			ch = cl;
+		} else {
+			cl = ch;
+		}
 
-		for(Point p : coords){
-			if (p.isStart()) {
-				//myCanvas.path.moveTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
-				path.moveTo((float) p.getX() , (float) p.getY());
+		for (Point p : coords) {
+			float nvX = (float) (p.getX() * cl);
+			float nvY = (float) (p.getY() * ch);
+			if (b) {
+				nvY += getHeight() * (1 - ch) / 2;
+			} else {
+				nvX += getWidth() * (1 - cl) / 2;
 			}
-			else {
-				//myCanvas.path.lineTo((float) (p.getX() * (myCanvas.getWidth() / d.getLar())), (float) (p.getY() * (myCanvas.getHeight() / d.getHaut())));
-				path.lineTo((float) p.getX() , (float) p.getY());
+			if (p.isStart()) {
+				path.moveTo(nvX, nvY);
+				//path.moveTo((float) p.getX() , (float) p.getY());
+			} else {
+				path.lineTo(nvX, nvY);
+				//path.lineTo((float) p.getX() , (float) p.getY());
 			}
 		}
 
 		invalidate();
 	}
 
-	public void reset(){
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		Log.d(TAG, "width = " + getWidth());
+		Log.d(TAG, "height = " + getHeight());
+		if (presenter != null) {
+			drawResult();
+		}
+
+	}
+
+	public void reset() {
 		active = true;
 
 		coords = new ArrayList<>();

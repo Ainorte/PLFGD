@@ -5,6 +5,7 @@
     <string name="connecting">Connexion en cours</string>
     <string name="welcome">Bienvenue sur PLFGD !</string>
     <string name="connexionLost">Connexion au serveur perdu</string>
+	<string name="nonemptyInputs">Les champs ne doivent pas être vides</string>
     <string name="host_unreachable">Imposible de joindre le serveur</string>
     <string name="draw_Title">Dessin</string>
     <string name="valid">Valider</string>
@@ -23,4 +24,6 @@
     <string name="triangle">un triangle</string>
     <string name="segment">un segment</string>
     <string name="point">un point</string>
+	<string name="server_address_port">10.0.2.2:10101</string>
+	<string name="username">User name</string>
 </resources>

@@ -11,7 +11,7 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 public class ActivityTools {
 
 	@SuppressLint("RestrictedApi")
-	public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment, int frameId){
+	public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment, int frameId) {
 		checkNotNull(fragmentManager);
 		checkNotNull(fragment);
 		FragmentTransaction transaction = fragmentManager.beginTransaction();

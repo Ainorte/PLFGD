@@ -9,36 +9,37 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class HomePresenter implements HomeContract.Presenter {
 
-    private final HomeContract.View mView;
-    private Connexion connexion;
+	private final HomeContract.View mView;
+	private Connexion connexion;
 
-    @SuppressLint("RestrictedApi")
-    public HomePresenter(@NonNull HomeContract.View lobbyView) {
-        mView = checkNotNull(lobbyView);
-        mView.setPresenter(this);
+	@SuppressLint("RestrictedApi")
+	HomePresenter(@NonNull HomeContract.View lobbyView) {
+		mView = checkNotNull(lobbyView);
+		mView.setPresenter(this);
 
-        connexion = Connexion.getInstance();
-        connexion.setPresenter(this);
-    }
-
-    @Override
-	public void start() {
-        connexion.reset();
+		connexion = Connexion.getInstance();
+		connexion.setPresenter(this);
 	}
 
-    @Override
-    public void onSocketReset(Connexion.ResetSocketMessage message) {
-        mView.onSocketReset(message);
-    }
+	@Override
+	public void start() {
+		connexion.reset();
+	}
 
-    @Override
-    public void initSocket() {
-        mView.initSocket();
-    	connexion.openSocket(new User("Android Device"));
-    }
+	@Override
+	public void onSocketReset(Connexion.ResetSocketMessage message) {
+		mView.onSocketReset(message);
+	}
 
-    @Override
-    public void onSocketActive() {
-        mView.onSocketActive();
-    }
+	@Override
+	public void initSocket(String serverDomain, String username) {
+		mView.initSocket();
+		connexion.setServerURL(Connexion.getServerURL(serverDomain));
+		connexion.openSocket(new User(username));
+	}
+
+	@Override
+	public void onSocketActive() {
+		mView.onSocketActive();
+	}
 }

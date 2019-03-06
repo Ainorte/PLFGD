@@ -9,90 +9,105 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.handler.ConnectHandler;
-import unice.plfgd.tool.handler.DisconnectHandler;
+import unice.plfgd.tool.handler.error.ConnectHandler;
+import unice.plfgd.tool.handler.error.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
-import unice.plfgd.tool.handler.TimeoutHandler;
+import unice.plfgd.tool.handler.error.TimeoutHandler;
 
 import java.net.URISyntaxException;
 
 public class Connexion {
 
-    private static Connexion INSTANCE;
-    private static String SERVER_URL = "http://" + BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
+	public static final String SERVER_DOMAIN_PORT = BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
+	private static final String PROTOCOL = "http://";
+	private static Connexion INSTANCE;
+	private Socket socket;
+	private String serverURL;
+	private BasePresenter presenter;
+	private User user;
 
-    public static Connexion getInstance() {
-        if(INSTANCE == null) {
-           INSTANCE = new Connexion();
-        }
-        return INSTANCE;
-    }
+	private Connexion() {
+	}
 
-    private Socket socket;
+	public static String getServerURL(String domain) {
+		return PROTOCOL + domain;
+	}
 
-    private BasePresenter presenter;
-    private User user;
+	public static Connexion getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Connexion();
+			INSTANCE.setServerURL(Connexion.getServerURL(SERVER_DOMAIN_PORT));
+		}
+		return INSTANCE;
+	}
 
-    private Connexion() { }
+	private boolean isConnected() {
+		return socket != null;
+	}
 
-    public boolean isConnected(){
-        return socket != null;
-    }
+	public <T extends BasePresenter> T getPresenter(Class<T> obj) {
+		return (obj.isInstance(presenter)) ? obj.cast(presenter) : null;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setPresenter(BasePresenter presenter) {
+		this.presenter = presenter;
+	}
 
-    public BasePresenter getPresenter() {
-        return presenter;
-    }
-    public void setPresenter(BasePresenter presenter) {
-        this.presenter = presenter;
-    }
+	public void openSocket(User user) {
+		this.user = user;
 
-    public void openSocket(User user){
-        this.user = user;
+		try {
+			socket = IO.socket(getServerURL());
 
-        try{
-            socket = IO.socket(SERVER_URL);
+			defineHandlers();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 
-            socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
-			socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
-			socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
-			socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
+		socket.connect();
+	}
 
-			socket.on("draw", new DrawHandler(this));
-        }
+	public void close() {
+		socket.close();
+	}
 
-        catch (URISyntaxException e){
-            e.printStackTrace();
-        }
+	public void Identify() {
+		sendMessage("ident", user);
+	}
 
-        socket.connect();
-    }
+	public void sendMessage(String event, Packet payload) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JsonOrgModule());
+		JSONObject object = mapper.convertValue(payload, JSONObject.class);
 
-    public void close(){
-        socket.close();
-    }
+		socket.emit(event, object);
+	}
 
-    public void Identify(){ sendMessage("ident",user); }
+	public void reset() {
+		if (isConnected()) {
+			socket.close();
+		}
+	}
 
-    public void sendMessage(String event, Packet payload){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-        JSONObject object = mapper.convertValue(payload, JSONObject.class);
+	private String getServerURL() {
+		return serverURL;
+	}
 
-        socket.emit(event, object);
-    }
+	public void setServerURL(String serverURL) {
+		this.serverURL = serverURL;
+	}
 
-    public void reset(){
-        if(isConnected()){
-            socket.close();
-        }
-    }
+	public enum ResetSocketMessage {
+		CONNEXION_LOST,
+		TIMEOUT
+	}
 
-    public enum  ResetSocketMessage{
-        CONNEXION_LOST,
-        TIMEOUT
-    }
+	private void defineHandlers() {
+		socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
+		socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
+		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
+		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
+
+		socket.on("draw", new DrawHandler(this));
+	}
 }
