@@ -33,6 +33,8 @@
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/home_welcome"
 			android:hint="@string/server_address_port"
+			android:singleLine="true"
+
 	/>
 
 	<EditText
@@ -46,6 +48,7 @@
 			android:layout_width="match_parent" android:layout_height="wrap_content"
 			app:layout_constraintTop_toBottomOf="@id/server_field"
 			android:hint="@string/username"
+			android:singleLine="true"
 	/>
 
 	<Button

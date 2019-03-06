@@ -25,5 +25,5 @@
     <string name="segment">un segment</string>
     <string name="point">un point</string>
 	<string name="server_address_port">10.0.2.2:10101</string>
-	<string name="username">User name</string>
+	<string name="username">Nom d\'utilisateur</string>
 </resources>
