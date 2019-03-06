@@ -1,12 +1,9 @@
 package unice.plfgd.server;
 
 import com.corundumstudio.socketio.Configuration;
-import com.corundumstudio.socketio.listener.DataListener;
 import unice.plfgd.server.handler.DrawHandler;
 import unice.plfgd.server.handler.Handler;
 import unice.plfgd.server.handler.IdentHandler;
-
-import java.util.HashMap;
 
 
 /**
@@ -19,10 +16,11 @@ public class Main {
 		Log.log("Starting...");
 
 		Configuration config = new Configuration();
+		// TODO put that as cmdline args
 		config.setHostname("127.0.0.1");
 		config.setPort(10101);
 
-		HashMap<String, Handler<?>> handlers = new HashMap<>();
+		var handlers = Handler.buildHandlersMap();
 		handlers.put("ident", new IdentHandler());
 		handlers.put("draw", new DrawHandler());
 
