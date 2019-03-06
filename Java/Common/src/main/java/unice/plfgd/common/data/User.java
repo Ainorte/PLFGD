@@ -9,7 +9,8 @@ public class User extends Packet {
 		this.name = name;
 	}
 
-	public User(){}
+	public User() {
+	}
 
 	public String getName() {
 		return name;
