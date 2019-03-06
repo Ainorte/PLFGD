@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Connexion;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment implements HomeContract.View {
 
@@ -20,16 +23,18 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 	private Button mConnectButton;
 
+	private EditText mServerField, mUsernameField;
+
 	public HomeFragment() {
 		//Required
 	}
 
-	public static HomeFragment newInstance(){
+	public static HomeFragment newInstance() {
 		return new HomeFragment();
 	}
 
 	@Override
-	public void onResume(){
+	public void onResume() {
 		super.onResume();
 		mPresenter.start();
 		mConnectButton.setText(R.string.connect);
@@ -44,12 +49,14 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	@Override
 	public void onSocketReset(Connexion.ResetSocketMessage message) {
 
-		switch (message){
+		switch (message) {
 			case TIMEOUT:
-				Snackbar.make(getView(),R.string.host_unreachable,Snackbar.LENGTH_LONG).show();
+				Snackbar.make(Objects.requireNonNull(getView()),
+						R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
 				break;
 			case CONNEXION_LOST:
-				Snackbar.make(getView(),R.string.connexionLost,Snackbar.LENGTH_LONG).show();
+				Snackbar.make(Objects.requireNonNull(getView()),
+						R.string.connexionLost, Snackbar.LENGTH_LONG).show();
 				break;
 		}
 
@@ -70,9 +77,24 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mPresenter.initSocket();
+				String serverDomain = mServerField.getText().toString();
+				String username = mUsernameField.getText().toString();
+
+				if (serverDomain.isEmpty() || username.isEmpty()) {
+					Snackbar.make(Objects.requireNonNull(getView()),
+							R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
+
+					return;
+				}
+
+				mPresenter.initSocket(serverDomain, username);
 			}
 		});
+
+		mServerField = view.findViewById(R.id.server_field);
+		mServerField.setText(Connexion.SERVER_DOMAIN_PORT);
+		mUsernameField = view.findViewById(R.id.name_field);
+
 		return view;
 	}
 

@@ -18,81 +18,94 @@ import java.net.URISyntaxException;
 
 public class Connexion {
 
-    private static Connexion INSTANCE;
-    private static String SERVER_URL = "http://" + BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
+	private static Connexion INSTANCE;
+	public static final String SERVER_DOMAIN_PORT = BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
+	private static final String PROTOCOL = "http://";
 
-    public static Connexion getInstance() {
-        if(INSTANCE == null) {
-           INSTANCE = new Connexion();
-        }
-        return INSTANCE;
-    }
+	public static String getServerURL(String domain) {
+		return PROTOCOL + domain;
+	}
 
-    private Socket socket;
+	public static Connexion getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Connexion();
+			INSTANCE.setServerURL(Connexion.getServerURL(SERVER_DOMAIN_PORT));
+		}
+		return INSTANCE;
+	}
 
-    private BasePresenter presenter;
-    private User user;
+	private Socket socket;
+	private String serverURL;
 
-    private Connexion() { }
+	private BasePresenter presenter;
+	private User user;
 
-    public boolean isConnected(){
-        return socket != null;
-    }
+	private Connexion() {
+	}
 
-    public User getUser() {
-        return user;
-    }
+	private boolean isConnected() {
+		return socket != null;
+	}
 
-    public BasePresenter getPresenter() {
-        return presenter;
-    }
-    public void setPresenter(BasePresenter presenter) {
-        this.presenter = presenter;
-    }
+	public BasePresenter getPresenter() {
+		return presenter;
+	}
 
-    public void openSocket(User user){
-        this.user = user;
+	public void setPresenter(BasePresenter presenter) {
+		this.presenter = presenter;
+	}
 
-        try{
-            socket = IO.socket(SERVER_URL);
+	public void openSocket(User user) {
+		this.user = user;
 
-            socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
+		try {
+			socket = IO.socket(getServerURL());
+
+			socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
 			socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
 			socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
 			socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
 
 			socket.on("draw", new DrawHandler(this));
-        }
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 
-        catch (URISyntaxException e){
-            e.printStackTrace();
-        }
+		socket.connect();
+	}
 
-        socket.connect();
-    }
+	public void close() {
+		socket.close();
+	}
 
-    public void close(){
-        socket.close();
-    }
+	public void Identify() {
+		sendMessage("ident", user);
+	}
 
-    public void Identify(){ sendMessage("ident",user); }
+	public void sendMessage(String event, Packet payload) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JsonOrgModule());
+		JSONObject object = mapper.convertValue(payload, JSONObject.class);
 
-    public void sendMessage(String event, Packet payload){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-        JSONObject object = mapper.convertValue(payload, JSONObject.class);
+		socket.emit(event, object);
+	}
 
-        socket.emit(event, object);
-    }
+	public void reset() {
+		if (isConnected()) {
+			socket.close();
+		}
+	}
 
-    public void reset(){
-        if(isConnected()){
-            socket.close();
-        }
-    }
+	public void setServerURL(String serverURL) {
+		this.serverURL = serverURL;
+	}
 
-    public enum  ResetSocketMessage{
-        CONNEXION_LOST,
-        TIMEOUT
-    }
+	public String getServerURL() {
+		return serverURL;
+	}
+
+	public enum ResetSocketMessage {
+		CONNEXION_LOST,
+		TIMEOUT
+	}
 }
