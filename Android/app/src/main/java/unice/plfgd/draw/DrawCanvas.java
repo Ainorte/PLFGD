@@ -115,14 +115,24 @@ public class DrawCanvas extends View {
 		Log.d(TAG, "ancien height = " + draw.getHeight());
 		double cl = (double) getWidth() / (double) draw.getWidth();
 		double ch = (double) getHeight() / (double) draw.getHeight();
+		boolean b = (ch >= cl);
+		if (b) {ch = cl;} else {cl = ch;}
 
 		for(Point p : coords){
+			float nvX = (float) (p.getX() * cl);
+			float nvY = (float) (p.getY() * ch);
+			if(b) {
+				nvY += getHeight() * (1 - ch)/2;
+			}
+			else {
+				nvX += getWidth() * (1 - cl) /2;
+			}
 			if (p.isStart()) {
-				path.moveTo((float) (p.getX() * cl), (float) (p.getY() * ch));
+				path.moveTo(nvX, nvY);
 				//path.moveTo((float) p.getX() , (float) p.getY());
 			}
 			else {
-				path.lineTo((float) (p.getX() * cl), (float) (p.getY() * ch));
+				path.lineTo(nvX, nvY);
 				//path.lineTo((float) p.getX() , (float) p.getY());
 			}
 		}
