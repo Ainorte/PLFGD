@@ -13,7 +13,7 @@ public class HomePresenter implements HomeContract.Presenter {
 	private Connexion connexion;
 
 	@SuppressLint("RestrictedApi")
-	public HomePresenter(@NonNull HomeContract.View lobbyView) {
+	HomePresenter(@NonNull HomeContract.View lobbyView) {
 		mView = checkNotNull(lobbyView);
 		mView.setPresenter(this);
 

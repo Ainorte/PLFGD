@@ -9,10 +9,10 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.handler.ConnectHandler;
-import unice.plfgd.tool.handler.DisconnectHandler;
+import unice.plfgd.tool.handler.error.ConnectHandler;
+import unice.plfgd.tool.handler.error.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
-import unice.plfgd.tool.handler.TimeoutHandler;
+import unice.plfgd.tool.handler.error.TimeoutHandler;
 
 import java.net.URISyntaxException;
 
@@ -45,8 +45,8 @@ public class Connexion {
 		return socket != null;
 	}
 
-	public BasePresenter getPresenter() {
-		return presenter;
+	public <T extends BasePresenter> T getPresenter(Class<T> obj) {
+		return (obj.isInstance(presenter)) ? obj.cast(presenter) : null;
 	}
 
 	public void setPresenter(BasePresenter presenter) {
@@ -59,12 +59,7 @@ public class Connexion {
 		try {
 			socket = IO.socket(getServerURL());
 
-			socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
-			socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
-			socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
-			socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
-
-			socket.on("draw", new DrawHandler(this));
+			defineHandlers();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +89,7 @@ public class Connexion {
 		}
 	}
 
-	public String getServerURL() {
+	private String getServerURL() {
 		return serverURL;
 	}
 
@@ -105,5 +100,14 @@ public class Connexion {
 	public enum ResetSocketMessage {
 		CONNEXION_LOST,
 		TIMEOUT
+	}
+
+	private void defineHandlers() {
+		socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
+		socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
+		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
+		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
+
+		socket.on("draw", new DrawHandler(this));
 	}
 }

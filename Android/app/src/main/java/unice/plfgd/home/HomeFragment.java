@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		//Required
 	}
 
-	public static HomeFragment newInstance() {
+	static HomeFragment newInstance() {
 		return new HomeFragment();
 	}
 
