@@ -18,9 +18,16 @@ import java.net.URISyntaxException;
 
 public class Connexion {
 
-	private static Connexion INSTANCE;
 	public static final String SERVER_DOMAIN_PORT = BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
 	private static final String PROTOCOL = "http://";
+	private static Connexion INSTANCE;
+	private Socket socket;
+	private String serverURL;
+	private BasePresenter presenter;
+	private User user;
+
+	private Connexion() {
+	}
 
 	public static String getServerURL(String domain) {
 		return PROTOCOL + domain;
@@ -32,15 +39,6 @@ public class Connexion {
 			INSTANCE.setServerURL(Connexion.getServerURL(SERVER_DOMAIN_PORT));
 		}
 		return INSTANCE;
-	}
-
-	private Socket socket;
-	private String serverURL;
-
-	private BasePresenter presenter;
-	private User user;
-
-	private Connexion() {
 	}
 
 	private boolean isConnected() {
@@ -96,12 +94,12 @@ public class Connexion {
 		}
 	}
 
-	public void setServerURL(String serverURL) {
-		this.serverURL = serverURL;
-	}
-
 	public String getServerURL() {
 		return serverURL;
+	}
+
+	public void setServerURL(String serverURL) {
+		this.serverURL = serverURL;
 	}
 
 	public enum ResetSocketMessage {

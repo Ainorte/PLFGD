@@ -5,14 +5,19 @@ import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Draw;
 
 public interface ResultContract {
-    interface View extends BaseView<Presenter>{
-        void back();
-        void replay();
-    }
+	interface View extends BaseView<Presenter> {
+		void back();
 
-    interface Presenter extends BasePresenter{
-        void back();
-        void replay();
+		void replay();
+	}
+
+	interface Presenter extends BasePresenter {
+		void back();
+
+		void replay();
+
 		Draw getDraw();
-		void setDraw(Draw draw);    }
+
+		void setDraw(Draw draw);
+	}
 }

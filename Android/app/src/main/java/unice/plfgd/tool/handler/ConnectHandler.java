@@ -7,19 +7,19 @@ import unice.plfgd.tool.Connexion;
 
 public class ConnectHandler implements Emitter.Listener {
 
-    private Connexion connexion;
+	private Connexion connexion;
 
-    public ConnectHandler(Connexion connexion) {
-        this.connexion = connexion;
-    }
+	public ConnectHandler(Connexion connexion) {
+		this.connexion = connexion;
+	}
 
-    @Override
-    public void call(Object... args) {
-        connexion.Identify();
-        BasePresenter presenter = connexion.getPresenter();
-        if (presenter instanceof HomeContract.Presenter){
-            HomeContract.Presenter homePresenter = (HomeContract.Presenter) presenter;
-            homePresenter.onSocketActive();
-        }
-    }
+	@Override
+	public void call(Object... args) {
+		connexion.Identify();
+		BasePresenter presenter = connexion.getPresenter();
+		if (presenter instanceof HomeContract.Presenter) {
+			HomeContract.Presenter homePresenter = (HomeContract.Presenter) presenter;
+			homePresenter.onSocketActive();
+		}
+	}
 }

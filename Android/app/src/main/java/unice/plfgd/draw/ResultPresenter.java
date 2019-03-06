@@ -4,39 +4,39 @@ import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.tool.Connexion;
 
-public class ResultPresenter implements ResultContract.Presenter{
+public class ResultPresenter implements ResultContract.Presenter {
 
-    private ResultContract.View mView;
-    private Connexion connexion;
-    private Draw result;
+	private ResultContract.View mView;
+	private Connexion connexion;
+	private Draw result;
 
-    public ResultPresenter(@NonNull ResultContract.View view){
-        this.mView = view;
-        mView.setPresenter(this);
+	public ResultPresenter(@NonNull ResultContract.View view) {
+		this.mView = view;
+		mView.setPresenter(this);
 
-        this.connexion = Connexion.getInstance();
-        connexion.setPresenter(this);
-    }
-
-    @Override
-    public void start(){
-
-    }
-
-    @Override
-    public void onSocketReset(Connexion.ResetSocketMessage message) {
-        mView.onSocketReset(message);
-    }
-
-    @Override
-    public void back()  {
-        mView.back();
-    }
+		this.connexion = Connexion.getInstance();
+		connexion.setPresenter(this);
+	}
 
 	@Override
-    public void replay() {
-        mView.replay();
-    }
+	public void start() {
+
+	}
+
+	@Override
+	public void onSocketReset(Connexion.ResetSocketMessage message) {
+		mView.onSocketReset(message);
+	}
+
+	@Override
+	public void back() {
+		mView.back();
+	}
+
+	@Override
+	public void replay() {
+		mView.replay();
+	}
 
 	@Override
 	public Draw getDraw() {

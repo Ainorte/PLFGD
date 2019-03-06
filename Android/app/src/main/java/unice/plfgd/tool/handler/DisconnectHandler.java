@@ -5,14 +5,14 @@ import unice.plfgd.tool.Connexion;
 
 public class DisconnectHandler implements Emitter.Listener {
 
-    Connexion connexion;
+	Connexion connexion;
 
-    public DisconnectHandler(Connexion connexion) {
-        this.connexion = connexion;
-    }
+	public DisconnectHandler(Connexion connexion) {
+		this.connexion = connexion;
+	}
 
-    @Override
-    public void call(Object... args) {
-        connexion.getPresenter().onSocketReset(Connexion.ResetSocketMessage.CONNEXION_LOST);
-    }
+	@Override
+	public void call(Object... args) {
+		connexion.getPresenter().onSocketReset(Connexion.ResetSocketMessage.CONNEXION_LOST);
+	}
 }
