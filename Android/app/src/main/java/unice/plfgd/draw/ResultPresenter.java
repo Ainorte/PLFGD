@@ -37,14 +37,4 @@ public class ResultPresenter implements ResultContract.Presenter {
 	public void replay() {
 		mView.replay();
 	}
-
-	@Override
-	public Draw getDraw() {
-		return result;
-	}
-
-	@Override
-	public void setDraw(Draw draw) {
-		this.result = draw;
-	}
 }

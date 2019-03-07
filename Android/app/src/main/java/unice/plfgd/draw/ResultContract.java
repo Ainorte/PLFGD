@@ -2,7 +2,6 @@ package unice.plfgd.draw;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
-import unice.plfgd.common.data.Draw;
 
 public interface ResultContract {
 	interface View extends BaseView<Presenter> {
@@ -15,9 +14,5 @@ public interface ResultContract {
 		void back();
 
 		void replay();
-
-		Draw getDraw();
-
-		void setDraw(Draw draw);
 	}
 }

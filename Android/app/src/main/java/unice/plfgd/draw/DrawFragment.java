@@ -109,7 +109,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 	@Override
 	public void resetCanvas() {
-		mCanvas.reset();
+		mCanvas.clear();
 	}
 
 	@Override

@@ -57,7 +57,6 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
 			mResult = (Draw) getArguments().getSerializable("draw");
-			mPresenter.setDraw(mResult);
 		}
 	}
 
@@ -88,7 +87,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		mComment.setText(R.string.good_comment);
 
 		mCanvas = view.findViewById(R.id.result_canvas);
-		mCanvas.setPresenter(mPresenter);
+		mCanvas.setDraw(mResult);
 		mCanvas.setActive(false);
 
 		return view;

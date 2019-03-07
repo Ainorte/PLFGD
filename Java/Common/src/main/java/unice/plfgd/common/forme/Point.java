@@ -9,27 +9,19 @@ public class Point implements Serializable {
 	protected double y;
 	protected double xG;
 	protected double yG;
-	protected boolean start;
 
 	public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
 		this.xG = x;
 		this.yG = y;
-		this.start = false;
 	}
 
-	public Point(double x, double y, boolean start) {
-		this(x, y);
-		this.start = start;
-	}
-
-	public Point(double x, double y, double xG, double yG, boolean start) {
+	public Point(double x, double y, double xG, double yG) {
 		this.x = x;
 		this.y = y;
 		this.xG = xG;
 		this.yG = yG;
-		this.start = start;
 	}
 
 	public Point() {
@@ -65,14 +57,6 @@ public class Point implements Serializable {
 
 	public void setyG(double yG) {
 		this.yG = yG;
-	}
-
-	public boolean isStart() {
-		return start;
-	}
-
-	public void setStart(boolean start) {
-		this.start = start;
 	}
 
 	@Override
