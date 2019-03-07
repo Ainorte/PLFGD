@@ -3,6 +3,7 @@ package unice.plfgd.server.handler;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.forme.ConvexHull;
 import unice.plfgd.common.forme.Point;
 import unice.plfgd.server.Log;
 
@@ -23,7 +24,9 @@ public class DrawHandler extends Handler<Draw> {
 			List<List<Point>> points = data.getPoints();
 			List<List<Point>> results = new ArrayList<>();
 			for (List<Point> point:points) {
-				results.add(sanitize(point,10)); //Now
+				List<Point> s = sanitize(point,10);
+				results.add(s);
+				results.add(ConvexHull.getConvexHull(s)); //Add the convex hull to the result sent back to client for comparaison purpose
 
 			}
 			//Log.log(Log.State.BLUE,"Reduced input from "+data.getPoints().size()+" to "+ sanitize(data.getPoints(),20)/.size());
