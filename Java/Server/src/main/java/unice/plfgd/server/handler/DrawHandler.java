@@ -17,11 +17,12 @@ public class DrawHandler extends Handler<Draw> {
 	public void onData(SocketIOClient client, Draw data, AckRequest ackSender) {
 		if (data != null) {
 			//TODO FIND TOLERANCE IN PERCENTAGE OF DRAW SIZE
+			//TODO (possible) SOLUTION : Now that draw max value is 100 tolerance is a percentage.
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 			List<List<Point>> points = data.getPoints();
 			List<List<Point>> results = new ArrayList<>();
 			for (List<Point> point:points) {
-				results.add(sanitize(point,20));
+				results.add(sanitize(point,10)); //Now
 
 			}
 			//Log.log(Log.State.BLUE,"Reduced input from "+data.getPoints().size()+" to "+ sanitize(data.getPoints(),20)/.size());
