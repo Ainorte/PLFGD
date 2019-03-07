@@ -18,6 +18,7 @@ public class DrawHandler extends Handler<Draw> {
 		if (data != null) {
 			//TODO FIND TOLERANCE IN PERCENTAGE OF DRAW SIZE
 			//TODO (possible) SOLUTION : Now that draw max value is 100 tolerance is a percentage.
+			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 			List<List<Point>> points = data.getPoints();
 			List<List<Point>> results = new ArrayList<>();
