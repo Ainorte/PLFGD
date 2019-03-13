@@ -12,6 +12,6 @@ public class ConnectHandler extends AbstractHandler {
 	@Override
 	public void call(Object... args) {
 		getConnexion().Identify();
-		getConnexion().getPresenter(HomeContract.Presenter.class).onSocketActive();
+		getConnexion().getPresenter(HomeContract.Presenter.class).setDrawActivity();
 	}
 }

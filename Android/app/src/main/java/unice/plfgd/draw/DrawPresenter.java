@@ -15,7 +15,9 @@ public class DrawPresenter implements DrawContract.Presenter {
 		mView.setPresenter(this);
 
 		this.connexion = Connexion.getInstance();
-		connexion.setPresenter(this);
+		if (connexion.isConnected()) {
+			connexion.setPresenter(this);
+		}
 	}
 
 	@Override
@@ -40,7 +42,12 @@ public class DrawPresenter implements DrawContract.Presenter {
 
 		DrawCanvas canvas = mView.getCanvas();
 
-		connexion.sendMessage("draw", canvas.getDraw().convertRefactor(100, 100));
+		if (connexion.isConnected()) {
+			connexion.sendMessage("draw", canvas.getDraw().convertRefactor(100, 100));
+		}
+		else {
+			resultSwitch(canvas.getDraw());
+		}
 	}
 
 	@Override

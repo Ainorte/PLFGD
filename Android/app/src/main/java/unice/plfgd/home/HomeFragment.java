@@ -15,7 +15,6 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Connexion;
-import unice.plfgd.training.TrainingActivity;
 
 import java.util.Objects;
 
@@ -105,7 +104,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mEntButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mPresenter.setTrainingView();
+				mPresenter.setDrawActivity();
 			}
 		});
 
@@ -119,14 +118,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void onSocketActive() {
+	public void setDrawActivity() {
 		Intent intent = new Intent(getContext(), DrawActivity.class);
 		startActivity(intent);
 	}
 
-	@Override
-	public void setTrainingView() {
-		Intent intent = new Intent(getContext(), TrainingActivity.class);
-		startActivity(intent);
-	}
 }

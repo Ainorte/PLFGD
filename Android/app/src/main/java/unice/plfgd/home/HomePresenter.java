@@ -39,12 +39,8 @@ public class HomePresenter implements HomeContract.Presenter {
 	}
 
 	@Override
-	public void onSocketActive() {
-		mView.onSocketActive();
+	public void setDrawActivity() {
+		mView.setDrawActivity();
 	}
 
-	@Override
-	public void setTrainingView() {
-		mView.setTrainingView();
-	}
 }
