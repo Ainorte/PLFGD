@@ -24,6 +24,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 	private Button mConnectButton;
 
+	private Button mEntButton;
+
 	private EditText mServerField, mUsernameField;
 
 	public HomeFragment() {
@@ -97,6 +99,15 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mUsernameField = view.findViewById(R.id.name_field);
 		mUsernameField.setText(BuildConfig.DEFAULT_NAME);
 
+		mEntButton = view.findViewById(R.id.ent_button);
+
+		mEntButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.setDrawActivity();
+			}
+		});
+
 		return view;
 	}
 
@@ -107,8 +118,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void onSocketActive() {
+	public void setDrawActivity() {
 		Intent intent = new Intent(getContext(), DrawActivity.class);
 		startActivity(intent);
 	}
+
 }

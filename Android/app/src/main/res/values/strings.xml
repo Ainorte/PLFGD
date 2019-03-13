@@ -26,4 +26,5 @@
     <string name="point">un point</string>
 	<string name="server_address_port">10.0.2.2:10101</string>
 	<string name="username">Nom d\'utilisateur</string>
+	<string name="training">Entrainement</string>
 </resources>

@@ -7,12 +7,12 @@ public interface HomeContract {
 	interface View extends BaseView<Presenter> {
 		void initSocket();
 
-		void onSocketActive();
+		void setDrawActivity();
 	}
 
 	interface Presenter extends BasePresenter {
 		void initSocket(String serverURL, String username);
 
-		void onSocketActive();
+		void setDrawActivity();
 	}
 }

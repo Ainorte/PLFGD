@@ -41,7 +41,7 @@ public class Connexion {
 		return INSTANCE;
 	}
 
-	private boolean isConnected() {
+	public boolean isConnected() {
 		return socket != null;
 	}
 
