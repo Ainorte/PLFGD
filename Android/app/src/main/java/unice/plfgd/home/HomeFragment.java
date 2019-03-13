@@ -15,6 +15,7 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Connexion;
+import unice.plfgd.training.TrainingActivity;
 
 import java.util.Objects;
 
@@ -23,6 +24,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	private HomeContract.Presenter mPresenter;
 
 	private Button mConnectButton;
+
+	private Button mEntButton;
 
 	private EditText mServerField, mUsernameField;
 
@@ -97,6 +100,15 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mUsernameField = view.findViewById(R.id.name_field);
 		mUsernameField.setText(BuildConfig.DEFAULT_NAME);
 
+		mEntButton = view.findViewById(R.id.ent_button);
+
+		mEntButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.setTrainingView();
+			}
+		});
+
 		return view;
 	}
 
@@ -109,6 +121,12 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	@Override
 	public void onSocketActive() {
 		Intent intent = new Intent(getContext(), DrawActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	public void setTrainingView() {
+		Intent intent = new Intent(getContext(), TrainingActivity.class);
 		startActivity(intent);
 	}
 }

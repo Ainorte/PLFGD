@@ -8,11 +8,15 @@ public interface HomeContract {
 		void initSocket();
 
 		void onSocketActive();
+
+		void setTrainingView();
 	}
 
 	interface Presenter extends BasePresenter {
 		void initSocket(String serverURL, String username);
 
 		void onSocketActive();
+
+		void setTrainingView();
 	}
 }
