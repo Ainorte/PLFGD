@@ -94,7 +94,7 @@ public class Point implements Serializable {
 	}
 
 	public boolean compareXY(Point pt) {
-		return (this.x == pt.getX() && this.y == pt.getY());
+		return this.equals(pt);
 	}
 
 	public boolean compareXY(double x, double y) {
