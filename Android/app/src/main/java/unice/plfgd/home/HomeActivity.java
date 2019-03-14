@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
 
 		HashMap<String, String> defaults = new HashMap<String, String>() {{
 			put("username", BuildConfig.DEFAULT_NAME);
-			put("serverURL", BuildConfig.SERVER_DOMAIN + BuildConfig.SERVER_PORT);
+			put("serverURL", BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT);
 		}};
 
 		for (Map.Entry<String, String> val : defaults.entrySet()) {
