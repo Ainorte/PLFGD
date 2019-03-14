@@ -102,7 +102,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 						break;
 				}
 
-				mOrder.setText(String.format("%s %s", getText(R.string.draw).toString(), f.toString()));
+				mOrder.setText(String.format("%s %s", getText(R.string.draw), f));
 			}
 		});
 	}
