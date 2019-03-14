@@ -3,15 +3,25 @@ package unice.plfgd.common.forme;
 import java.util.*;
 
 public class RecogForme {
-    
+
+
+    public static List<Object> process(List<Point> pts){
+        List<Point> convexHull = ConvexHull.getConvexHull(pts);
+        List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
+        List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
+        return recog(convexHull, encTriangle, encRectangle);
+    }
+
     public static List<Object> recog(List<Point> convexHull, List<Point> encTriangle, List<Point> encRectangle){
 
         List<Object> res = new ArrayList<>();
+
         Triangle triangle = new Triangle(new Point(0,0),encTriangle.get(0),encTriangle.get(1),encTriangle.get(2),0);
         double triangleArea = triangle.getAire();
         Quadrilatere rectangle = new Quadrilatere(encRectangle.get(0),encRectangle.get(1),encRectangle.get(2),encRectangle.get(3));
         double rectangleArea = rectangle.getAire();
         double rectanglePerim = rectangle.getPerim();
+
         double convexHullArea = 0;
         double convexHullPerim = 0;
         for(int i = 0; i < convexHull.size()-2; i++){
