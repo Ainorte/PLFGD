@@ -2,7 +2,7 @@ package unice.plfgd.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import unice.plfgd.common.data.User;
+import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.Connexion;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -34,8 +34,10 @@ public class HomePresenter implements HomeContract.Presenter {
 	@Override
 	public void initSocket(String serverDomain, String username) {
 		mView.initSocket();
-		connexion.setServerURL(Connexion.getServerURL(serverDomain));
-		connexion.openSocket(new User(username));
+		final Configuration instance = Configuration.getInstance();
+		instance.set("serverDomain", serverDomain);
+		instance.set("username", username);
+		connexion.openSocket(instance);
 	}
 
 	@Override
