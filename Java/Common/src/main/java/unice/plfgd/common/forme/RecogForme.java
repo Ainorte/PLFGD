@@ -6,6 +6,8 @@ public class RecogForme {
 
 
     public static List<Object> process(List<Point> pts){
+        pts = TraitementPoints.sanitize(pts,0.02);
+        pts = TraitementPoints.refineEndPoints(pts,2);
         List<Point> convexHull = ConvexHull.getConvexHull(pts);
         List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
         List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
@@ -52,7 +54,7 @@ public class RecogForme {
         else if(thinnessRatio > 50){
             res.add("segment");
             res.add(new Segment(convexHull.get(0),convexHull.get(convexHull.size()-1)));
-        } else if(thinnessRatio < 12){
+        } else if(thinnessRatio < 12.5){
             res.add("cercle");
             res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB()),0));
         }
