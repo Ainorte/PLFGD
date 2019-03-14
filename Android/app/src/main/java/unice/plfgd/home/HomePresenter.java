@@ -4,26 +4,25 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class HomePresenter implements HomeContract.Presenter {
 
 	private final HomeContract.View mView;
-	private Connexion connexion;
 
 	@SuppressLint("RestrictedApi")
 	HomePresenter(@NonNull HomeContract.View lobbyView) {
 		mView = checkNotNull(lobbyView);
 		mView.setPresenter(this);
 
-		connexion = Connexion.getInstance();
-		connexion.setPresenter(this);
+		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
 	public void start() {
-		connexion.reset();
+		Connexion.getInstance().reset();
 	}
 
 	@Override
@@ -37,7 +36,9 @@ public class HomePresenter implements HomeContract.Presenter {
 		final Configuration instance = Configuration.getInstance();
 		instance.set("serverDomain", serverDomain);
 		instance.set("username", username);
-		connexion.openSocket(instance);
+		final Connexion conn = Connexion.getInstance();
+		conn.openSocket(instance);
+		APIService.getInstance().modeOnline(conn);
 	}
 
 	@Override

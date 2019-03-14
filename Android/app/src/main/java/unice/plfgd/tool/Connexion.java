@@ -5,14 +5,15 @@ import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.json.JSONObject;
-import unice.plfgd.BuildConfig;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
+import unice.plfgd.tool.handler.AbstractHandler;
 import unice.plfgd.tool.handler.status.ConnectHandler;
 import unice.plfgd.tool.handler.status.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
 import unice.plfgd.tool.handler.status.TimeoutHandler;
+import unice.plfgd.tool.service.APIService;
 
 import java.net.URISyntaxException;
 
@@ -20,7 +21,6 @@ public class Connexion {
 
 	private static Connexion INSTANCE;
 	private Socket socket;
-	private BasePresenter presenter;
 	private User user;
 
 	private Connexion() {
@@ -35,14 +35,6 @@ public class Connexion {
 
 	public boolean isConnected() {
 		return socket != null;
-	}
-
-	public <T extends BasePresenter> T getPresenter(Class<T> obj) {
-		return (obj.isInstance(presenter)) ? obj.cast(presenter) : null;
-	}
-
-	public void setPresenter(BasePresenter presenter) {
-		this.presenter = presenter;
 	}
 
 	public void openSocket(Configuration conf) {
@@ -87,11 +79,14 @@ public class Connexion {
 	}
 
 	private void defineHandlers() {
-		socket.on(Socket.EVENT_CONNECT_TIMEOUT, new TimeoutHandler(this));
-		socket.on(Socket.EVENT_CONNECT_ERROR, new TimeoutHandler(this));
-		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(this));
-		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(this));
+		APIService svc = new APIService();
 
-		socket.on("draw", new DrawHandler(this));
+		final AbstractHandler th = new TimeoutHandler(svc).setConnexion(this);
+		socket.on(Socket.EVENT_CONNECT_TIMEOUT, th);
+		socket.on(Socket.EVENT_CONNECT_ERROR, th);
+		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(svc).setConnexion(this));
+		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
+
+		socket.on("draw", new DrawHandler(svc));
 	}
 }
