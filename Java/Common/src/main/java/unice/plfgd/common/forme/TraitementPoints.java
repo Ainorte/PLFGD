@@ -78,9 +78,11 @@ public class TraitementPoints {
 	}
 
     public static List<Point> maximumAreaEnclosedTriangle(List<Point> pts){
+
         List<Point> sommetsTriangle = new ArrayList<>();
         int listSize = pts.size()-1;
         if(pts.size() < 3) return pts;
+
         Point A = pts.get(0);
         Point B = pts.get(1);
         Point C = pts.get(2);
@@ -106,21 +108,26 @@ public class TraitementPoints {
             b = (a == b) ? (b + 1)%listSize : b;
             c = (b == c) ? (c + 1)%listSize : c;
         } while (a != 0);
+
         sommetsTriangle.add(A);
         sommetsTriangle.add(B);
         sommetsTriangle.add(C);
+
         return sommetsTriangle;
     }
 
     public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts){
+
         double minX = Double.POSITIVE_INFINITY;
         double minY = Double.POSITIVE_INFINITY;
         double maxX = 0;
         double maxY = 0;
+
         int ptMinX = 0; //indice du point avec le plus petit x
         int ptMinY= 0;
         int ptMaxX = 0;
         int ptMaxY = 0;
+
         for(int i = 0; i < pts.size()-1; i++){
             double x = pts.get(i).getX();
             double y = pts.get(i).getY();
@@ -149,7 +156,7 @@ public class TraitementPoints {
         Quadrilatere rect = new Quadrilatere(r1,r2,r3,r4);
         Point[] minRectArray = new Point[]{r1,r2,r3,r4};
         double minAire = rect.getAire();
-        Point baryRect = rect.getG();
+
         Segment caliperX1 = new Segment(r1, r2);
         Segment caliperX2 = new Segment(r4, r3);
         Segment caliperY1 = new Segment(r1, r4);
@@ -175,10 +182,11 @@ public class TraitementPoints {
             teta3 = teta3 > halfPI ? teta3 - halfPI : teta3;
             double teta4 = seg4.findAngleToPoint(caliperY2.getP2());
             teta4 = teta4 > halfPI ? teta4 - halfPI : teta4;
+
             double minAngle = Math.min(teta1,teta2);
             double minAngle2 = Math.min(teta3,teta4);
             minAngle = Math.min(minAngle,minAngle2);
-            listSize = pts.size()-1;
+
             int ptRotation = 0;
             if(teta1 == minAngle){
                 ptRotation = ptMinX;
@@ -200,7 +208,9 @@ public class TraitementPoints {
                 ptMaxY = (ptMaxY+1)%listSize;
                 seg4 = new Segment(pts.get(ptMaxY%listSize), pts.get((ptMaxY+1)%listSize));
             }
+
             Point ptR = pts.get(ptRotation);
+
             caliperX1.rotation(ptR,minAngle);
             caliperX2.rotation(ptR,minAngle);
             caliperY1.rotation(ptR,minAngle);
@@ -209,7 +219,9 @@ public class TraitementPoints {
             r2 = caliperX1.crossPoint(caliperY2);
             r3 = caliperX2.crossPoint(caliperY2);
             r4 = caliperX2.crossPoint(caliperY1);
+
             double newAire = new Quadrilatere(r1,r2,r3,r4).getAire();
+
             if(newAire < minAire){
                 minAire = newAire;
                 minRectArray = new Point[]{r1,r2,r3,r4};

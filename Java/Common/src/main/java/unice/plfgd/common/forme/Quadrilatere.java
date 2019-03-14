@@ -16,6 +16,19 @@ public class Quadrilatere {
         this.D = D;
     }
 
+    public Point getA(){
+        return A;
+    }
+    public Point getB(){
+        return B;
+    }
+    public Point getC(){
+        return C;
+    }
+    public Point getD(){
+        return D;
+    }
+
     public Point getG(){
         Point[] ptsArray = new Point[]{A,B,C,D};
         List<Point> pts = Arrays.asList(ptsArray);
