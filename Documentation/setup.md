@@ -44,7 +44,16 @@ This should start the server without any issue.
 > Be aware that compilation is done inside the `Java/` project folder,
 > while execution is done inside the `Java/Server/` project folder.
 
-## `Android/` 
+### Server configuration
+
+You can customize the host and port on which the server bind itself to, through
+the environment variables listed below.
+
+- `HOST`: The host to which the server'll bind itself, defaults to `127.0.0.1`
+- `PORT`: The port the server'll listen on, defaults to `10101`.
+	If an invalid value's given, the default of `10101` is used.
+
+## `Android/`
 
 To build the application, go inside the Android folder.
 
