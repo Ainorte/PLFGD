@@ -9,6 +9,12 @@ public class RecogForme {
         pts = TraitementPoints.sanitize(pts,0.02);
         pts = TraitementPoints.refineEndPoints(pts,2);
         List<Point> convexHull = ConvexHull.getConvexHull(pts);
+        if(convexHull == null){
+            List<Object> obj = new ArrayList<>();
+            obj.add("Segment");
+            obj.add(new Segment(pts.get(0),pts.get(pts.size()-1)));
+            return obj;
+        }
         List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
         List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
         return recog(convexHull, encTriangle, encRectangle);
