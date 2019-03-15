@@ -88,6 +88,10 @@ public class Point implements Serializable {
 		this.setY(new_y);
 	}
 
+	public double getDirection(Point pt){
+	    return Math.atan((pt.getY() - y) / (pt.getX() - x));
+    }
+
 	public double calculeDistanceG() {
 		return Math.sqrt(Math.pow(x - xG, 2)
 				+ Math.pow(y - yG, 2));
