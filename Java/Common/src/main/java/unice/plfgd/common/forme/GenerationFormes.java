@@ -4,6 +4,58 @@ import java.util.*;
 
 public class GenerationFormes {
 
+
+    public static List<Point> generateStandRandForme(double l, double h){
+        List<Point> randForme = new ArrayList<>();
+        int random = (int)(Math.random() * 4 + 1);
+        Point G = new Point(l/2, h/2);
+        switch(random){
+            case 1:
+                List<Object> objCarre = new ArrayList<>();
+                objCarre.add("carre");
+                objCarre.add(G);
+                objCarre.add(l/2);
+                objCarre.add(0.0);
+                randForme = FormeFactory.make(objCarre);
+                break;
+            case 2:
+                List<Object> objRect = new ArrayList<>();
+                objRect.add("rect");
+                objRect.add(G);
+                objRect.add(l/2);
+                objRect.add(h/2);
+                objRect.add(0.0);
+                randForme = FormeFactory.make(objRect);
+                break;
+            case 3:
+                List<Object> objCercle = new ArrayList<>();
+                objCercle.add("cercle");
+                objCercle.add(G);
+                objCercle.add(l/4);
+                objCercle.add(0.0);
+                randForme = FormeFactory.make(objCercle);
+                break;
+            case 4:
+                List<Point> objTriangle = new ArrayList<>();
+                Point A = new Point(l/4, 3*h/4);
+                Point B = new Point(l/2,3*h/4);
+                Point C = new Point(3*l/4,3*h/4);
+                objTriangle.add(A);
+                objTriangle.add(B);
+                objTriangle.add(C);
+                List<Object> objTriangle2 = new ArrayList<>();
+                objTriangle2.add("triangle");
+                objTriangle2.add(G);
+                objTriangle2.addAll(objTriangle);
+                objTriangle2.add(0.0);
+                randForme = FormeFactory.make(objTriangle2);
+                break;
+            default :
+                System.out.println("error");
+        }
+        return randForme;
+    }
+
     public static List<Point> generateRandomForme(double l, double h, boolean isCentered, boolean isRotated){
         List<Point> randForme = new ArrayList<>();
         double randRotation = 0;
