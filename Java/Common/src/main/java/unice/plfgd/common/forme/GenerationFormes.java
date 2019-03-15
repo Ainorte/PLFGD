@@ -4,8 +4,10 @@ import java.util.*;
 
 public class GenerationFormes {
 
-    public static List<Point> generateRandomForme(double l, double h, boolean isCentered){
+    public static List<Point> generateRandomForme(double l, double h, boolean isCentered, boolean isRotated){
         List<Point> randForme = new ArrayList<>();
+        double randRotation = 0;
+        if(isRotated) randRotation = randRotation();
         int random = (int)(Math.random() * 4 + 1);
         switch(random){
             case 1:
@@ -15,7 +17,7 @@ public class GenerationFormes {
                 double randL = randL(randG,l,h);
                 objCarre.add(randG);
                 objCarre.add(randL);
-                objCarre.add(randRotation());
+                objCarre.add(randRotation);
                 randForme = FormeFactory.make(objCarre);
                 break;
             case 2:
@@ -27,7 +29,7 @@ public class GenerationFormes {
                 objRect.add(randG2);
                 objRect.add(randL2);
                 objRect.add(randH2);
-                objRect.add(randRotation());
+                objRect.add(randRotation);
                 randForme = FormeFactory.make(objRect);
                 break;
             case 3:
@@ -53,7 +55,7 @@ public class GenerationFormes {
                 objTriangle2.add("triangle");
                 objTriangle2.add(G);
                 objTriangle2.addAll(objTriangle);
-                objTriangle2.add(randRotation());
+                objTriangle2.add(randRotation);
                 randForme = FormeFactory.make(objTriangle2);
                 break;
             default :
@@ -81,10 +83,15 @@ public class GenerationFormes {
     public static double randL(Point G, double l, double h){
         double maxSize = Math.min(l, h);
         double minDistToEdge = Math.min(l - G.getX(), h - G.getY());
-        return Math.random() * (maxSize - minDistToEdge) + minDistToEdge;
+        double randL = Math.random() * (maxSize - minDistToEdge) + minDistToEdge;
+        return randL;
     }
 
     public static double randRotation(){
         return Math.random() * 360 + 1;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
