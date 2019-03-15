@@ -18,25 +18,17 @@ import java.net.URISyntaxException;
 
 public class Connexion {
 
-	public static final String SERVER_DOMAIN_PORT = BuildConfig.SERVER_DOMAIN + ":" + BuildConfig.SERVER_PORT;
-	private static final String PROTOCOL = "http://";
 	private static Connexion INSTANCE;
 	private Socket socket;
-	private String serverURL;
 	private BasePresenter presenter;
 	private User user;
 
 	private Connexion() {
 	}
 
-	public static String getServerURL(String domain) {
-		return PROTOCOL + domain;
-	}
-
 	public static Connexion getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Connexion();
-			INSTANCE.setServerURL(Connexion.getServerURL(SERVER_DOMAIN_PORT));
 		}
 		return INSTANCE;
 	}
@@ -53,11 +45,11 @@ public class Connexion {
 		this.presenter = presenter;
 	}
 
-	public void openSocket(User user) {
-		this.user = user;
+	public void openSocket(Configuration conf) {
+		this.user = new User(conf.getOrNull("username"));
 
 		try {
-			socket = IO.socket(getServerURL());
+			socket = IO.socket("http://" + conf.getOrNull("serverDomain"));
 
 			defineHandlers();
 		} catch (URISyntaxException e) {
@@ -87,14 +79,6 @@ public class Connexion {
 		if (isConnected()) {
 			socket.close();
 		}
-	}
-
-	private String getServerURL() {
-		return serverURL;
-	}
-
-	public void setServerURL(String serverURL) {
-		this.serverURL = serverURL;
 	}
 
 	public enum ResetSocketMessage {
