@@ -60,7 +60,7 @@ public class RecogForme {
             res.add(rectangle);
         } else if(thinnessRatio < 12.5){
             res.add("cercle");
-            res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB()),0));
+            res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
         }
         return res;
     }
