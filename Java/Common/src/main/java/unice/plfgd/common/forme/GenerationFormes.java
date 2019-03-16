@@ -142,8 +142,4 @@ public class GenerationFormes {
     public static double randRotation(){
         return Math.random() * 360 + 1;
     }
-
-    public static void main(String[] args) {
-
-    }
 }

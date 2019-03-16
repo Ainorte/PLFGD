@@ -15,7 +15,6 @@ public class TraitementPoints {
 		double maxDistance = -1;
 		int indexOfFurthestPoint = -1;
 
-
 		for (int i = 2; i < pointList.size(); ++i) {
 			Point pi = pointList.get(i);
 			if (l.distPtToSeg(pi) > maxDistance) {
@@ -37,7 +36,6 @@ public class TraitementPoints {
 			left.addAll(right);
 
 			return left;
-
 		}
 	}
 
@@ -172,7 +170,6 @@ public class TraitementPoints {
         double halfPI = Math.PI/2;
         int j = 0;
         while(j <= halfPI){
-
 
             double teta1 = seg1.findAngleToPoint(caliperX1.getP2());
             teta1 = teta1 > halfPI ? teta1 - halfPI : teta1;

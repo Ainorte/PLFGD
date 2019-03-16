@@ -5,8 +5,10 @@ import java.util.*;
 public class FormeFactory {
 
     static public List<Point> make(List<Object> forme) {
+
         List<Point> listForme = new ArrayList<>();
         String formeType = (String)forme.get(0);
+
         if(forme.size() > 2){
             switch(formeType) {
                 case "segment":
@@ -34,8 +36,8 @@ public class FormeFactory {
                 case "segment":
                     listForme = ((Segment)forme.get(1)).make();
                     break;
-                case "rect":
-                    listForme = ((Rectangle)forme.get(1)).make();
+                case "rectangle":
+                    listForme = ((Quadrilatere)forme.get(1)).make();
                     break;
                 case "carre":
                     listForme = ((Carre)forme.get(1)).make();
@@ -44,7 +46,7 @@ public class FormeFactory {
                     listForme = ((Triangle)forme.get(1)).make();
                     break;
                 case "ellipse":
-                    //listForme = new Ellipse().make();
+                    //listForme = ((Ellipse)forme.get(1)).make();
                 case "cercle":
                     listForme = ((Cercle)forme.get(1)).make();
                     break;
