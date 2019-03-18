@@ -24,7 +24,7 @@ public class Rectangle extends AbstractForme {
 	public double getPerim() {
 		return (this.h + this.l) * 2;
 	}
-
+	@Override
 	public String toString() {
 		String bary = super.toString();
 		String aire = ", l'aire est de : " + this.getAire();

@@ -24,6 +24,7 @@ public class Ellipse extends AbstractForme{
         return Math.PI * Math.sqrt(2 * (this.a * this.a + this.b * this.b));
     }
 
+    @Override
     public String toString(){
         String G = "La position d'ancrage est à : " + this.getG().getX() + " " + this.getG().getY();
         String aire = ", l'aire est de : " + this.getAire();
