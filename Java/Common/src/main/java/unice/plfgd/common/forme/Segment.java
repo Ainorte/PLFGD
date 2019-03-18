@@ -75,6 +75,12 @@ public class Segment implements Serializable {
 				& (Math.min(p1.getY(), p2.getY()) - tolerance <= pt.getY() && pt.getY() <= Math.max(p1.getY(), p2.getY()) + tolerance);
 	}
 
+	//Retourne true si il y a une intersection entre deux segment
+	public boolean isIntersection(Segment seg){
+		Point crossPoint = this.crossPoint(seg);
+		return seg.isPointInSeg(crossPoint,0) & this.isPointInSeg(crossPoint,0);
+	}
+
 	//Savoir si un autre segment est parallèle
 	public boolean isSegmentParallel(Segment seg) {
 		return seg.getCoef() == coefDir;
