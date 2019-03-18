@@ -14,7 +14,7 @@ public class FormeFactory {
                 case "segment":
                     listForme = new Segment((Point)forme.get(1), (Point)forme.get(2)).make();
                     break;
-                case "rect":
+                case "rectangle":
                     listForme = new Rectangle((Point)forme.get(1),(double)forme.get(2),(double)forme.get(3),(double)forme.get(4)).make();
                     break;
                 case "carre":

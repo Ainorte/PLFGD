@@ -20,7 +20,7 @@ public class GenerationFormes {
                 break;
             case 2:
                 List<Object> objRect = new ArrayList<>();
-                objRect.add("rect");
+                objRect.add("rectangle");
                 objRect.add(G);
                 objRect.add(l/2);
                 objRect.add(h/2);
@@ -74,7 +74,7 @@ public class GenerationFormes {
                 break;
             case 2:
                 List<Object> objRect = new ArrayList<>();
-                objRect.add("rect");
+                objRect.add("rectangle");
                 Point randG2 = isCentered ? new Point(l/2, h/2) : randG(l,h);
                 double randL2 = randL(randG2,l,h);
                 double randH2 = randL(randG2,l,h);
