@@ -8,6 +8,7 @@ public class RecogForme {
     public static List<Object> process(List<Point> pts){
         pts = TraitementPoints.sanitize(pts,0.02);
         pts = TraitementPoints.refineEndPoints(pts,2);
+        pts = TraitementPoints.closeStroke(pts);
         List<Point> convexHull = ConvexHull.getConvexHull(pts);
         if(convexHull == null){
             List<Object> obj = new ArrayList<>();

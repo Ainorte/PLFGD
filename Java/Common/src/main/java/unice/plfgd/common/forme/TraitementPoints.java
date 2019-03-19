@@ -77,7 +77,6 @@ public class TraitementPoints {
     public static List<Point> closeStroke(List<Point> pts){
         List<Point> intersections = intersections(pointsToSegments(pts));
         if(intersections.isEmpty()){
-            System.out.println("no inters");
             return handleNoIntersections(pts);
         }
         System.out.println(intersections);
