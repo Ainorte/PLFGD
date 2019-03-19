@@ -52,12 +52,19 @@ public class RecogForme {
         if(thinnessRatio > 50) {
             res.add("segment");
             res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
-        } else if(convexTriangleRatio > 0.8 & convexTriangleRatio < 1) {
+        } else if(convexTriangleRatio > 0.7 & convexTriangleRatio < 1) {
             res.add("triangle");
             res.add(triangle);
-        } else if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.2){
-            res.add("rectangle");
-            res.add(rectangle);
+        } else if(convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25){
+            if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1){
+                Point G = MethodesForme.barycentre(convexHull);
+                Carre carre = new Carre(G, rectanglePerim/4, 0);
+                res.add("carre");
+                res.add(carre);
+            } else {
+                res.add("rectangle");
+                res.add(rectangle);
+            }
         } else if(thinnessRatio < 12.5){
             res.add("cercle");
             res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
