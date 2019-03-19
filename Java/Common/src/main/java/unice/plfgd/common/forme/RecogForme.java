@@ -6,14 +6,14 @@ public class RecogForme {
 
 
     public static List<Object> process(List<Point> pts){
-        pts = TraitementPoints.sanitize(pts,0.02);
-        pts = TraitementPoints.refineEndPoints(pts,2);
-        pts = TraitementPoints.closeStroke(pts);
-        List<Point> convexHull = ConvexHull.getConvexHull(pts);
+        List<Point> convexHull = TraitementPoints.sanitize(pts,0.02);
+        convexHull = TraitementPoints.refineEndPoints(convexHull,2);
+        convexHull = TraitementPoints.closeStroke(convexHull);
+        convexHull = ConvexHull.getConvexHull(convexHull);
         if(convexHull == null){
             List<Object> obj = new ArrayList<>();
-            obj.add("Segment");
-            obj.add(new Segment(pts.get(0),pts.get(pts.size()-1)));
+            obj.add("inconnu");
+            obj.add(new Inconnu(pts));
             return obj;
         }
         List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);

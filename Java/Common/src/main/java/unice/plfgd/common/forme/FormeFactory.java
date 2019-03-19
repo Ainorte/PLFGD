@@ -50,6 +50,8 @@ public class FormeFactory {
                 case "cercle":
                     listForme = ((Cercle)forme.get(1)).make();
                     break;
+                case "inconnu":
+                    listForme = ((Inconnu)forme.get(1)).make();
                 default:
                     System.out.println("error not such form");
             }

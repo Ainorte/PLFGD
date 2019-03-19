@@ -5,5 +5,6 @@ public enum Forme {
 	SEGMENT,
 	SQUARE,
 	TRIANGLE,
-	ROUND
+	ROUND,
+	UNKNOWN
 }
