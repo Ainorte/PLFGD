@@ -4,7 +4,7 @@ import unice.plfgd.common.forme.Point;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class DrawTest {
 
@@ -20,13 +20,10 @@ public class DrawTest {
 
 	@org.junit.Test
 	public void addLine() {
-		System.out.println("test 0: " + draw.getPoints());
 		draw.addLine();
-		System.out.println("test 0: " + draw.getPoints());
 		assertEquals(new ArrayList<ArrayList<Point>>(){{add(new ArrayList<>());}},draw.getPoints());
 		draw.addLine();
 		assertEquals(new ArrayList<ArrayList<Point>>(){{add(new ArrayList<>());add(new ArrayList<>());}},draw.getPoints());
-		System.out.println("test 0: " + draw.getPoints());
 	}
 
 	@org.junit.Test

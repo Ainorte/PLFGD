@@ -4,7 +4,10 @@ import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.data.Draw;
-import unice.plfgd.common.forme.*;
+import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.FormeFactory;
+import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.forme.RecogForme;
 import unice.plfgd.server.Log;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class DrawHandler extends Handler<Draw> {
 			List<Object> results = RecogForme.process(pts);
 			Draw draw = new Draw(new ArrayList<>(){{add(FormeFactory.make(results));}}, data.getWidth(), data.getHeight());
 			Log.log(draw.toString());
-			Log.log(((Forme) results.get(0)).getName());
+			Log.log(results.get(0).toString());
 			//Log.log(Log.State.BLUE,"Reduced input from "+data.getPoints().size()+" to "+ sanitize(data.getPoints(),20)/.size());
 			client.sendEvent("recog",new DetecForme(draw, (Forme) results.get(0)));
 			//client.sendEvent("draw", data);
