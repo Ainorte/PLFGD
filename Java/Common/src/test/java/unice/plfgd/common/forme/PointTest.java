@@ -2,7 +2,8 @@ package unice.plfgd.common.forme;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
@@ -30,11 +31,6 @@ public class PointTest {
 	public void getDirection() {
 		// comme precedement on utilise Math.abs et la tolerance
 		assertTrue(Math.abs(p1.getDirection(p2) - Math.atan((p2.getY() - p1.getY()) / (p2.getX() - p1.getX()))) < 0.00001);
-	}
-
-	@Test
-	public void calculeDistanceG() {
-		assertTrue(Math.abs(p1.calculeDistanceG() - Math.sqrt(Math.pow(p1.getX() - p1.getxG(), 2) + Math.pow(p1.getY() - p1.getyG(), 2))) < 0.00001);
 	}
 
 	@Test
