@@ -8,6 +8,7 @@ public class Ellipse extends AbstractForme{
     protected double a;
     protected double b;
     protected double rot;
+    protected Forme type = Forme.ELLIPSE;
 
     public Ellipse(Point G, double a, double b, double rot){
         super(G);
@@ -24,6 +25,11 @@ public class Ellipse extends AbstractForme{
         return Math.PI * Math.sqrt(2 * (this.a * this.a + this.b * this.b));
     }
 
+    public Forme getType(){
+        return type;
+    }
+
+    @Override
     public String toString(){
         String G = "La position d'ancrage est à : " + this.getG().getX() + " " + this.getG().getY();
         String aire = ", l'aire est de : " + this.getAire();

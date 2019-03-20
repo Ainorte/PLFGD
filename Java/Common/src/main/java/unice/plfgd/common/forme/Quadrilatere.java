@@ -53,6 +53,10 @@ public class Quadrilatere {
         double distAD = MethodesForme.norme(A, D);
         return distAB + distBC + distCD + distAD;
     }
+    @Override
+    public String toString(){
+        return "Quadrilatere :\n" + "Centre : " + this.getG() + "\n Aire : " + this.getAire() + "\n Perim :" + this.getPerim();
+    }
 
     public List<Point> make(){
         Segment[] segs = new Segment[]{new Segment(A,B), new Segment(B,C), new Segment(C,D), new Segment(D,A)};

@@ -60,6 +60,24 @@ public class MethodesForme {
 		return Math.sqrt(Math.pow(xA - xB, 2) + Math.pow(yA - yB, 2));
 	}
 
+	public static double normalizeAngle(double angle) {
+		return Math.atan2(Math.sin(angle), Math.cos(angle));
+	}
+
+	// n is the point to find courbature around, k is neighborhood size
+	public static double courbature(List<Point> pts, int n, int k){
+		int listSize = pts.size();
+		if(n+k >= listSize) n = listSize - k - 1;
+		if(n-k < 0) n = k;
+		double theta = 0;
+		double pathDist = 0;
+		for(int i = n-k; i < n+k-1; i++){
+			theta += normalizeAngle(pts.get(i+1).getDirection(pts.get(i+2)) - pts.get(i).getDirection(pts.get(i+1)));
+			pathDist += MethodesForme.norme(pts.get(i), pts.get(i+1));
+		}
+		return theta / pathDist;
+	}
+
 	static void translation(List<Point> pts, double x, double y) {
 		for (Point point : pts) {
 			point.setX(point.getX() + x);

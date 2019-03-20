@@ -1,8 +1,7 @@
 package unice.plfgd.common.forme;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 
 public class TraitementPoints {
 
@@ -14,7 +13,6 @@ public class TraitementPoints {
 		// Find the point furthest away from the line segment
 		double maxDistance = -1;
 		int indexOfFurthestPoint = -1;
-
 
 		for (int i = 2; i < pointList.size(); ++i) {
 			Point pi = pointList.get(i);
@@ -37,7 +35,6 @@ public class TraitementPoints {
 			left.addAll(right);
 
 			return left;
-
 		}
 	}
 
@@ -76,6 +73,94 @@ public class TraitementPoints {
 		y = (y - Math.floor(y)) < (Math.ceil(y) - y) ? Math.floor(y) : Math.ceil(y);
 		return new Point(x, y);
 	}
+
+    public static List<Point> closeStroke(List<Point> pts){
+        List<Point> intersections = intersections(pointsToSegments(pts));
+        if(intersections.isEmpty()){
+            return handleNoIntersections(pts);
+        }
+        System.out.println(intersections);
+        return handleIntersections(pts, intersections);
+    }
+
+
+    public static List<Point> intersections(List<Segment> segs){
+        Set<Point> listInter = new HashSet<>();
+        for(int i = 0; i < segs.size()-3; i++){
+            for(int j = i+2; j < segs.size()-1; j++){
+                if(segs.get(i).isIntersection(segs.get(j))) listInter.add(segs.get(i).crossPoint(segs.get(j)));
+            }
+        }
+        return new ArrayList<>(listInter);
+    }
+
+
+    public static List<Point> handleNoIntersections(List<Point> pts) {
+        int listSize = pts.size();
+        if (listSize > 3) {
+            Segment headExt = new Segment(pts.get(0), pts.get(1));
+            Segment tailExt = new Segment(pts.get(listSize - 2), pts.get(listSize - 1));
+            Point inter = headExt.crossPoint(tailExt);
+            if (MethodesForme.norme(inter, pts.get(0)) < MethodesForme.norme(inter, pts.get(1))
+                    & MethodesForme.norme(inter, pts.get(listSize - 1)) < MethodesForme.norme(inter, pts.get(listSize - 2))) {
+                pts.remove(0);
+                pts.add(0, inter);
+                pts.add(inter);
+            } else {
+                int MCPL = 20;//maximum cutted path length
+                int MDE = 20;//maximum distance from endpoint
+                List<Segment> listSeg = pointsToSegments(pts);
+                for (int i = 0; i < listSeg.size() - 1; i++) {
+
+                    Point headCross = listSeg.get(i).crossPoint(headExt);
+                    Point tailCross = listSeg.get(i).crossPoint(tailExt);
+                    Double distHeadCross = MethodesForme.norme(headExt.getP1(), headCross);
+                    if (distHeadCross < MethodesForme.norme(headExt.getP2(), headCross)) {
+                        if (distHeadCross <= MDE) {
+                            pts = pts.subList(0, i + 1);
+                            pts.add(0, headCross);
+                            pts.add(headCross);
+                            break;
+                        }
+                    }
+                    Double distTailCross = MethodesForme.norme(tailExt.getP2(), tailCross);
+                    if (distTailCross < MethodesForme.norme(tailExt.getP1(), tailCross)) {
+                        if (distTailCross <= MCPL) {
+                            pts = pts.subList(i + 1, pts.size());
+                            pts.add(0, tailCross);
+                            pts.add(tailCross);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return pts;
+    }
+
+        public static List<Point> handleIntersections(List<Point> pts, List<Point> inters){
+        Point startPoint = pts.get(0);
+        Point endPoint = pts.get(pts.size()-1);
+        Point closestInter = new Point(0,0);
+        double minDistance = Double.POSITIVE_INFINITY;
+        for(Point inter : inters){
+            double distStart = MethodesForme.norme(inter,startPoint);
+            double distEnd = MethodesForme.norme(inter,endPoint);
+            if(distStart + distEnd <= minDistance) closestInter = inter;
+        }
+        int MCPL = 100;//maximum cutted path length
+        int MDE = 100;//maximum distance from endpoint
+        if(minDistance <= MCPL && minDistance <= MDE){
+            for(int i = pts.size()-1; i >= 0; i--){
+                if(pts.get(i).equals(closestInter)) {
+                    pts = pts.subList(0,i);
+                    pts.add(0,closestInter);
+                    pts.add(closestInter);
+                }
+            }
+        }
+        return pts;
+    }
 
     public static List<Point> maximumAreaEnclosedTriangle(List<Point> pts){
 
@@ -131,19 +216,19 @@ public class TraitementPoints {
         for(int i = 0; i < pts.size()-1; i++){
             double x = pts.get(i).getX();
             double y = pts.get(i).getY();
-            if(x < minX) {
+            if(x < minX || (x == minX && y < pts.get(ptMinX).getY())) {
                 minX = x;
                 ptMinX = i;
             }
-            if(x > maxX){
+            if(x > maxX || (x == maxX && y > pts.get(ptMaxX).getY())){
                 maxX = x;
                 ptMaxX = i;
             }
-            if(y < minY) {
+            if(y < minY || (y == minY && x < pts.get(ptMinY).getX())) {
                 minY = y;
                 ptMinY = i;
             }
-            if(y > maxY) {
+            if(y > maxY || (y == maxY && x > pts.get(ptMaxY).getX())) {
                 maxY = y;
                 ptMaxY = i;
             }
@@ -173,7 +258,6 @@ public class TraitementPoints {
         int j = 0;
         while(j <= halfPI){
 
-
             double teta1 = seg1.findAngleToPoint(caliperX1.getP2());
             teta1 = teta1 > halfPI ? teta1 - halfPI : teta1;
             double teta2 = seg2.findAngleToPoint(caliperX2.getP2());
@@ -186,6 +270,7 @@ public class TraitementPoints {
             double minAngle = Math.min(teta1,teta2);
             double minAngle2 = Math.min(teta3,teta4);
             minAngle = Math.min(minAngle,minAngle2);
+            if(minAngle == 0) minAngle = Math.max(minAngle, minAngle2);
 
             int ptRotation = 0;
             if(teta1 == minAngle){
@@ -229,5 +314,13 @@ public class TraitementPoints {
             j += minAngle;
         }
         return Arrays.asList(minRectArray);
+    }
+
+    static public List<Segment> pointsToSegments(List<Point> pts){
+        List<Segment> listSeg = new ArrayList<>();
+        for(int i = 0; i < pts.size()-2; i++){
+            listSeg.add(new Segment(pts.get(i),pts.get(i+1)));
+        }
+        return listSeg;
     }
 }

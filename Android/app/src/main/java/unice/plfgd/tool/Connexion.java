@@ -5,10 +5,10 @@ import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.json.JSONObject;
-import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.handler.AbstractHandler;
+import unice.plfgd.tool.handler.RecogHandler;
 import unice.plfgd.tool.handler.status.ConnectHandler;
 import unice.plfgd.tool.handler.status.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
@@ -86,7 +86,7 @@ public class Connexion {
 		socket.on(Socket.EVENT_CONNECT_ERROR, th);
 		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(svc).setConnexion(this));
 		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
-
 		socket.on("draw", new DrawHandler(svc));
+		socket.on("recog", new RecogHandler(svc));
 	}
 }

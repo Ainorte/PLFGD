@@ -34,8 +34,7 @@
 			app:layout_constraintTop_toBottomOf="@id/home_welcome"
 			android:hint="@string/server_address_port"
 			android:singleLine="true"
-
-	/>
+			android:inputType="text"/>
 
 	<EditText
 			android:id="@+id/name_field"
@@ -49,6 +48,7 @@
 			app:layout_constraintTop_toBottomOf="@id/server_field"
 			android:hint="@string/username"
 			android:singleLine="true"
+			android:inputType="text"
 	/>
 
 	<Button

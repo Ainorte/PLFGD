@@ -21,7 +21,7 @@ public class Draw extends Packet {
 		this(new ArrayList<List<Point>>(), width, height);
 	}
 
-	public Draw() {
+	public Draw() {points = new ArrayList<>();
 	}
 
 	public List<List<Point>> getPoints() {

@@ -9,6 +9,7 @@ public class Segment implements Serializable {
 	protected Point p2;
 	protected double coefDir;
 	protected double constReelle;
+	protected Forme type = Forme.SEGMENT;
 
 	public Segment(Point p1, Point p2) {
 		this.p1 = p1;
@@ -45,6 +46,10 @@ public class Segment implements Serializable {
 		return constReelle;
 	}
 
+	public Forme getType(){
+	    return type;
+    }
+
 	public String toString() {
 		return "Segment([" + p1.getX() + ";" + p1.getY() + "]" + "[" + p2.getX() + ";" + p2.getY() + "])";
 	}
@@ -73,6 +78,12 @@ public class Segment implements Serializable {
 		//if(pt.equals(p1)||pt.equals(p2)) return true;
 		return (Math.min(p1.getX(), p2.getX()) - tolerance <= pt.getX() && pt.getX() <= Math.max(p1.getX(), p2.getX()) + tolerance)
 				& (Math.min(p1.getY(), p2.getY()) - tolerance <= pt.getY() && pt.getY() <= Math.max(p1.getY(), p2.getY()) + tolerance);
+	}
+
+	//Retourne true si il y a une intersection entre deux segment
+	public boolean isIntersection(Segment seg){
+		Point crossPoint = this.crossPoint(seg);
+		return seg.isPointInSeg(crossPoint,0) & this.isPointInSeg(crossPoint,0);
 	}
 
 	//Savoir si un autre segment est parallèle

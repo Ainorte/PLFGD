@@ -6,13 +6,14 @@ public class RecogForme {
 
 
     public static List<Object> process(List<Point> pts){
-        pts = TraitementPoints.sanitize(pts,0.02);
-        pts = TraitementPoints.refineEndPoints(pts,2);
-        List<Point> convexHull = ConvexHull.getConvexHull(pts);
+        List<Point> convexHull = TraitementPoints.sanitize(pts,0.02);
+        convexHull = TraitementPoints.refineEndPoints(convexHull,2);
+        convexHull = TraitementPoints.closeStroke(convexHull);
+        convexHull = ConvexHull.getConvexHull(convexHull);
         if(convexHull == null){
             List<Object> obj = new ArrayList<>();
-            obj.add("Segment");
-            obj.add(new Segment(pts.get(0),pts.get(pts.size()-1)));
+            obj.add(Forme.UNKNOWN);
+            obj.add(new Inconnu(pts));
             return obj;
         }
         List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
@@ -41,27 +42,34 @@ public class RecogForme {
             convexHullPerim += MethodesForme.norme(convexHull.get(i), convexHull.get(i+1));
         }
         convexHullArea = 0.5 * Math.abs(convexHullArea);
-        System.out.println("convexHullArea = " + convexHullArea);
         double thinnessRatio = convexHullPerim * convexHullPerim / convexHullArea;
-        System.out.println("thinness ratio = " + thinnessRatio);
         double convexTriangleRatio = triangleArea / convexHullArea;
-        System.out.println("convexTriangleRatio = " + convexTriangleRatio);
         double convexRectangleRatio = convexHullPerim / rectanglePerim;
-        System.out.println("convexRectangleRatio = " + convexRectangleRatio);
 
         if(thinnessRatio > 50) {
-            res.add("segment");
+            res.add(Forme.SEGMENT);
             res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
-        } else if(convexTriangleRatio > 0.8 & convexTriangleRatio < 1) {
-            res.add("triangle");
+        } else if(convexTriangleRatio > 0.7 & convexTriangleRatio < 1) {
+            res.add(Forme.TRIANGLE);
             res.add(triangle);
-        } else if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.2){
-            res.add("rectangle");
-            res.add(rectangle);
+        } else if(convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25){
+            if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1){
+                Point G = MethodesForme.barycentre(convexHull);
+                Carre carre = new Carre(G, rectanglePerim/4, 0);
+                res.add(Forme.SQUARE);
+                res.add(carre);
+            } else {
+                res.add(Forme.RECTANGLE);
+                res.add(rectangle);
+            }
         } else if(thinnessRatio < 12.5){
-            res.add("cercle");
-            res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB()),0));
+            res.add(Forme.CIRCLE);
+            res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
         }
+        else{
+        	res.add(Forme.UNKNOWN);
+        	res.add(new Inconnu(convexHull));
+		}
         return res;
     }
 }

@@ -15,10 +15,6 @@
     <string name="back">Retour</string>
     <string name="good_job">Bien Joué !</string>
     <string name="good_comment">Tu sais dessiner</string>
-
-
-
-    //Formes
     <string name="square">un carré</string>
     <string name="round">un rond</string>
     <string name="triangle">un triangle</string>

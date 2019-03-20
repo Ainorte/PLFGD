@@ -8,6 +8,7 @@ public class Rectangle extends AbstractForme {
 	protected double h;
 	protected double l;
 	protected double rot;
+	protected Forme type = Forme.RECTANGLE;
 
 
 	public Rectangle(Point G, double h, double l, double rot) {
@@ -25,6 +26,11 @@ public class Rectangle extends AbstractForme {
 		return (this.h + this.l) * 2;
 	}
 
+	public Forme getType(){
+		return type;
+	}
+
+	@Override
 	public String toString() {
 		String bary = super.toString();
 		String aire = ", l'aire est de : " + this.getAire();
