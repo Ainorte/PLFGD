@@ -12,7 +12,7 @@ public class RecogForme {
         convexHull = ConvexHull.getConvexHull(convexHull);
         if(convexHull == null){
             List<Object> obj = new ArrayList<>();
-            obj.add("inconnu");
+            obj.add(Forme.UNKNOWN);
             obj.add(new Inconnu(pts));
             return obj;
         }
@@ -51,23 +51,23 @@ public class RecogForme {
         System.out.println("convexRectangleRatio = " + convexRectangleRatio);
 
         if(thinnessRatio > 50) {
-            res.add("segment");
+            res.add(Forme.SEGMENT);
             res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
         } else if(convexTriangleRatio > 0.7 & convexTriangleRatio < 1) {
-            res.add("triangle");
+            res.add(Forme.TRIANGLE);
             res.add(triangle);
         } else if(convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25){
             if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1){
                 Point G = MethodesForme.barycentre(convexHull);
                 Carre carre = new Carre(G, rectanglePerim/4, 0);
-                res.add("carre");
+                res.add(Forme.SQUARE);
                 res.add(carre);
             } else {
-                res.add("rectangle");
+                res.add(Forme.RECTANGLE);
                 res.add(rectangle);
             }
         } else if(thinnessRatio < 12.5){
-            res.add("cercle");
+            res.add(Forme.CIRCLE);
             res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
         }
         return res;
