@@ -102,14 +102,6 @@ public class Point implements Serializable {
 				+ Math.pow(y - yG, 2));
 	}
 
-	public boolean compareXY(Point pt) {
-		return this.equals(pt);
-	}
-
-	public boolean compareXY(double x, double y) {
-		return (this.x == x && this.y == y);
-	}
-
 	public Point pointSym(Point pt) {
 		double xS = 2 * this.x - pt.getX();
 		double yS = 2 * this.y - pt.getY();
