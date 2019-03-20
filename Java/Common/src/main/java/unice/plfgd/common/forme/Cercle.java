@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Cercle extends Ellipse {
 
     protected Point G;
+    protected Forme type = Forme.CIRCLE;
 
     Cercle(Point G, double a, double rot){
         super(G, a, a, rot);
@@ -22,6 +23,10 @@ public class Cercle extends Ellipse {
 
     public String toString(){
         return super.toString();
+    }
+
+    public Forme getType(){
+        return type;
     }
 
     public List<Point> make(){

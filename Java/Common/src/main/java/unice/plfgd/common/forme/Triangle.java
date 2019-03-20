@@ -11,6 +11,7 @@ public class Triangle extends AbstractForme {
     protected Point B;
     protected Point C;
     protected double rot;
+    protected Forme type = Forme.TRIANGLE;
 
     public Triangle(Point G, Point A, Point B, Point C, double rot){
         super(G);
@@ -34,6 +35,10 @@ public class Triangle extends AbstractForme {
         double distBC = MethodesForme.norme(B,C);
         double distAC = MethodesForme.norme(A,C);
         return distAB + distBC + distAC;
+    }
+
+    public Forme getType(){
+        return type;
     }
 
     public List<Point> make(){

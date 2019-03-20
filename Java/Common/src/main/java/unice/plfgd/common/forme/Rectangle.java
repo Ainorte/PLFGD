@@ -8,6 +8,7 @@ public class Rectangle extends AbstractForme {
 	protected double h;
 	protected double l;
 	protected double rot;
+	protected Forme type = Forme.RECTANGLE;
 
 
 	public Rectangle(Point G, double h, double l, double rot) {
@@ -24,6 +25,11 @@ public class Rectangle extends AbstractForme {
 	public double getPerim() {
 		return (this.h + this.l) * 2;
 	}
+
+	public Forme getType(){
+		return type;
+	}
+
 	@Override
 	public String toString() {
 		String bary = super.toString();

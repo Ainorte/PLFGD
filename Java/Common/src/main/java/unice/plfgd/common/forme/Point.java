@@ -9,6 +9,7 @@ public class Point implements Serializable {
 	protected double y;
 	protected double xG;
 	protected double yG;
+	protected Forme type = Forme.POINT;
 
 	public Point(double x, double y) {
 		this.x = x;
@@ -57,6 +58,10 @@ public class Point implements Serializable {
 
 	public void setyG(double yG) {
 		this.yG = yG;
+	}
+
+	public Forme getType(){
+		return type;
 	}
 
 	@Override

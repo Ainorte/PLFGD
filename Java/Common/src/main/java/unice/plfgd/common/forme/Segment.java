@@ -9,6 +9,7 @@ public class Segment implements Serializable {
 	protected Point p2;
 	protected double coefDir;
 	protected double constReelle;
+	protected Forme type = Forme.SEGMENT;
 
 	public Segment(Point p1, Point p2) {
 		this.p1 = p1;
@@ -44,6 +45,10 @@ public class Segment implements Serializable {
 	public double getConst() {
 		return constReelle;
 	}
+
+	public Forme getType(){
+	    return type;
+    }
 
 	public String toString() {
 		return "Segment([" + p1.getX() + ";" + p1.getY() + "]" + "[" + p2.getX() + ";" + p2.getY() + "])";
