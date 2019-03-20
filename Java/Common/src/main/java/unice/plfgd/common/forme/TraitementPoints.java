@@ -270,6 +270,7 @@ public class TraitementPoints {
             double minAngle = Math.min(teta1,teta2);
             double minAngle2 = Math.min(teta3,teta4);
             minAngle = Math.min(minAngle,minAngle2);
+            if(minAngle == 0) minAngle = Math.max(minAngle, minAngle2);
 
             int ptRotation = 0;
             if(teta1 == minAngle){
