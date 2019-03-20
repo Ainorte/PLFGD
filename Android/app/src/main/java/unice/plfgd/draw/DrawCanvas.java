@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Point;
@@ -21,6 +23,7 @@ public class DrawCanvas extends View {
 	private Paint paint;
 	private Path path;
 	private Draw draw;
+	private VelocityTracker velocityTracker = null;
 	private boolean overflow;
 
 	private boolean active;
@@ -68,12 +71,24 @@ public class DrawCanvas extends View {
 				switch (event.getAction()) {
 					case MotionEvent.ACTION_MOVE:
 						if (!old) {
+							velocityTracker.addMovement(event);
+							velocityTracker.computeCurrentVelocity(1000);
+
 							path.lineTo((float) xPos, (float) yPos);
-							draw.addPoint(new Point(xPos, yPos));
+							double xV = velocityTracker.getXVelocity(event.getPointerId(event.getActionIndex()));
+							double yV = velocityTracker.getYVelocity(event.getPointerId(event.getActionIndex()));
+							draw.addPoint(new Point(xPos, yPos, xV, yV));
 							break;
 						}
 						//no break here !
 					case MotionEvent.ACTION_DOWN:
+						if(velocityTracker == null) {
+							velocityTracker = VelocityTracker.obtain();
+						}
+						else {
+							velocityTracker.clear();
+						}
+						velocityTracker.addMovement(event);
 						draw.addLine();
 						path.moveTo((float) xPos, (float) yPos);
 						draw.addPoint(new Point(xPos, yPos));

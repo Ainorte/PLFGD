@@ -88,7 +88,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 					case SQUARE:
 						f = getText(R.string.square);
 						break;
-					case ROUND:
+					case CIRCLE:
 						f = getText(R.string.round);
 						break;
 					case TRIANGLE:

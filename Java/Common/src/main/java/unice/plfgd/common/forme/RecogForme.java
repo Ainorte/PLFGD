@@ -66,6 +66,10 @@ public class RecogForme {
             res.add(Forme.CIRCLE);
             res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
         }
+        else{
+        	res.add(Forme.UNKNOWN);
+        	res.add(new Inconnu(convexHull));
+		}
         return res;
     }
 }
