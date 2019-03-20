@@ -7,22 +7,19 @@ public class Point implements Serializable {
 
 	protected double x;
 	protected double y;
-	protected double xG;
-	protected double yG;
+	protected double xV;
+	protected double yV;
 	protected Forme type = Forme.POINT;
 
 	public Point(double x, double y) {
-		this.x = x;
-		this.y = y;
-		this.xG = x;
-		this.yG = y;
+		this(x,y,0,0);
 	}
 
-	public Point(double x, double y, double xG, double yG) {
+	public Point(double x, double y, double xV, double yV) {
 		this.x = x;
 		this.y = y;
-		this.xG = xG;
-		this.yG = yG;
+		this.xV = xV;
+		this.yV = yV;
 	}
 
 	public Point() {
@@ -64,6 +61,22 @@ public class Point implements Serializable {
 		return type;
 	}
 
+	public double getxV() {
+		return xV;
+	}
+
+	public void setxV(double xV) {
+		this.xV = xV;
+	}
+
+	public double getyV() {
+		return yV;
+	}
+
+	public void setyV(double yV) {
+		this.yV = yV;
+	}
+
 	@Override
 	public String toString() {
 		return "[" + x + ";" + y + "]";
@@ -96,11 +109,6 @@ public class Point implements Serializable {
 	public double getDirection(Point pt){
 	    return Math.atan((pt.getY() - y) / (pt.getX() - x));
     }
-
-	public double calculeDistanceG() {
-		return Math.sqrt(Math.pow(x - xG, 2)
-				+ Math.pow(y - yG, 2));
-	}
 
 	public Point pointSym(Point pt) {
 		double xS = 2 * this.x - pt.getX();

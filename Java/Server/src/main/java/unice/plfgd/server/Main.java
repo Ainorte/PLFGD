@@ -27,7 +27,7 @@ public class Main {
 
 		final Map<String, String> env = System.getenv();
 		Configuration config = new Configuration();
-		config.setHostname(env.getOrDefault("HOST", "127.0.0.1"));
+		config.setHostname(env.getOrDefault("HOST", "0.0.0.0"));
 		config.setPort(uglyStringToInt(env.getOrDefault("PORT", "10101"), 10101));
 		var handlers = Handler.buildHandlersMap();
 		handlers.put("ident", new IdentHandler());
