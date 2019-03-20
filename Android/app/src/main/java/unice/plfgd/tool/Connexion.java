@@ -79,7 +79,7 @@ public class Connexion {
 	}
 
 	private void defineHandlers() {
-		APIService svc = new APIService();
+		APIService svc = APIService.getInstance();
 
 		final AbstractHandler th = new TimeoutHandler(svc).setConnexion(this);
 		socket.on(Socket.EVENT_CONNECT_TIMEOUT, th);
