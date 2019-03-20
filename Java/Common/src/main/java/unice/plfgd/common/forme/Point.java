@@ -41,21 +41,6 @@ public class Point implements Serializable {
 		this.y = y;
 	}
 
-	public double getxG() {
-		return xG;
-	}
-
-	public void setxG(double xG) {
-		this.xG = xG;
-	}
-
-	public double getyG() {
-		return yG;
-	}
-
-	public void setyG(double yG) {
-		this.yG = yG;
-	}
 
 	public Forme getType(){
 		return type;
