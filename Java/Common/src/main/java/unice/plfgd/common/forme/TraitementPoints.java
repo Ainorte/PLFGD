@@ -216,19 +216,19 @@ public class TraitementPoints {
         for(int i = 0; i < pts.size()-1; i++){
             double x = pts.get(i).getX();
             double y = pts.get(i).getY();
-            if(x < minX) {
+            if(x < minX || (x == minX && y < pts.get(ptMinX).getY())) {
                 minX = x;
                 ptMinX = i;
             }
-            if(x > maxX){
+            if(x > maxX || (x == maxX && y > pts.get(ptMaxX).getY())){
                 maxX = x;
                 ptMaxX = i;
             }
-            if(y < minY) {
+            if(y < minY || (y == minY && x < pts.get(ptMinY).getX())) {
                 minY = y;
                 ptMinY = i;
             }
-            if(y > maxY) {
+            if(y > maxY || (y == maxY && x > pts.get(ptMaxY).getX())) {
                 maxY = y;
                 ptMaxY = i;
             }
