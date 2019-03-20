@@ -57,6 +57,10 @@ public class PFC {
         return endGame;
     }
 
+    public int getNbManches(){
+        return nbManches;
+    }
+
     public static void main(String[] args) {
         PFC partie = new PFC(2);
         System.out.println(partie.getResult("carre", "triangle"));
