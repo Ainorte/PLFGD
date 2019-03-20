@@ -42,13 +42,9 @@ public class RecogForme {
             convexHullPerim += MethodesForme.norme(convexHull.get(i), convexHull.get(i+1));
         }
         convexHullArea = 0.5 * Math.abs(convexHullArea);
-        System.out.println("convexHullArea = " + convexHullArea);
         double thinnessRatio = convexHullPerim * convexHullPerim / convexHullArea;
-        System.out.println("thinness ratio = " + thinnessRatio);
         double convexTriangleRatio = triangleArea / convexHullArea;
-        System.out.println("convexTriangleRatio = " + convexTriangleRatio);
         double convexRectangleRatio = convexHullPerim / rectanglePerim;
-        System.out.println("convexRectangleRatio = " + convexRectangleRatio);
 
         if(thinnessRatio > 50) {
             res.add(Forme.SEGMENT);
