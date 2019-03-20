@@ -117,7 +117,7 @@ public class Segment implements Serializable {
 		double OA = MethodesForme.norme(p1, p2);
 		double OB = MethodesForme.norme(p1, pt);
 		double AB = MethodesForme.norme(p2, pt);
-		return OA == 0 || OB == 0 ? Math.acos((OA * OA + OB * OB - AB * AB) / (2 * OA * OB)) : 0;
+		return OA != 0 && OB != 0 ? Math.acos((OA * OA + OB * OB - AB * AB) / (2 * OA * OB)) : 0;
 	}
 
 	public double distPtToSeg(Point p) {
