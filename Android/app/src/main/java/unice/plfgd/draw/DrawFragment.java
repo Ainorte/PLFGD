@@ -1,6 +1,7 @@
 package unice.plfgd.draw;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	private Button mValid;
 	public DrawFragment() {
 		//required
+		setRetainInstance(true);
 	}
 
 	public static DrawFragment newInstance() {
@@ -39,28 +41,6 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
-	}
-
-	@Override
-	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-		super.onViewStateRestored(savedInstanceState);
-		if (mPresenter != null && mPresenter instanceof DrawPresenter) {
-			Bundle b = ((DrawPresenter) mPresenter).getBundle();
-
-			Serializable drawObj = b.getSerializable("draw");
-			if (drawObj instanceof Draw) {
-				getCanvas().setDraw((Draw) drawObj);
-			}
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(@NonNull Bundle outState) {
-		super.onSaveInstanceState(outState);
-
-		outState.putSerializable("draw", getCanvas().getDraw());
-
-		((DrawPresenter) mPresenter).setBundle(outState);
 	}
 
 	@Override
@@ -168,5 +148,18 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 		transaction.replace(R.id.contentFrame, fragment);
 		transaction.commit();
+	}
+
+	@Override
+	public void setCanvas(Draw draw) {
+		DrawCanvas c = getCanvas();
+		if (c != null) {
+			c.setDraw(draw);
+		}
+	}
+
+	@Override
+	public Draw getDraw() {
+		return getCanvas().getDraw();
 	}
 }

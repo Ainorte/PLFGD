@@ -1,13 +1,18 @@
 package unice.plfgd.draw;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import unice.plfgd.R;
 import unice.plfgd.base.BasePresenter;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.tool.ActivityTools;
 
+import java.io.Serializable;
+
 public class DrawActivity extends AppCompatActivity {
+	private static Draw canvasCache;
 
 	private BasePresenter mPresenter;
 
@@ -25,6 +30,14 @@ public class DrawActivity extends AppCompatActivity {
 
 		//Set up presenter
 		mPresenter = new DrawPresenter(drawFragment);
+
+		((DrawPresenter) mPresenter).setCanvas(canvasCache);
+	}
+
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		canvasCache = mPresenter.getDraw();
+		super.onSaveInstanceState(outState);
 	}
 
 	public void setPresenter(BasePresenter presenter) {

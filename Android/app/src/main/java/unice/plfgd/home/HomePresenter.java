@@ -2,6 +2,7 @@ package unice.plfgd.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.Connexion;
 
@@ -29,6 +30,11 @@ public class HomePresenter implements HomeContract.Presenter {
 	@Override
 	public void onSocketReset(Connexion.ResetSocketMessage message) {
 		mView.onSocketReset(message);
+	}
+
+	@Override
+	public Draw getDraw() {
+		return null;
 	}
 
 	@Override

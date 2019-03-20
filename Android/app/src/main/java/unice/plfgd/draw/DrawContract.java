@@ -16,6 +16,10 @@ public interface DrawContract {
 		void onSending();
 
 		void resultSwitch(Draw draw);
+
+		void setCanvas(Draw draw);
+
+		Draw getDraw();
 	}
 
 	interface Presenter extends BasePresenter {
@@ -24,5 +28,9 @@ public interface DrawContract {
 		void onValid();
 
 		void resultSwitch(Draw draw);
+
+		void setCanvas(Draw draw);
+
+		Draw getDraw();
 	}
 }

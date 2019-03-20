@@ -57,6 +57,16 @@ public class DrawPresenter implements DrawContract.Presenter {
 		mView.resultSwitch(draw);
 	}
 
+	@Override
+	public void setCanvas(Draw draw) {
+		mView.setCanvas(draw);
+	}
+
+	@Override
+	public Draw getDraw() {
+		return mView.getDraw();
+	}
+
 	public Bundle getBundle() {
 		return bundle;
 	}
