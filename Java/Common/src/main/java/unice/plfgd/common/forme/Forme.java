@@ -18,7 +18,7 @@ public enum Forme {
 	    this.nom = nom;
     }
 
-    public String getName(){
+    public String toString(){
         return nom;
     }
 }
