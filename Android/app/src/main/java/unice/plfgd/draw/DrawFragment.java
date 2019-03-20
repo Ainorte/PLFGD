@@ -17,6 +17,7 @@ import unice.plfgd.common.forme.Forme;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.Connexion;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class DrawFragment extends Fragment implements DrawContract.View {
@@ -38,6 +39,28 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
+	}
+
+	@Override
+	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+		super.onViewStateRestored(savedInstanceState);
+		if (mPresenter != null && mPresenter instanceof DrawPresenter) {
+			Bundle b = ((DrawPresenter) mPresenter).getBundle();
+
+			Serializable drawObj = b.getSerializable("draw");
+			if (drawObj instanceof Draw) {
+				getCanvas().setDraw((Draw) drawObj);
+			}
+		}
+	}
+
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		outState.putSerializable("draw", getCanvas().getDraw());
+
+		((DrawPresenter) mPresenter).setBundle(outState);
 	}
 
 	@Override

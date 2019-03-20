@@ -1,5 +1,6 @@
 package unice.plfgd.draw;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
@@ -8,6 +9,7 @@ import unice.plfgd.tool.Connexion;
 public class DrawPresenter implements DrawContract.Presenter {
 
 	private DrawContract.View mView;
+	private Bundle bundle;
 	private Connexion connexion;
 
 	public DrawPresenter(@NonNull DrawContract.View view) {
@@ -53,5 +55,13 @@ public class DrawPresenter implements DrawContract.Presenter {
 	@Override
 	public void resultSwitch(Draw draw) {
 		mView.resultSwitch(draw);
+	}
+
+	public Bundle getBundle() {
+		return bundle;
+	}
+
+	public void setBundle(Bundle bundle) {
+		this.bundle = bundle;
 	}
 }
