@@ -3,7 +3,7 @@ package unice.plfgd.home;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.service.APIService;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -22,11 +22,11 @@ public class HomePresenter implements HomeContract.Presenter {
 
 	@Override
 	public void start() {
-		Connexion.getInstance().reset();
+		RemoteAPIImpl.getInstance().reset();
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
 	}
 
@@ -36,9 +36,9 @@ public class HomePresenter implements HomeContract.Presenter {
 		final Configuration instance = Configuration.getInstance();
 		instance.set("serverDomain", serverDomain);
 		instance.set("username", username);
-		final Connexion conn = Connexion.getInstance();
+		final RemoteAPIImpl conn = RemoteAPIImpl.getInstance();
 		conn.openSocket(instance);
-		APIService.getInstance().modeOnline(conn);
+		APIService.getInstance().setClient(conn);
 	}
 
 	@Override

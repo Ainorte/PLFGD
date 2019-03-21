@@ -1,5 +1,6 @@
-package unice.plfgd.tool;
+package unice.plfgd.tool.service;
 
+import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.client.IO;
@@ -7,28 +8,29 @@ import io.socket.client.Socket;
 import org.json.JSONObject;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
+import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.handler.AbstractHandler;
 import unice.plfgd.tool.handler.RecogHandler;
 import unice.plfgd.tool.handler.status.ConnectHandler;
 import unice.plfgd.tool.handler.status.DisconnectHandler;
 import unice.plfgd.tool.handler.DrawHandler;
 import unice.plfgd.tool.handler.status.TimeoutHandler;
-import unice.plfgd.tool.service.APIService;
 
 import java.net.URISyntaxException;
 
-public class Connexion {
+public class RemoteAPIImpl implements API {
+	private static final String TAG = "LOCAL_API_IMPLEMENTATION";
 
-	private static Connexion INSTANCE;
+	private static RemoteAPIImpl INSTANCE;
 	private Socket socket;
 	private User user;
 
-	private Connexion() {
+	private RemoteAPIImpl() {
 	}
 
-	public static Connexion getInstance() {
+	public static RemoteAPIImpl getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new Connexion();
+			INSTANCE = new RemoteAPIImpl();
 		}
 		return INSTANCE;
 	}
@@ -56,6 +58,7 @@ public class Connexion {
 	}
 
 	public void Identify() {
+		Log.i(TAG, "Identifying ourselves against remote server, as " + user.getName());
 		sendMessage("ident", user);
 	}
 
@@ -64,11 +67,14 @@ public class Connexion {
 		mapper.registerModule(new JsonOrgModule());
 		JSONObject object = mapper.convertValue(payload, JSONObject.class);
 
+		Log.i(TAG, "Sending message for event " + event);
+
 		socket.emit(event, object);
 	}
 
 	public void reset() {
 		if (isConnected()) {
+			Log.i(TAG, "Closing socket");
 			socket.close();
 		}
 	}

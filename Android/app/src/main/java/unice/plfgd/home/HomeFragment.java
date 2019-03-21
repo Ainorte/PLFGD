@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 
 		switch (message) {
 			case TIMEOUT:

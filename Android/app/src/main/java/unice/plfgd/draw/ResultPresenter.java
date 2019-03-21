@@ -1,8 +1,7 @@
 package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
-import unice.plfgd.common.data.Draw;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.service.APIService;
 
 public class ResultPresenter implements ResultContract.Presenter {
@@ -22,7 +21,7 @@ public class ResultPresenter implements ResultContract.Presenter {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
 	}
 

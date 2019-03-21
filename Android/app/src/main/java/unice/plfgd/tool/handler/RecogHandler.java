@@ -2,7 +2,6 @@ package unice.plfgd.tool.handler;
 
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.draw.DrawContract;
-import unice.plfgd.tool.Connexion;
 import unice.plfgd.tool.service.APIService;
 
 public class RecogHandler extends AbstractHandler {

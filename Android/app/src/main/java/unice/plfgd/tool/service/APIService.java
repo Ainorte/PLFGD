@@ -1,9 +1,7 @@
 package unice.plfgd.tool.service;
 
-import android.util.Log;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.Connexion;
 
 public class APIService {
 	private static APIService instance;
@@ -17,17 +15,15 @@ public class APIService {
 
 	//
 
-	public void modeOnline(Connexion client) {
-		IS_ONLINE = true;
-		onlineClient = client;
-	}
-
-	private boolean IS_ONLINE;
-	private Connexion onlineClient;
+	private API client;
 	private BasePresenter presenter;
 
 	public <T extends BasePresenter> T getPresenter(Class<T> obj) {
 		return (obj.isInstance(presenter)) ? obj.cast(presenter) : null;
+	}
+
+	public void setClient(API client) {
+		this.client = client;
 	}
 
 	public void setPresenter(BasePresenter presenter) {
@@ -35,11 +31,7 @@ public class APIService {
 	}
 
 	public void sendMessage(String event, Packet payload) {
-		if (IS_ONLINE) {
-			onlineClient.sendMessage(event, payload);
-		} else {
-			// TODO
-			Log.wtf("APIService", "TODO: Offline mode");
-		}
+		// TODO set client to LocalAPIImpl in case of offline mode. For now, it'll crash
+		client.sendMessage(event, payload);
 	}
 }
