@@ -49,24 +49,23 @@ public class RecogForme {
         if(thinnessRatio > 50) {
             res.add(Forme.SEGMENT);
             res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
+        } else if(thinnessRatio < 12.5){
+            res.add(Forme.CIRCLE);
+            res.add(new Cercle(MethodesForme.barycentre(convexHull),rectanglePerim/(2*Math.PI),0));
         } else if(convexTriangleRatio > 0.7 & convexTriangleRatio < 1) {
             res.add(Forme.TRIANGLE);
             res.add(triangle);
-        } else if(convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25){
-            if(convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1){
+        } else if(convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25) {
+            if (convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1) {
                 Point G = MethodesForme.barycentre(convexHull);
-                Carre carre = new Carre(G, rectanglePerim/4, 0);
+                Carre carre = new Carre(G, rectanglePerim / 4, 0);
                 res.add(Forme.SQUARE);
                 res.add(carre);
             } else {
                 res.add(Forme.RECTANGLE);
                 res.add(rectangle);
             }
-        } else if(thinnessRatio < 12.5){
-            res.add(Forme.CIRCLE);
-            res.add(new Cercle(MethodesForme.barycentre(convexHull),MethodesForme.norme(rectangle.getA(),rectangle.getB())/2,0));
-        }
-        else{
+        } else {
         	res.add(Forme.UNKNOWN);
         	res.add(new Inconnu(convexHull));
 		}
