@@ -16,13 +16,12 @@ public class HomePresenter implements HomeContract.Presenter {
 	HomePresenter(@NonNull HomeContract.View lobbyView) {
 		mView = checkNotNull(lobbyView);
 		mView.setPresenter(this);
-
-		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
 	public void start() {
 		RemoteAPIImpl.getInstance().reset();
+		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override

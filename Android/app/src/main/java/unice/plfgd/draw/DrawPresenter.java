@@ -13,13 +13,12 @@ public class DrawPresenter implements DrawContract.Presenter {
 	public DrawPresenter(@NonNull DrawContract.View view) {
 		this.mView = view;
 		mView.setPresenter(this);
-
-		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
 	public void start() {
 		mView.showOrder(Forme.SQUARE);
+		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
