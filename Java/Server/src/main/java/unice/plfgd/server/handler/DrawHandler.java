@@ -24,7 +24,7 @@ public class DrawHandler extends Handler<Draw> {
 			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
-			var detecForme = new DrawAction().run(data);
+			var detecForme = new DrawAction(null).run(data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());

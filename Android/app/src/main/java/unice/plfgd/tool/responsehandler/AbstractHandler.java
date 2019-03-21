@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.emitter.Emitter;
 import unice.plfgd.base.BasePresenter;
+import unice.plfgd.common.action.Handler;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.service.APIService;
 
-public abstract class AbstractHandler implements Emitter.Listener {
+public abstract class AbstractHandler implements Handler, Emitter.Listener {
 	private final ObjectMapper om;
 	private final APIService service;
 

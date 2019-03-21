@@ -6,19 +6,18 @@ import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.FormeFactory;
 import unice.plfgd.common.forme.Point;
 import unice.plfgd.common.forme.RecogForme;
-import unice.plfgd.tool.responsehandler.AbstractHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DrawAction extends Action<Draw, DetecForme> {
-	private AbstractHandler resultHandler;
+	private Handler resultHandler;
 
-	public AbstractHandler getResultHandler() {
+	public Handler getResultHandler() {
 		return resultHandler;
 	}
 
-	public DrawAction(AbstractHandler resultHandler) {
+	public DrawAction(Handler resultHandler) {
 		this.resultHandler = resultHandler;
 	}
 
