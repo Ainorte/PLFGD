@@ -46,9 +46,9 @@ public class Segment implements Serializable {
 		return constReelle;
 	}
 
-	public Forme getType(){
-	    return type;
-    }
+	public Forme getType() {
+		return type;
+	}
 
 	public String toString() {
 		return "Segment([" + p1.getX() + ";" + p1.getY() + "]" + "[" + p2.getX() + ";" + p2.getY() + "])";
@@ -81,9 +81,9 @@ public class Segment implements Serializable {
 	}
 
 	//Retourne true si il y a une intersection entre deux segment
-	public boolean isIntersection(Segment seg){
+	public boolean isIntersection(Segment seg) {
 		Point crossPoint = this.crossPoint(seg);
-		return seg.isPointInSeg(crossPoint,0) & this.isPointInSeg(crossPoint,0);
+		return seg.isPointInSeg(crossPoint, 0) & this.isPointInSeg(crossPoint, 0);
 	}
 
 	//Savoir si un autre segment est parallèle

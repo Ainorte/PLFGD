@@ -13,12 +13,12 @@ import java.util.List;
 public class DrawAction extends Action<Draw, DetecForme> {
 	private Handler resultHandler;
 
-	public Handler getResultHandler() {
-		return resultHandler;
-	}
-
 	public DrawAction(Handler resultHandler) {
 		this.resultHandler = resultHandler;
+	}
+
+	public Handler getResultHandler() {
+		return resultHandler;
 	}
 
 	@Override

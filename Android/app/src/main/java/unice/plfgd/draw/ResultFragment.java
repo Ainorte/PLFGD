@@ -27,6 +27,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	private DrawCanvas mCanvas;
 	private Button mReplay;
 	private ResultContract.Presenter mPresenter;
+
 	public ResultFragment() {
 
 	}

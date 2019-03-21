@@ -12,7 +12,7 @@ public class Point implements Serializable {
 	protected Forme type = Forme.POINT;
 
 	public Point(double x, double y) {
-		this(x,y,0,0);
+		this(x, y, 0, 0);
 	}
 
 	public Point(double x, double y, double xV, double yV) {
@@ -42,7 +42,7 @@ public class Point implements Serializable {
 	}
 
 
-	public Forme getType(){
+	public Forme getType() {
 		return type;
 	}
 
@@ -91,9 +91,9 @@ public class Point implements Serializable {
 		this.setY(new_y);
 	}
 
-	public double getDirection(Point pt){
-	    return Math.atan((pt.getY() - y) / (pt.getX() - x));
-    }
+	public double getDirection(Point pt) {
+		return Math.atan((pt.getY() - y) / (pt.getX() - x));
+	}
 
 	public Point pointSym(Point pt) {
 		double xS = 2 * this.x - pt.getX();

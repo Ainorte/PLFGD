@@ -3,9 +3,7 @@ package unice.plfgd.tool.service;
 import android.util.Log;
 import unice.plfgd.common.action.Action;
 import unice.plfgd.common.action.DrawAction;
-import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.responsehandler.DrawHandler;
 import unice.plfgd.tool.responsehandler.RecogHandler;
 
 import java.util.HashMap;
@@ -18,6 +16,10 @@ import java.util.Objects;
 public class LocalAPIImpl implements API {
 	private static final String TAG = "LOCAL_API_IMPLEMENTATION";
 	private final Map<String, Action> routes = new HashMap<>();
+
+	public LocalAPIImpl() {
+		registerHandlers();
+	}
 
 	@Override
 	public void sendMessage(String event, Packet payload) {
@@ -34,9 +36,5 @@ public class LocalAPIImpl implements API {
 
 	private void registerHandlers() {
 		this.routes.put("draw", new DrawAction(new RecogHandler(APIService.getInstance())));
-	}
-
-	public LocalAPIImpl() {
-		registerHandlers();
 	}
 }

@@ -26,7 +26,7 @@ public class Rectangle extends AbstractForme {
 		return (this.h + this.l) * 2;
 	}
 
-	public Forme getType(){
+	public Forme getType() {
 		return type;
 	}
 

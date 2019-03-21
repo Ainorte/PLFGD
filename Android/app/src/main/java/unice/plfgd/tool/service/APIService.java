@@ -5,6 +5,10 @@ import unice.plfgd.common.net.Packet;
 
 public class APIService {
 	private static APIService instance;
+	private API client;
+
+	//
+	private BasePresenter presenter;
 
 	public static APIService getInstance() {
 		if (instance == null) {
@@ -12,11 +16,6 @@ public class APIService {
 		}
 		return instance;
 	}
-
-	//
-
-	private API client;
-	private BasePresenter presenter;
 
 	public <T extends BasePresenter> T getPresenter(Class<T> obj) {
 		return (obj.isInstance(presenter)) ? obj.cast(presenter) : null;

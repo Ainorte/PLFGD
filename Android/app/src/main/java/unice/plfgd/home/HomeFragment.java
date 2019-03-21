@@ -57,11 +57,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		switch (message) {
 			case TIMEOUT:
 				Snackbar.make(Objects.requireNonNull(getView()),
-					R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
+						R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
 				break;
 			case CONNEXION_LOST:
 				Snackbar.make(Objects.requireNonNull(getView()),
-					R.string.connexionLost, Snackbar.LENGTH_LONG).show();
+						R.string.connexionLost, Snackbar.LENGTH_LONG).show();
 				break;
 		}
 
@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 				if (serverDomain.isEmpty() || username.isEmpty()) {
 					Snackbar.make(Objects.requireNonNull(getView()),
-						R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
+							R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
 
 					return;
 				}

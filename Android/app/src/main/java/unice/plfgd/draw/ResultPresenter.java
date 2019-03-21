@@ -1,8 +1,8 @@
 package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
-import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 public class ResultPresenter implements ResultContract.Presenter {
 

@@ -3,16 +3,8 @@ package unice.plfgd.server.handler;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.DrawAction;
-import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.data.Draw;
-import unice.plfgd.common.forme.Forme;
-import unice.plfgd.common.forme.FormeFactory;
-import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.forme.RecogForme;
 import unice.plfgd.server.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DrawHandler extends Handler<Draw> {
 

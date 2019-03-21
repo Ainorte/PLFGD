@@ -26,6 +26,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	private Button mReset;
 	private DrawCanvas mCanvas;
 	private Button mValid;
+
 	public DrawFragment() {
 		//required
 	}

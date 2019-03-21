@@ -1,9 +1,9 @@
 package unice.plfgd.tool.responsehandler.status;
 
 import unice.plfgd.home.HomeContract;
-import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.responsehandler.AbstractConnexionHandler;
 import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 public class DisconnectHandler extends AbstractConnexionHandler {
 

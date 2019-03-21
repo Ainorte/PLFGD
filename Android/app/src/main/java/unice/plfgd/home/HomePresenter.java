@@ -3,8 +3,8 @@ package unice.plfgd.home;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 

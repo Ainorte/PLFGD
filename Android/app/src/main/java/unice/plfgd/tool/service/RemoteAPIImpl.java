@@ -10,10 +10,10 @@ import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.responsehandler.AbstractHandler;
+import unice.plfgd.tool.responsehandler.DrawHandler;
 import unice.plfgd.tool.responsehandler.RecogHandler;
 import unice.plfgd.tool.responsehandler.status.ConnectHandler;
 import unice.plfgd.tool.responsehandler.status.DisconnectHandler;
-import unice.plfgd.tool.responsehandler.DrawHandler;
 import unice.plfgd.tool.responsehandler.status.TimeoutHandler;
 
 import java.net.URISyntaxException;
@@ -79,11 +79,6 @@ public class RemoteAPIImpl implements API {
 		}
 	}
 
-	public enum ResetSocketMessage {
-		CONNEXION_LOST,
-		TIMEOUT
-	}
-
 	private void defineHandlers() {
 		APIService svc = APIService.getInstance();
 
@@ -94,5 +89,10 @@ public class RemoteAPIImpl implements API {
 		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
 		socket.on("draw", new DrawHandler(svc));
 		socket.on("recog", new RecogHandler(svc));
+	}
+
+	public enum ResetSocketMessage {
+		CONNEXION_LOST,
+		TIMEOUT
 	}
 }

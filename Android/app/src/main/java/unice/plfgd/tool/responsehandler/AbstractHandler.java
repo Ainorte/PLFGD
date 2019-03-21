@@ -22,7 +22,7 @@ public abstract class AbstractHandler implements Handler, Emitter.Listener {
 		return om.convertValue(obj, clazz);
 	}
 
-	protected  <T extends BasePresenter> T getPresenter(Class<T> obj) {
+	protected <T extends BasePresenter> T getPresenter(Class<T> obj) {
 		return service.getPresenter(obj);
 	}
 }
