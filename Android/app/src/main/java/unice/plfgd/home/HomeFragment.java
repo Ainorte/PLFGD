@@ -14,6 +14,8 @@ import android.widget.EditText;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
+import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.LocalAPIImpl;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
@@ -106,6 +108,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mEntButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				APIService.getInstance().setClient(new LocalAPIImpl());
 				mPresenter.setDrawActivity();
 			}
 		});

@@ -31,7 +31,6 @@ public class APIService {
 	}
 
 	public void sendMessage(String event, Packet payload) {
-		// TODO set client to LocalAPIImpl in case of offline mode. For now, it'll crash
 		client.sendMessage(event, payload);
 	}
 }
