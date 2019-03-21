@@ -17,7 +17,7 @@ public class RecogForme {
             return obj;
         }
         List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
-        List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
+        List<Point> encRectangle = RotatingCalipers.getMinimumBoundingRectangle(convexHull);
         return recog(convexHull, encTriangle, encRectangle);
     }
 
