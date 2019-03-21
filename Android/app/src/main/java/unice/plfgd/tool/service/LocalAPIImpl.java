@@ -1,8 +1,12 @@
 package unice.plfgd.tool.service;
 
 import android.util.Log;
+import unice.plfgd.common.action.Action;
+import unice.plfgd.common.action.DrawAction;
+import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.service.local.Action;
+import unice.plfgd.tool.responsehandler.DrawHandler;
+import unice.plfgd.tool.responsehandler.RecogHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +23,20 @@ public class LocalAPIImpl implements API {
 	public void sendMessage(String event, Packet payload) {
 		if (routes.containsKey(event)) {
 			Log.i(TAG, String.format("Route found for event %s, running action...", event));
-			Objects.requireNonNull(routes.get(event)).run(payload);
+			final Action action = Objects.requireNonNull(routes.get(event));
+			Packet result = action.run(payload);
+			Log.i(TAG, "Obtained a result");
+			action.getResultHandler().call(result);
 		} else {
 			Log.wtf(TAG, String.format("Route not found for event %s, ignoring", event));
 		}
 	}
 
-	public LocalAPIImpl register(String event, Action action) {
-		this.routes.put(event, action);
-		return this;
+	private void registerHandlers() {
+		this.routes.put("draw", new DrawAction(new RecogHandler(APIService.getInstance())));
+	}
+
+	public LocalAPIImpl() {
+		registerHandlers();
 	}
 }

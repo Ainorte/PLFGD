@@ -1,4 +1,4 @@
-package unice.plfgd.tool.handler;
+package unice.plfgd.tool.responsehandler;
 
 import unice.plfgd.tool.service.RemoteAPIImpl;
 import unice.plfgd.tool.service.APIService;

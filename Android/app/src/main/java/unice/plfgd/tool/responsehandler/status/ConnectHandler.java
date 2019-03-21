@@ -1,7 +1,7 @@
-package unice.plfgd.tool.handler.status;
+package unice.plfgd.tool.responsehandler.status;
 
 import unice.plfgd.home.HomeContract;
-import unice.plfgd.tool.handler.AbstractConnexionHandler;
+import unice.plfgd.tool.responsehandler.AbstractConnexionHandler;
 import unice.plfgd.tool.service.APIService;
 
 public class ConnectHandler extends AbstractConnexionHandler {

@@ -9,12 +9,12 @@ import org.json.JSONObject;
 import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.handler.AbstractHandler;
-import unice.plfgd.tool.handler.RecogHandler;
-import unice.plfgd.tool.handler.status.ConnectHandler;
-import unice.plfgd.tool.handler.status.DisconnectHandler;
-import unice.plfgd.tool.handler.DrawHandler;
-import unice.plfgd.tool.handler.status.TimeoutHandler;
+import unice.plfgd.tool.responsehandler.AbstractHandler;
+import unice.plfgd.tool.responsehandler.RecogHandler;
+import unice.plfgd.tool.responsehandler.status.ConnectHandler;
+import unice.plfgd.tool.responsehandler.status.DisconnectHandler;
+import unice.plfgd.tool.responsehandler.DrawHandler;
+import unice.plfgd.tool.responsehandler.status.TimeoutHandler;
 
 import java.net.URISyntaxException;
 

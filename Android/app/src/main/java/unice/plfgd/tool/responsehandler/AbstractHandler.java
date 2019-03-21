@@ -1,4 +1,4 @@
-package unice.plfgd.tool.handler;
+package unice.plfgd.tool.responsehandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;

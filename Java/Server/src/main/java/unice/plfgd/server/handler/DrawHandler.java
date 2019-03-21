@@ -2,6 +2,7 @@ package unice.plfgd.server.handler;
 
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
+import unice.plfgd.common.action.DrawAction;
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
@@ -23,26 +24,12 @@ public class DrawHandler extends Handler<Draw> {
 			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
-			List<List<Point>> points = data.getPoints();
-			/*List<List<Point>> results = new ArrayList<>();
-			for (List<Point> point:points) {
-				List<Point> s = sanitize(point,10);
-				results.add(s);
-				results.add(ConvexHull.getConvexHull(s)); //Add the convex hull to the result sent back to client for comparaison purpose
+			var detecForme = new DrawAction().run(data);
 
-			}*/
-			List<Point> pts = new ArrayList<>();
-			for(List<Point> p : points){
-				pts.addAll(p);
-			}
+			Log.log(detecForme.getDraw().toString());
+			Log.log(detecForme.getForme().toString());
 
-			List<Object> results = RecogForme.process(pts);
-			Draw draw = new Draw(new ArrayList<>(){{add(FormeFactory.make(results));}}, data.getWidth(), data.getHeight());
-			Log.log(draw.toString());
-			Log.log(results.get(0).toString());
-			//Log.log(Log.State.BLUE,"Reduced input from "+data.getPoints().size()+" to "+ sanitize(data.getPoints(),20)/.size());
-			client.sendEvent("recog",new DetecForme(draw, (Forme) results.get(0)));
-			//client.sendEvent("draw", data);
+			client.sendEvent("recog", detecForme);
 		}
 	}
 }

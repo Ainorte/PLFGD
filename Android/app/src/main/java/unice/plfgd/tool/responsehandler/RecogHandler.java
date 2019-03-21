@@ -1,4 +1,4 @@
-package unice.plfgd.tool.handler;
+package unice.plfgd.tool.responsehandler;
 
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.draw.DrawContract;
