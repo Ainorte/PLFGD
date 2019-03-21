@@ -8,5 +8,5 @@ public interface BasePresenter {
 
 	void onSocketReset(Connexion.ResetSocketMessage message);
 
-	Draw getDraw();
+	Draw getResult();
 }

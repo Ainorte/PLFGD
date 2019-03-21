@@ -33,7 +33,7 @@ public class HomePresenter implements HomeContract.Presenter {
 	}
 
 	@Override
-	public Draw getDraw() {
+	public Draw getResult() {
 		return null;
 	}
 

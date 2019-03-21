@@ -1,5 +1,6 @@
 package unice.plfgd.draw;
 
+import android.view.View;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Draw;
@@ -16,10 +17,6 @@ public interface DrawContract {
 		void onSending();
 
 		void resultSwitch(Draw draw);
-
-		void setCanvas(Draw draw);
-
-		Draw getDraw();
 	}
 
 	interface Presenter extends BasePresenter {
@@ -29,8 +26,12 @@ public interface DrawContract {
 
 		void resultSwitch(Draw draw);
 
-		void setCanvas(Draw draw);
+		void setDraw(Draw draw);
 
-		Draw getDraw();
+		Draw getResult();
+
+		DrawCanvas.OnSizeChange onDrawSizeChange();
+
+		android.view.View.OnTouchListener onCanvasTouch();
 	}
 }

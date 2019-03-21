@@ -51,6 +51,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
+	public HomeContract.Presenter getPresenter() {
+		return mPresenter;
+	}
+
+	@Override
 	public void onSocketReset(Connexion.ResetSocketMessage message) {
 
 		switch (message) {

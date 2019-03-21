@@ -29,8 +29,8 @@ public class ResultPresenter implements ResultContract.Presenter {
 	}
 
 	@Override
-	public Draw getDraw() {
-		return null;
+	public Draw getResult() {
+		return result;
 	}
 
 	@Override
@@ -41,5 +41,22 @@ public class ResultPresenter implements ResultContract.Presenter {
 	@Override
 	public void replay() {
 		mView.replay();
+	}
+
+	@Override
+	public DrawCanvas.OnSizeChange onDrawSizeChange() {
+		return new DrawCanvas.OnSizeChange() {
+			@Override
+			public void onSizeChange() {
+				if (result != null &&  result.getPoints() != null) {
+					result = mView.getCanvas().drawResult(result);
+				}
+			}
+		};
+	}
+
+	@Override
+	public void setResult(Draw result) {
+		this.result = result;
 	}
 }
