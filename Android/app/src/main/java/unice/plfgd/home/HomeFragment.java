@@ -42,13 +42,19 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
-		mConnectButton.setText(R.string.connect);
-		mConnectButton.setEnabled(true);
+		resetInteraction();
 	}
+
+
 
 	@Override
 	public void setPresenter(@NonNull HomeContract.Presenter presenter) {
 		this.mPresenter = presenter;
+	}
+
+	@Override
+	public HomeContract.Presenter getPresenter() {
+		return mPresenter;
 	}
 
 	@Override
@@ -68,8 +74,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		getView().post(new Runnable() {
 			@Override
 			public void run() {
-				mConnectButton.setText(R.string.connect);
-				mConnectButton.setEnabled(true);
+				resetInteraction();
 			}
 		});
 	}
@@ -117,9 +122,20 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void initSocket() {
+	public void blockInteration() {
 		mConnectButton.setEnabled(false);
+		mEntButton.setEnabled(false);
+
 		mConnectButton.setText(R.string.connecting);
+	}
+
+	@Override
+	public void resetInteraction() {
+		mConnectButton.setText(R.string.connect);
+		mUsernameField.setEnabled(true);
+		mServerField.setEnabled(true);
+		mConnectButton.setEnabled(true);
+		mEntButton.setEnabled(true);
 	}
 
 	@Override

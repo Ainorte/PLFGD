@@ -2,6 +2,7 @@ package unice.plfgd.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
@@ -30,8 +31,13 @@ public class HomePresenter implements HomeContract.Presenter {
 	}
 
 	@Override
+	public Draw getResult() {
+		return null;
+	}
+
+	@Override
 	public void initSocket(String serverDomain, String username) {
-		mView.initSocket();
+		mView.blockInteration();
 		final Configuration instance = Configuration.getInstance();
 		instance.set("serverDomain", serverDomain);
 		instance.set("username", username);
@@ -42,6 +48,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
 	@Override
 	public void setDrawActivity() {
+		mView.blockInteration();
 		mView.setDrawActivity();
 	}
 

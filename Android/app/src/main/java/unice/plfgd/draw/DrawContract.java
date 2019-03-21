@@ -24,5 +24,13 @@ public interface DrawContract {
 		void onValid();
 
 		void resultSwitch(Draw draw);
+
+		void setDraw(Draw draw);
+
+		Draw getResult();
+
+		DrawCanvas.OnSizeChange onDrawSizeChange();
+
+		android.view.View.OnTouchListener onCanvasTouch();
 	}
 }
