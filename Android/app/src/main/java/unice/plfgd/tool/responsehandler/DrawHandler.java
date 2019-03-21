@@ -1,12 +1,12 @@
-package unice.plfgd.tool.handler;
+package unice.plfgd.tool.responsehandler;
 
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.draw.DrawContract;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
 
 public class DrawHandler extends AbstractHandler {
-	public DrawHandler(Connexion connexion) {
-		super(connexion);
+	public DrawHandler(APIService svc) {
+		super(svc);
 	}
 
 	@Override
@@ -14,7 +14,7 @@ public class DrawHandler extends AbstractHandler {
 		if (args.length >= 1) {
 			Draw draw = castValue(args[0], Draw.class);
 
-			getConnexion().getPresenter(DrawContract.Presenter.class).resultSwitch(draw);
+			getPresenter(DrawContract.Presenter.class).resultSwitch(draw);
 		}
 	}
 }

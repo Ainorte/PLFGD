@@ -1,9 +1,9 @@
 package unice.plfgd.base;
 
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 public interface BasePresenter {
 	void start();
 
-	void onSocketReset(Connexion.ResetSocketMessage message);
+	void onSocketReset(RemoteAPIImpl.ResetSocketMessage message);
 }

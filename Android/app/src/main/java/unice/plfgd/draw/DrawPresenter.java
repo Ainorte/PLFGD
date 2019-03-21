@@ -3,30 +3,26 @@ package unice.plfgd.draw;
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 public class DrawPresenter implements DrawContract.Presenter {
 
 	private DrawContract.View mView;
-	private Connexion connexion;
 
 	public DrawPresenter(@NonNull DrawContract.View view) {
 		this.mView = view;
 		mView.setPresenter(this);
-
-		this.connexion = Connexion.getInstance();
-		if (connexion.isConnected()) {
-			connexion.setPresenter(this);
-		}
 	}
 
 	@Override
 	public void start() {
 		mView.showOrder(Forme.SQUARE);
+		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
 	}
 
@@ -42,12 +38,7 @@ public class DrawPresenter implements DrawContract.Presenter {
 
 		DrawCanvas canvas = mView.getCanvas();
 
-		if (connexion.isConnected()) {
-			connexion.sendMessage("draw", canvas.getDraw().convertRefactor(100, 100));
-		}
-		else {
-			resultSwitch(canvas.getDraw());
-		}
+		APIService.getInstance().sendMessage("draw", canvas.getDraw().convertRefactor(100, 100));
 	}
 
 	@Override

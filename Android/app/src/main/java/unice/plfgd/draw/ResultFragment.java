@@ -14,7 +14,7 @@ import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
@@ -27,6 +27,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	private DrawCanvas mCanvas;
 	private Button mReplay;
 	private ResultContract.Presenter mPresenter;
+
 	public ResultFragment() {
 
 	}
@@ -41,7 +42,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		startActivity(intent);
 	}

@@ -15,7 +15,7 @@ import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
@@ -26,6 +26,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	private Button mReset;
 	private DrawCanvas mCanvas;
 	private Button mValid;
+
 	public DrawFragment() {
 		//required
 	}
@@ -46,7 +47,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		startActivity(intent);
 	}
