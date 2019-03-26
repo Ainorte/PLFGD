@@ -14,19 +14,19 @@ import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
 public class ResultFragment extends Fragment implements ResultContract.View {
 
 	private Button mReturn;
-	private Draw mResult;
 	private TextView mResponse;
 	private TextView mComment;
 	private DrawCanvas mCanvas;
 	private Button mReplay;
 	private ResultContract.Presenter mPresenter;
+
 	public ResultFragment() {
 
 	}
@@ -41,7 +41,12 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public ResultContract.Presenter getPresenter() {
+		return mPresenter;
+	}
+
+	@Override
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		startActivity(intent);
 	}
@@ -52,11 +57,15 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		mPresenter.start();
 	}
 
+
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mResult = (Draw) getArguments().getSerializable("draw");
+		setRetainInstance(true);
+		if (getArguments() != null && mPresenter != null) {
+			if (getArguments().getSerializable("draw") != null) {
+				mPresenter.setResult((Draw) getArguments().getSerializable("draw"));
+			}
 		}
 	}
 
@@ -87,8 +96,8 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		mComment.setText(R.string.good_comment);
 
 		mCanvas = view.findViewById(R.id.result_canvas);
-		mCanvas.setDraw(mResult);
 		mCanvas.setActive(false);
+		mCanvas.setOnSizeChange(mPresenter.onDrawSizeChange());
 
 		return view;
 	}
@@ -106,9 +115,12 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		DrawFragment fragment = DrawFragment.newInstance();
 		DrawPresenter presenter = new DrawPresenter(fragment);
 
-		((DrawActivity) getActivity()).setPresenter(presenter);
-
 		transaction.replace(R.id.contentFrame, fragment);
 		transaction.commit();
+	}
+
+	@Override
+	public DrawCanvas getCanvas() {
+		return mCanvas;
 	}
 }

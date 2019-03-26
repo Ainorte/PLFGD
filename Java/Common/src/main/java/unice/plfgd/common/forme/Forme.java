@@ -5,20 +5,20 @@ public enum Forme {
 	SEGMENT("Segment"),
 	SQUARE("Carre"),
 	TRIANGLE("Triangle"),
-    ELLIPSE("Ellipse"),
+	ELLIPSE("Ellipse"),
 	CIRCLE("Cercle"),
-    RECTANGLE("Rectangle"),
-    QUADRI("Quadrilatere"),
+	RECTANGLE("Rectangle"),
+	QUADRI("Quadrilatere"),
 	UNKNOWN("Inconnu");
 
 
-    private String nom = "";
+	private String nom = "";
 
-	Forme(String nom){
-	    this.nom = nom;
-    }
+	Forme(String nom) {
+		this.nom = nom;
+	}
 
-    public String toString(){
-        return nom;
-    }
+	public String toString() {
+		return nom;
+	}
 }

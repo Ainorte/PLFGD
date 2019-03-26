@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.LocalAPIImpl;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
@@ -41,9 +42,10 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
-		mConnectButton.setText(R.string.connect);
-		mConnectButton.setEnabled(true);
+		resetInteraction();
 	}
+
+
 
 	@Override
 	public void setPresenter(@NonNull HomeContract.Presenter presenter) {
@@ -51,24 +53,28 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public HomeContract.Presenter getPresenter() {
+		return mPresenter;
+	}
+
+	@Override
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 
 		switch (message) {
 			case TIMEOUT:
 				Snackbar.make(Objects.requireNonNull(getView()),
-					R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
+						R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
 				break;
 			case CONNEXION_LOST:
 				Snackbar.make(Objects.requireNonNull(getView()),
-					R.string.connexionLost, Snackbar.LENGTH_LONG).show();
+						R.string.connexionLost, Snackbar.LENGTH_LONG).show();
 				break;
 		}
 
 		getView().post(new Runnable() {
 			@Override
 			public void run() {
-				mConnectButton.setText(R.string.connect);
-				mConnectButton.setEnabled(true);
+				resetInteraction();
 			}
 		});
 	}
@@ -86,7 +92,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 				if (serverDomain.isEmpty() || username.isEmpty()) {
 					Snackbar.make(Objects.requireNonNull(getView()),
-						R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
+							R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
 
 					return;
 				}
@@ -107,6 +113,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mEntButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				APIService.getInstance().setClient(new LocalAPIImpl());
 				mPresenter.setDrawActivity();
 			}
 		});
@@ -115,9 +122,20 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void initSocket() {
+	public void blockInteration() {
 		mConnectButton.setEnabled(false);
+		mEntButton.setEnabled(false);
+
 		mConnectButton.setText(R.string.connecting);
+	}
+
+	@Override
+	public void resetInteraction() {
+		mConnectButton.setText(R.string.connect);
+		mUsernameField.setEnabled(true);
+		mServerField.setEnabled(true);
+		mConnectButton.setEnabled(true);
+		mEntButton.setEnabled(true);
 	}
 
 	@Override

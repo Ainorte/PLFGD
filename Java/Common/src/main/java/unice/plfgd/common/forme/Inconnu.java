@@ -4,19 +4,19 @@ import java.util.List;
 
 public class Inconnu {
 
-    protected List<Point> forme;
-    protected Forme type = Forme.UNKNOWN;
+	protected List<Point> forme;
+	protected Forme type = Forme.UNKNOWN;
 
 
-    public Inconnu(List<Point> pts){
-        this.forme = pts;
-    }
+	public Inconnu(List<Point> pts) {
+		this.forme = pts;
+	}
 
-    public Forme getType(){
-        return type;
-    }
+	public Forme getType() {
+		return type;
+	}
 
-    public List<Point> make(){
-        return forme;
-    }
+	public List<Point> make() {
+		return forme;
+	}
 }

@@ -5,7 +5,9 @@ import unice.plfgd.base.BaseView;
 
 public interface HomeContract {
 	interface View extends BaseView<Presenter> {
-		void initSocket();
+		void blockInteration();
+
+		void resetInteraction();
 
 		void setDrawActivity();
 	}

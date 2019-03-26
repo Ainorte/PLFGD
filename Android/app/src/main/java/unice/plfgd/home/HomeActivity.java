@@ -7,6 +7,7 @@ import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.tool.ActivityTools;
 import unice.plfgd.tool.Configuration;
+import unice.plfgd.tool.service.APIService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,5 +51,7 @@ public class HomeActivity extends AppCompatActivity {
 
 		//Set up presenter
 		mPresenter = new HomePresenter(homeFragment);
+
+		APIService.getInstance().setPresenter(mPresenter);
 	}
 }

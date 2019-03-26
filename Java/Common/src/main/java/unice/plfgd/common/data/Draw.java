@@ -21,27 +21,28 @@ public class Draw extends Packet {
 		this(new ArrayList<List<Point>>(), width, height);
 	}
 
-	public Draw() {points = new ArrayList<>();
+	public Draw() {
+		points = new ArrayList<>();
 	}
 
 	public List<List<Point>> getPoints() {
 		return points;
 	}
 
-	public int getWidth() {
-		return width;
-	}
-
 	public void setPoints(List<List<Point>> points) {
 		this.points = points;
 	}
 
-	public int getHeight() {
-		return height;
+	public int getWidth() {
+		return width;
 	}
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	public void setHeight(int height) {

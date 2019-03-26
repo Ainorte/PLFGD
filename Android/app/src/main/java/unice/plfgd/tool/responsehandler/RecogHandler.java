@@ -1,13 +1,13 @@
-package unice.plfgd.tool.handler;
+package unice.plfgd.tool.responsehandler;
 
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.draw.DrawContract;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
 
 public class RecogHandler extends AbstractHandler {
 
-	public RecogHandler(Connexion connexion) {
-		super(connexion);
+	public RecogHandler(APIService svc) {
+		super(svc);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class RecogHandler extends AbstractHandler {
 		if (args.length >= 1) {
 			DetecForme detecForme = castValue(args[0], DetecForme.class);
 
-			getConnexion().getPresenter(DrawContract.Presenter.class).resultSwitch(detecForme.getDraw());
+			getPresenter(DrawContract.Presenter.class).resultSwitch(detecForme.getDraw());
 		}
 	}
 }

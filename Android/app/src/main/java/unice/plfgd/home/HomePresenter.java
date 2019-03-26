@@ -2,46 +2,53 @@ package unice.plfgd.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import unice.plfgd.common.data.Draw;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.APIService;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class HomePresenter implements HomeContract.Presenter {
 
 	private final HomeContract.View mView;
-	private Connexion connexion;
 
 	@SuppressLint("RestrictedApi")
 	HomePresenter(@NonNull HomeContract.View lobbyView) {
 		mView = checkNotNull(lobbyView);
 		mView.setPresenter(this);
-
-		connexion = Connexion.getInstance();
-		connexion.setPresenter(this);
 	}
 
 	@Override
 	public void start() {
-		connexion.reset();
+		RemoteAPIImpl.getInstance().reset();
+		APIService.getInstance().setPresenter(this);
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
 	}
 
 	@Override
+	public Draw getResult() {
+		return null;
+	}
+
+	@Override
 	public void initSocket(String serverDomain, String username) {
-		mView.initSocket();
+		mView.blockInteration();
 		final Configuration instance = Configuration.getInstance();
 		instance.set("serverDomain", serverDomain);
 		instance.set("username", username);
-		connexion.openSocket(instance);
+		final RemoteAPIImpl conn = RemoteAPIImpl.getInstance();
+		conn.openSocket(instance);
+		APIService.getInstance().setClient(conn);
 	}
 
 	@Override
 	public void setDrawActivity() {
+		mView.blockInteration();
 		mView.setDrawActivity();
 	}
 

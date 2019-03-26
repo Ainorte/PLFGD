@@ -15,7 +15,7 @@ import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Connexion;
+import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
@@ -24,10 +24,12 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	private DrawContract.Presenter mPresenter;
 	private TextView mOrder;
 	private Button mReset;
-	private DrawCanvas mCanvas;
+	private DrawCanvas draw;
 	private Button mValid;
+
 	public DrawFragment() {
 		//required
+		setRetainInstance(true);
 	}
 
 	public static DrawFragment newInstance() {
@@ -41,12 +43,23 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	}
 
 	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+	}
+
+	@Override
 	public void setPresenter(DrawContract.Presenter presenter) {
 		this.mPresenter = presenter;
 	}
 
 	@Override
-	public void onSocketReset(Connexion.ResetSocketMessage message) {
+	public DrawContract.Presenter getPresenter() {
+		return mPresenter;
+	}
+
+	@Override
+	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		startActivity(intent);
 	}
@@ -71,8 +84,9 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 				mPresenter.onValid();
 			}
 		});
-		mCanvas = view.findViewById(R.id.draw_canvas);
-
+		draw = view.findViewById(R.id.draw_canvas);
+		draw.setOnSizeChange(mPresenter.onDrawSizeChange());
+		draw.setOnTouchListener(mPresenter.onCanvasTouch());
 
 		return view;
 	}
@@ -109,19 +123,19 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 	@Override
 	public void resetCanvas() {
-		mCanvas.clear();
+		draw.clear();
 	}
 
 	@Override
 	public DrawCanvas getCanvas() {
-		return mCanvas;
+		return draw;
 	}
 
 	public void onSending() {
 		Objects.requireNonNull(getView()).post(new Runnable() {
 			@Override
 			public void run() {
-				mCanvas.setActive(false);
+				draw.setActive(false);
 				mValid.setEnabled(false);
 				mReset.setEnabled(false);
 				mValid.setText(R.string.wait);
@@ -135,8 +149,6 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 		ResultFragment fragment = ResultFragment.newInstance();
 		ResultPresenter presenter = new ResultPresenter(fragment);
-
-		((DrawActivity) getActivity()).setPresenter(presenter);
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("draw", draw);

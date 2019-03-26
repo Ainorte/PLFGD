@@ -65,15 +65,15 @@ public class MethodesForme {
 	}
 
 	// n is the point to find courbature around, k is neighborhood size
-	public static double courbature(List<Point> pts, int n, int k){
+	public static double courbature(List<Point> pts, int n, int k) {
 		int listSize = pts.size();
-		if(n+k >= listSize) n = listSize - k - 1;
-		if(n-k < 0) n = k;
+		if (n + k >= listSize) n = listSize - k - 1;
+		if (n - k < 0) n = k;
 		double theta = 0;
 		double pathDist = 0;
-		for(int i = n-k; i < n+k-1; i++){
-			theta += normalizeAngle(pts.get(i+1).getDirection(pts.get(i+2)) - pts.get(i).getDirection(pts.get(i+1)));
-			pathDist += MethodesForme.norme(pts.get(i), pts.get(i+1));
+		for (int i = n - k; i < n + k - 1; i++) {
+			theta += normalizeAngle(pts.get(i + 1).getDirection(pts.get(i + 2)) - pts.get(i).getDirection(pts.get(i + 1)));
+			pathDist += MethodesForme.norme(pts.get(i), pts.get(i + 1));
 		}
 		return theta / pathDist;
 	}
