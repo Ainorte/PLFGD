@@ -34,7 +34,7 @@
 
 ## 2019-03-21 : LIVRAISON 06 : Corrections de bugs
 
-- Correction de bugs et continuation sur la reconnaissance de forme
+- Correction de bugs et intégration de la reconnaissance de forme
 
 ## 2019-03-28 : LIVRAISON 07 : Jeu du carré-triangle-rond + Jeu de mémorisation de forme
 
