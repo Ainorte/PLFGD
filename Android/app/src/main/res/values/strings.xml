@@ -26,4 +26,6 @@
 	<string name="win">Vous avez gagnez !</string>
 	<string name="lose">Vous avez perdu...</string>
 	<string name="vs">VS</string>
+	<string name="sct">Carre Triangle Rond</string>
+	<string name="drawforme">Dessiner une forme</string>
 </resources>
