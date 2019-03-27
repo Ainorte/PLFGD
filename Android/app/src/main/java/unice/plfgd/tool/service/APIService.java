@@ -48,7 +48,14 @@ public class APIService {
 	}
 
 	public void sendResponse(Packet packet){
+	}
 
+	public Game getActualGame() {
+		return actualGame;
+	}
+
+	public void resetGame(){
+		actualGame = Game.NONE;
 	}
 
 	public void sendMessage(String event, Packet payload) {

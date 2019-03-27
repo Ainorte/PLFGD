@@ -10,6 +10,7 @@ import unice.plfgd.common.data.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.responsehandler.AbstractHandler;
+import unice.plfgd.tool.responsehandler.DrawFormeHandler;
 import unice.plfgd.tool.responsehandler.DrawHandler;
 import unice.plfgd.tool.responsehandler.RecogHandler;
 import unice.plfgd.tool.responsehandler.status.ConnectHandler;
@@ -43,7 +44,7 @@ public class RemoteAPIImpl implements API {
 		this.user = new User(conf.getOrNull("username"));
 
 		try {
-			socket = IO.socket("http://" + conf.getOrNull("serverDomain"));
+			socket = IO.socket("http://" + conf.getOrNull("serverURL"));
 
 			defineHandlers();
 		} catch (URISyntaxException e) {
@@ -89,6 +90,7 @@ public class RemoteAPIImpl implements API {
 		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
 		socket.on("draw", new DrawHandler(svc));
 		socket.on("recog", new RecogHandler(svc));
+		socket.on("drawForme", new DrawFormeHandler(svc));
 	}
 
 	public enum ResetSocketMessage {

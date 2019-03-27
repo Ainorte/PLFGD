@@ -7,6 +7,8 @@ import android.view.View;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.net.Packet;
+import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
@@ -18,6 +20,8 @@ public class DrawPresenter implements DrawContract.Presenter {
 	private boolean canvasOverflow;
 	private VelocityTracker velocityTracker;
 
+	private Forme order;
+
 	public DrawPresenter(@NonNull DrawContract.View view) {
 		this.mView = view;
 		mView.setPresenter(this);
@@ -26,7 +30,7 @@ public class DrawPresenter implements DrawContract.Presenter {
 
 	@Override
 	public void start() {
-		mView.showOrder(Forme.SQUARE);
+		mView.showOrder(order);
 		APIService.getInstance().setPresenter(this);
 	}
 
@@ -47,17 +51,22 @@ public class DrawPresenter implements DrawContract.Presenter {
 		// test pour recup le tableau des points et le mettre dans un TextView
 		mView.onSending();
 
-		APIService.getInstance().sendMessage("draw", mDraw.convertRefactor(100, 100));
+		APIService.getInstance().sendMessage("draw", mDraw.convertRefactor(1000, 1000));
 	}
 
 	@Override
-	public void resultSwitch(Draw draw) {
-		mView.resultSwitch(draw);
+	public void resultSwitch(Packet result, Game game) {
+		mView.resultSwitch(result, game);
 	}
 
 	@Override
 	public void setDraw(Draw draw) {
 		mDraw = draw;
+	}
+
+	@Override
+	public void setOrder(Forme forme) {
+		order = forme;
 	}
 
 	@Override

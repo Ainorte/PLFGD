@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
+import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
+import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
@@ -64,9 +67,12 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 		if (getArguments() != null && mPresenter != null) {
-			if (getArguments().getSerializable("draw") != null) {
-				mPresenter.setResult((Draw) getArguments().getSerializable("draw"));
+			if (getArguments().getSerializable("result") != null) {
+				mPresenter.setResult((Packet) getArguments().getSerializable("result"));
 			}
+			if(getArguments().getSerializable("game") != null){
+			    mPresenter.setGame((Game) getArguments().getSerializable("game"));
+            }
 		}
 	}
 
@@ -110,11 +116,16 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public void replay() {
+	public void changeFragment(Packet payload){
 		FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
 
 		DrawFragment fragment = DrawFragment.newInstance();
 		DrawPresenter presenter = new DrawPresenter(fragment);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("payload", payload);
+
+        fragment.setArguments(bundle);
 
 		transaction.replace(R.id.contentFrame, fragment);
 		transaction.commit();

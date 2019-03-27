@@ -4,6 +4,8 @@ import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.net.Packet;
+import unice.plfgd.tool.Game;
 
 public interface DrawContract {
 	interface View extends BaseView<Presenter> {
@@ -15,7 +17,7 @@ public interface DrawContract {
 
 		void onSending();
 
-		void resultSwitch(Draw draw);
+		void resultSwitch(Packet result, Game game);
 	}
 
 	interface Presenter extends BasePresenter {
@@ -23,9 +25,11 @@ public interface DrawContract {
 
 		void onValid();
 
-		void resultSwitch(Draw draw);
+		void resultSwitch(Packet result, Game game);
 
 		void setDraw(Draw draw);
+
+		void setOrder(Forme forme);
 
 		DrawCanvas.OnSizeChange onDrawSizeChange();
 

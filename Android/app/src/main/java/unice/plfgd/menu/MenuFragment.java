@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.RemoteAPIImpl;
@@ -97,8 +98,9 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	}
 
 	@Override
-	public void setActivity(Class<? extends Activity> activity) {
+	public void setActivity(Class<? extends Activity> activity, Packet payload) {
 		Intent intent = new Intent(getContext(), activity);
+		intent.putExtra("payload", payload);
 		startActivity(intent);
 	}
 

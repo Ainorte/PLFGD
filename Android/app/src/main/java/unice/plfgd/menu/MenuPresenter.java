@@ -2,6 +2,7 @@ package unice.plfgd.menu;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.Game;
@@ -35,13 +36,17 @@ public class MenuPresenter implements MenuContract.Presenter {
 		mView.blockInteration();
 		switch (game){
 			case DRAWFORME:
-
-				mView.setActivity(DrawActivity.class);
+				APIService.getInstance().lauchGame(game);
 				break;
 			case SCT:
 				mView.onSocketReset(RemoteAPIImpl.ResetSocketMessage.CONNEXION_LOST);
 				break;
 		}
+	}
+
+	@Override
+	public void displayGame(Packet payload) {
+        mView.setActivity(DrawActivity.class, payload);
 	}
 
 	@Override

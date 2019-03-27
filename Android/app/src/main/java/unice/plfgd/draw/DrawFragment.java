@@ -13,10 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.FormeRequest;
 import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
+import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class DrawFragment extends Fragment implements DrawContract.View {
@@ -46,6 +50,13 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		if (getArguments() != null && mPresenter != null) {
+			Serializable serializable = getArguments().getSerializable("payload");
+			if (serializable != null) {
+				FormeRequest forme = (FormeRequest) serializable;
+				mPresenter.setOrder(forme.getForme());
+			}
+		}
 	}
 
 	@Override
@@ -94,32 +105,36 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 	@Override
 	public void showOrder(final Forme forme) {
-		Objects.requireNonNull(getView()).post(new Runnable() {
-			@Override
-			public void run() {
-				CharSequence f = "";
+		if (forme != null) {
+			Objects.requireNonNull(getView()).post(new Runnable() {
+				@Override
+				public void run() {
+					CharSequence f = "";
 
-				switch (forme) {
-					case SQUARE:
-						f = getText(R.string.square);
-						break;
-					case CIRCLE:
-						f = getText(R.string.round);
-						break;
-					case TRIANGLE:
-						f = getText(R.string.triangle);
-						break;
-					case POINT:
-						f = getText(R.string.point);
-						break;
-					case SEGMENT:
-						f = getText(R.string.segment);
-						break;
+					switch (forme) {
+						case SQUARE:
+							f = getText(R.string.square);
+							break;
+						case CIRCLE:
+							f = getText(R.string.round);
+							break;
+						case TRIANGLE:
+							f = getText(R.string.triangle);
+							break;
+						case POINT:
+							f = getText(R.string.point);
+							break;
+						case SEGMENT:
+							f = getText(R.string.segment);
+							break;
+						default:
+							f = "autre";
+					}
+
+					mOrder.setText(String.format("%s %s", getText(R.string.draw), f));
 				}
-
-				mOrder.setText(String.format("%s %s", getText(R.string.draw), f));
-			}
-		});
+			});
+		}
 	}
 
 	@Override
@@ -145,14 +160,15 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	}
 
 	@Override
-	public void resultSwitch(Draw draw) {
+	public void resultSwitch(Packet result, Game game) {
 		FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
 
 		ResultFragment fragment = ResultFragment.newInstance();
 		ResultPresenter presenter = new ResultPresenter(fragment);
 
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("draw", draw);
+		bundle.putSerializable("result", result);
+		bundle.putSerializable("game", game);
 
 		fragment.setArguments(bundle);
 

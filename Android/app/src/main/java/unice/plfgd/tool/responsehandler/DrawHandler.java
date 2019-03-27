@@ -2,6 +2,7 @@ package unice.plfgd.tool.responsehandler;
 
 import unice.plfgd.common.data.Draw;
 import unice.plfgd.draw.DrawContract;
+import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.APIService;
 
 public class DrawHandler extends AbstractHandler {
@@ -14,7 +15,11 @@ public class DrawHandler extends AbstractHandler {
 		if (args.length >= 1) {
 			Draw draw = castValue(args[0], Draw.class);
 
-			getPresenter(DrawContract.Presenter.class).resultSwitch(draw);
+			Game game = APIService.getInstance().getActualGame();
+
+			APIService.getInstance().resetGame();
+
+			getPresenter(DrawContract.Presenter.class).resultSwitch(draw, game);
 		}
 	}
 }
