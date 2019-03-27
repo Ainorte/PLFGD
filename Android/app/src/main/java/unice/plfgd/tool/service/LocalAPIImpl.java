@@ -3,6 +3,7 @@ package unice.plfgd.tool.service;
 import android.util.Log;
 import unice.plfgd.common.action.Action;
 import unice.plfgd.common.action.DrawAction;
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.responsehandler.RecogHandler;
 
@@ -16,9 +17,14 @@ import java.util.Objects;
 public class LocalAPIImpl implements API {
 	private static final String TAG = "LOCAL_API_IMPLEMENTATION";
 	private final Map<String, Action> routes = new HashMap<>();
+	private UserStore cache;
 
 	public LocalAPIImpl() {
 		registerHandlers();
+	}
+
+	void setCache(UserStore cache) {
+		this.cache = cache;
 	}
 
 	@Override
@@ -26,7 +32,7 @@ public class LocalAPIImpl implements API {
 		if (routes.containsKey(event)) {
 			Log.i(TAG, String.format("Route found for event %s, running action...", event));
 			final Action action = Objects.requireNonNull(routes.get(event));
-			Packet result = action.run(payload);
+			Packet result = action.run(cache, payload);
 			Log.i(TAG, "Obtained a result");
 			action.getResultHandler().call(result);
 		} else {

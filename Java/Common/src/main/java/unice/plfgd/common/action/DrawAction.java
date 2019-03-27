@@ -1,5 +1,6 @@
 package unice.plfgd.common.action;
 
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.DetecForme;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.Forme;
@@ -22,7 +23,7 @@ public class DrawAction extends Action<Draw, DetecForme> {
 	}
 
 	@Override
-	public DetecForme run(Draw payload) {
+	public DetecForme run(UserStore store, Draw payload) {
 		List<List<Point>> ptGroups = payload.getPoints();
 		List<Point> pts = new ArrayList<>();
 		for (List<Point> p : ptGroups) {
