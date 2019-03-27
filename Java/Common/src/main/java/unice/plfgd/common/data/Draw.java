@@ -113,7 +113,7 @@ public class Draw extends Packet {
 					x += (newWidth - (currentWidth * coef)) / 2;
 				}
 
-				draw.addPoint(new Point(x, y));
+				draw.addPoint(new Point(x, y,pt.getxV(),pt.getyV()));
 			}
 		}
 
