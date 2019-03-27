@@ -5,7 +5,7 @@ import unice.plfgd.base.BaseView;
 
 public interface HomeContract {
 	interface View extends BaseView<Presenter> {
-		void blockInteration();
+		void blockInteraction();
 
 		void resetInteraction();
 

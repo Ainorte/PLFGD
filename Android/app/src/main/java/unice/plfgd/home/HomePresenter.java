@@ -32,7 +32,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
 	@Override
 	public void initSocket() {
-		mView.blockInteration();
+		mView.blockInteraction();
 		final RemoteAPIImpl conn = RemoteAPIImpl.getInstance();
 		conn.openSocket(Configuration.getInstance());
 		APIService.getInstance().setClient(conn);
@@ -51,7 +51,6 @@ public class HomePresenter implements HomeContract.Presenter {
 
 	@Override
 	public void setMenuActivity() {
-		mView.blockInteration();
 		mView.setMenuActivity();
 	}
 

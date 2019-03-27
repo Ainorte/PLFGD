@@ -82,17 +82,14 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		View view = inflater.inflate(R.layout.home_fragment, container, false);
 
 		mText = view.findViewById(R.id.home_welcome);
-		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome),
+				mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
 
 
 		mConnectButton = view.findViewById(R.id.connect_button);
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Configuration c = Configuration.getInstance();
-				String serverDomain = c.getOrNull("serverURL");
-				String username = c.getOrNull("username");
-
 				mPresenter.initSocket();
 			}
 		});
@@ -119,7 +116,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void blockInteration() {
+	public void blockInteraction() {
 		mConnectButton.setEnabled(false);
 		mEntButton.setEnabled(false);
 
