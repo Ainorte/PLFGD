@@ -52,6 +52,10 @@ public class MethodesForme {
 		return radToDeg(Math.acos((OA * OA + OB * OB - AB * AB) / (2 * OA * OB)));
 	}
 
+	static double norme(Point ptA) {
+		return Math.sqrt(Math.pow(ptA.getX(), 2) + Math.pow(ptA.getY(), 2));
+	}
+
 	static double norme(Point ptA, Point ptB) {
 		return Math.sqrt(Math.pow(ptA.getX() - ptB.getX(), 2) + Math.pow(ptA.getY() - ptB.getY(), 2));
 	}
