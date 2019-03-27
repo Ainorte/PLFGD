@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".PreferencesActivity">
+
+	<android.support.design.widget.AppBarLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:theme="@style/AppTheme.AppBarOverlay">
+
+		<android.support.v7.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="?attr/actionBarSize"
+				android:background="?attr/colorPrimary"
+				app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+	</android.support.design.widget.AppBarLayout>
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingTop="?attr/actionBarSize">
+		<TextView
+				android:id="@+id/server_tv"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				android:text="@string/server_url"
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="15dp"/>
+		<EditText
+				android:id="@+id/server_field"
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="15dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/server_tv"
+				android:hint="@string/server_address_port"
+				android:singleLine="true"
+				android:inputType="text"/>
+		<TextView
+				android:id="@+id/username_tv"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				android:layout_below="@id/server_field"
+				android:text="@string/username_label"
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="15dp"/>
+		<EditText
+				android:id="@+id/name_field"
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="15dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/username_tv"
+				android:hint="@string/username"
+				android:singleLine="true"
+				android:inputType="text"
+		/>
+	</RelativeLayout>
+
+	<android.support.design.widget.FloatingActionButton
+			android:id="@+id/fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:layout_margin="@dimen/fab_margin"
+			app:srcCompat="@android:drawable/ic_menu_save"/>
+
+</android.support.design.widget.CoordinatorLayout>

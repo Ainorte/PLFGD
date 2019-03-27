@@ -14,9 +14,11 @@ Boutons :
 	- Retour : fait revenir à l'ecran principal.
 
 Ecran d'accueil : Création à l'itération 3 et mise à jour jusqu'a l'itération 7
-	- A-Pseudo : le joueur rentre son pseudo. (création itération 4)
+	- bienvenue : le joueur rentre son pseudo. (création itération 4)
 		- Itération 5 : le joueur peut jouer hors ligne en entrainement
-	- A-Accueil : le joueur choisit un jeu. (mise à jour jusqu'a l'itération 7)
+	- accueil : le joueur choisit un jeu. (mise à jour jusqu'a l'itération 7)
+	- connection : Permet au joueur de choisir son mode de jeu (connecté, hors-ligne, etc.)
+	- properties : Isolation des informations serveur dans une fenêtre de paramètres
 
 Dessiner une forme : Création à l'itération 3 et mise à jour jusqu'a l'itération 5
 	- D-Dessin : Le joueur doit dessiner une forme (un rectangle ici). (création itération 3)
@@ -32,7 +34,7 @@ Memoire de forme : Création et livraison à l'itération 7
 	- MDF-Echec : Le joueur a echouer a memoriser à la forme numero x, on lui affiche le nombre de forme qu'il a retenu, si 0 on lui affiche qu'il n'a rien retenu.
 	- MDF-Victoire : Le joueur a valide toutes les formes.
 
-Rectangle Rond Triangle : Création et livraison à l'itération 6
+Rectangle Rond Triangle : Création et livraison à l'itération 7
 	- RRT-Action : Le joueur dessine un carre (pierre), un rond (papier) ou un triangle (ciseau).
 	- RRT-Gagne : Le joueur a gagne (ici : rectangle vs triangle = pierre vs ciseau = pierre gagne)
 	- RRT-Perdu : Le joueur a perdu (ici : rectangle vs rond = pierre vs papier = papier gagne)

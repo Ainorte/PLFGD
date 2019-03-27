@@ -1,4 +1,4 @@
-# Itérations
+﻿# Itérations
 
 
 ## 2019-02-10 : LIVRAISON 01 : Connexion et exemple de jeu
@@ -30,20 +30,21 @@
 
 - Mode entrainement hors ligne (uniquement)
 - Jeu où le serveur demande de dessiner une forme géométrique
-- Système de points
 
-## 2019-03-21 : LIVRAISON 06 : Jeu du carré-triangle-rond
+## 2019-03-21 : LIVRAISON 06 : Corrections de bugs
+
+- Correction de bugs et intégration de la reconnaissance de forme
+
+## 2019-03-28 : LIVRAISON 07 : Jeu du carré-triangle-rond + Jeu de mémorisation de forme
 
 - Jeu du carré-triangle-rond pour un joueur contre le serveur
-
-## 2019-03-28 : LIVRAISON 07 : Jeu de mémorisation de forme
-
 - Jeu de mémorisation de formes fournient par le serveur, le joueur doit redessiner la suite de forme qu'il a vu précédemment
 
 
 ## 2019-04-04 : LIVRAISON 08 : Reconnaissance de forme différentes
 
 - Reconnaissance de nouvelles formes pour les jeux de reconnaissance et mémorisation
+- Système de points
 
 
 ## 2019-04-18 : LIVRAISON FINALE : Jeu à 2 devices
