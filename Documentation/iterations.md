@@ -30,7 +30,6 @@
 
 - Mode entrainement hors ligne (uniquement)
 - Jeu où le serveur demande de dessiner une forme géométrique
-- Système de points
 
 ## 2019-03-21 : LIVRAISON 06 : Corrections de bugs
 
@@ -45,6 +44,7 @@
 ## 2019-04-04 : LIVRAISON 08 : Reconnaissance de forme différentes
 
 - Reconnaissance de nouvelles formes pour les jeux de reconnaissance et mémorisation
+- Système de points
 
 
 ## 2019-04-18 : LIVRAISON FINALE : Jeu à 2 devices
