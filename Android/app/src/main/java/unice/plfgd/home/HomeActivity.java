@@ -10,9 +10,8 @@ import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.service.APIService;
 
 public class HomeActivity extends AppCompatActivity {
-	private static final String NAME = "org.unice.plfgd.android";
 
-	private HomePresenter mPresenter;
+	private static final String NAME = "org.unice.plfgd.android";
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,8 +37,6 @@ public class HomeActivity extends AppCompatActivity {
 		}
 
 		//Set up presenter
-		mPresenter = new HomePresenter(homeFragment);
-
-		APIService.getInstance().setPresenter(mPresenter);
+		new HomePresenter(homeFragment);
 	}
 }

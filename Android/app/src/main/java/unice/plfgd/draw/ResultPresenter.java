@@ -26,11 +26,6 @@ public class ResultPresenter implements ResultContract.Presenter {
 	}
 
 	@Override
-	public Draw getResult() {
-		return result;
-	}
-
-	@Override
 	public void back() {
 		mView.back();
 	}

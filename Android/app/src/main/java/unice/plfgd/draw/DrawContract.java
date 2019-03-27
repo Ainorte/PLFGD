@@ -27,8 +27,6 @@ public interface DrawContract {
 
 		void setDraw(Draw draw);
 
-		Draw getResult();
-
 		DrawCanvas.OnSizeChange onDrawSizeChange();
 
 		android.view.View.OnTouchListener onCanvasTouch();

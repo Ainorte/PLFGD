@@ -7,6 +7,4 @@ public interface BasePresenter {
 	void start();
 
 	void onSocketReset(RemoteAPIImpl.ResetSocketMessage message);
-
-	Draw getResult();
 }
