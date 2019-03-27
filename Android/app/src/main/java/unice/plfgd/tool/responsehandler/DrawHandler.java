@@ -1,6 +1,6 @@
 package unice.plfgd.tool.responsehandler;
 
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.draw.DrawContract;
 import unice.plfgd.tool.service.APIService;
 

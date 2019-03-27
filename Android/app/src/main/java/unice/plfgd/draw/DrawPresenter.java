@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.Point;
 import unice.plfgd.tool.service.APIService;

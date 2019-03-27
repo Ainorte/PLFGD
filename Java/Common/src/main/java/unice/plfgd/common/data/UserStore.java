@@ -3,7 +3,7 @@ package unice.plfgd.common.data;
 public class UserStore {
 	private String name;
 	private int score;
-	private Game currentGame;
+	private Game currentGame = Game.NONE;
 
 	public String getName() {
 		return name;
