@@ -36,6 +36,27 @@ public class ConvexHull {
 	 * and ys Note that the first and last point in the returned
 	 * list are the same point.
 	 *
+	 * @param drawPoints the result from getPoints from a draw.
+	 * @return the convex hull of the points created from xs and ys.
+	 * @throws IllegalArgumentException if xs and ys don't have the same size
+	 */
+	public static List<Point> getConvexHullList(List<List<Point>> drawPoints) throws IllegalArgumentException {
+
+		List<Point> points = new ArrayList<Point>();
+
+		for(int i = 0; i < drawPoints.size(); i++) {
+			points.addAll(drawPoints.get(i));
+		}
+
+		return getConvexHull(points);
+	}
+
+
+	/**
+	 * Returns the convex hull of the points created from xs
+	 * and ys Note that the first and last point in the returned
+	 * list are the same point.
+	 *
 	 * @param xs the x coordinates.
 	 * @param ys the y coordinates.
 	 * @return the convex hull of the points created from xs and ys.
