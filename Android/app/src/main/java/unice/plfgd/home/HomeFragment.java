@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import unice.plfgd.PreferencesActivity;
 import unice.plfgd.R;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
@@ -23,12 +24,8 @@ import java.util.Objects;
 public class HomeFragment extends Fragment implements HomeContract.View {
 
 	private HomeContract.Presenter mPresenter;
-
 	private Button mConnectButton;
-
 	private Button mEntButton;
-
-	private EditText mServerField, mUsernameField;
 
 	public HomeFragment() {
 		//Required
@@ -44,7 +41,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mPresenter.start();
 		resetInteraction();
 	}
-
 
 
 	@Override
@@ -87,26 +83,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String serverDomain = mServerField.getText().toString();
-				String username = mUsernameField.getText().toString();
-
-				if (serverDomain.isEmpty() || username.isEmpty()) {
-					Snackbar.make(Objects.requireNonNull(getView()),
-							R.string.nonemptyInputs, Snackbar.LENGTH_LONG).show();
-
-					return;
-				}
+				Configuration c = Configuration.getInstance();
+				String serverDomain = c.getOrNull("serverURL");
+				String username = c.getOrNull("username");
 
 				mPresenter.initSocket(serverDomain, username);
 			}
 		});
-
-		mServerField = view.findViewById(R.id.server_field);
-		mUsernameField = view.findViewById(R.id.name_field);
-
-		final Configuration conf = Configuration.getInstance();
-		mServerField.setText(conf.getOrNull("serverURL"));
-		mUsernameField.setText(conf.getOrNull("username"));
 
 		mEntButton = view.findViewById(R.id.ent_button);
 
@@ -115,6 +98,15 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 			public void onClick(View v) {
 				APIService.getInstance().setClient(new LocalAPIImpl());
 				mPresenter.setDrawActivity();
+			}
+		});
+
+		view.findViewById(R.id.settings_btn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(
+						new Intent(getContext(), PreferencesActivity.class)
+				);
 			}
 		});
 
@@ -132,8 +124,6 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	@Override
 	public void resetInteraction() {
 		mConnectButton.setText(R.string.connect);
-		mUsernameField.setEnabled(true);
-		mServerField.setEnabled(true);
 		mConnectButton.setEnabled(true);
 		mEntButton.setEnabled(true);
 	}

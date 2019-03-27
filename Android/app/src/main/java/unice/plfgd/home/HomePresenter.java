@@ -38,11 +38,8 @@ public class HomePresenter implements HomeContract.Presenter {
 	@Override
 	public void initSocket(String serverDomain, String username) {
 		mView.blockInteration();
-		final Configuration instance = Configuration.getInstance();
-		instance.set("serverDomain", serverDomain);
-		instance.set("username", username);
 		final RemoteAPIImpl conn = RemoteAPIImpl.getInstance();
-		conn.openSocket(instance);
+		conn.openSocket(Configuration.getInstance());
 		APIService.getInstance().setClient(conn);
 	}
 
