@@ -2,7 +2,7 @@ package unice.plfgd.tool.service;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.Game;
+import unice.plfgd.common.data.Game;
 
 public class APIService {
 	private static APIService instance;

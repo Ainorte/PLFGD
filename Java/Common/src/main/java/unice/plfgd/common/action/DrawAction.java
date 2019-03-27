@@ -1,7 +1,7 @@
 package unice.plfgd.common.action;
 
-import unice.plfgd.common.data.DetecForme;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.packet.DetecForme;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.FormeFactory;
 import unice.plfgd.common.forme.Point;

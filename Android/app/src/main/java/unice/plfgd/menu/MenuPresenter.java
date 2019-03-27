@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import unice.plfgd.draw.DrawActivity;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.Game;
+import unice.plfgd.common.data.Game;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 

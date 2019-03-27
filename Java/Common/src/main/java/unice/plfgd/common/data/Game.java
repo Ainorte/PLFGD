@@ -1,4 +1,4 @@
-package unice.plfgd.tool;
+package unice.plfgd.common.data;
 
 public enum Game {
 	DRAWFORME,

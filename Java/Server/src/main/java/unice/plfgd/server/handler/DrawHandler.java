@@ -3,7 +3,7 @@ package unice.plfgd.server.handler;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.DrawAction;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.server.Log;
 
 public class DrawHandler extends Handler<Draw> {

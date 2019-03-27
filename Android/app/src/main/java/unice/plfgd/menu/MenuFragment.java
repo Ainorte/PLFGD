@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Game;
+import unice.plfgd.common.data.Game;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 public class MenuFragment extends Fragment implements MenuContract.View {
