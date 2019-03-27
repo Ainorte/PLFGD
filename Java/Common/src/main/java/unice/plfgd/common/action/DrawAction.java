@@ -2,10 +2,7 @@ package unice.plfgd.common.action;
 
 import unice.plfgd.common.data.DetecForme;
 import unice.plfgd.common.data.Draw;
-import unice.plfgd.common.forme.Forme;
-import unice.plfgd.common.forme.FormeFactory;
-import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.forme.RecogForme;
+import unice.plfgd.common.forme.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,4 +35,9 @@ public class DrawAction extends Action<Draw, DetecForme> {
 				(Forme) results.get(0)
 		);
 	}
+	// Return the payload with no action made on the draw;
+	public DetecForme nullRun(Draw payload){
+		return new DetecForme(payload,Forme.UNKNOWN);
+	}
+
 }
