@@ -1,6 +1,7 @@
 package unice.plfgd.common.action;
 
 import unice.plfgd.common.data.FormeRequest;
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;
 
@@ -15,7 +16,7 @@ public class DrawFormeAction extends Action<Packet, FormeRequest> {
 	}
 
 	@Override
-	public FormeRequest run(Packet payload) {
+	public FormeRequest run(UserStore store, Packet payload) {
 		Forme[] formes = new Forme[]{Forme.SQUARE, Forme.CIRCLE, Forme.TRIANGLE};
 		return new FormeRequest(formes[new Random().nextInt(formes.length)]);
 	}

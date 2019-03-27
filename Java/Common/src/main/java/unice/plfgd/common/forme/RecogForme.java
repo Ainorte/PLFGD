@@ -20,7 +20,7 @@ public class RecogForme {
 			return obj;
 		}
 		List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
-		List<Point> encRectangle = RotatingCalipers.getMinimumBoundingRectangle(convexHull);
+		List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
 		return recog(sanitized, convexHull, encTriangle, encRectangle);
 	}
 
@@ -53,7 +53,7 @@ public class RecogForme {
 		double convexTriangleRatio = triangleArea / convexHullArea;
 		double convexRectangleRatio = convexHullPerim / rectanglePerim;
 
-		if (thinnessRatio > 50 && angleSize < 1) {
+		if (thinnessRatio > 50) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
 		} else if (thinnessRatio < 12.5 && angleSize < 1) {

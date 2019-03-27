@@ -1,12 +1,10 @@
 package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import unice.plfgd.common.data.DetecForme;
-import unice.plfgd.common.data.Draw;
-import unice.plfgd.common.forme.RecogForme;
+import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DetecForme;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 

@@ -1,14 +1,17 @@
 package unice.plfgd.tool.service;
 
+import android.util.Log;
 import unice.plfgd.base.BasePresenter;
+import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.Game;
 
 public class APIService {
 	private static APIService instance;
-	private API client;
 
-	//
+    //
+    private API client;
+    private UserStore localCache = new UserStore();
 	private BasePresenter presenter;
 	private Game actualGame;
 
@@ -24,6 +27,9 @@ public class APIService {
 	}
 
 	public void setClient(API client) {
+        if (client instanceof LocalAPIImpl) {
+            ((LocalAPIImpl) client).setCache(localCache);
+        }
 		this.client = client;
 	}
 
@@ -40,6 +46,7 @@ public class APIService {
 				break;
 			case SCT:
 				//TODO
+                Log.wtf("APIService", "TODO Game mode SCT");
 				break;
 			default:
 				//nothing

@@ -12,12 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
-import unice.plfgd.common.data.Draw;
 import unice.plfgd.common.data.FormeRequest;
+import unice.plfgd.common.data.Game;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
-import unice.plfgd.tool.Game;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.io.Serializable;

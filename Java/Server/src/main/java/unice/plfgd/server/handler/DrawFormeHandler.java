@@ -8,6 +8,6 @@ import unice.plfgd.common.net.Packet;
 public class DrawFormeHandler  extends Handler<Packet>{
 	@Override
 	public void onData(SocketIOClient client, Packet data, AckRequest ackSender) throws Exception {
-		client.sendEvent("drawForme", new DrawFormeAction(null).run(null));
+		client.sendEvent("drawForme", new DrawFormeAction(null).run(getStore(client),null));
 	}
 }

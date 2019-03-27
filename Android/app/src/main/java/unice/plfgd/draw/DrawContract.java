@@ -2,10 +2,10 @@ package unice.plfgd.draw;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.Game;
 
 public interface DrawContract {
 	interface View extends BaseView<Presenter> {
