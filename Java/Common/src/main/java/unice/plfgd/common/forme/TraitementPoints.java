@@ -254,7 +254,7 @@ public class TraitementPoints {
 
 
 		double halfPI = Math.PI / 2;
-		int j = 0;
+		double j = 0;
 		while (j <= halfPI) {
 
 			double teta1 = seg1.findAngleToPoint(caliperX1.getP2());
