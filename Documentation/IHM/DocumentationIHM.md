@@ -14,9 +14,11 @@ Boutons :
 	- Retour : fait revenir à l'ecran principal.
 
 Ecran d'accueil : Création à l'itération 3 et mise à jour jusqu'a l'itération 7
-	- A-Pseudo : le joueur rentre son pseudo. (création itération 4)
+	- bienvenue : le joueur rentre son pseudo. (création itération 4)
 		- Itération 5 : le joueur peut jouer hors ligne en entrainement
-	- A-Accueil : le joueur choisit un jeu. (mise à jour jusqu'a l'itération 7)
+	- accueil : le joueur choisit un jeu. (mise à jour jusqu'a l'itération 7)
+	- connection : Permet au joueur de choisir son mode de jeu (connecté, hors-ligne, etc.)
+	- properties : Isolation des informations serveur dans une fenêtre de paramètres
 
 Dessiner une forme : Création à l'itération 3 et mise à jour jusqu'a l'itération 5
 	- D-Dessin : Le joueur doit dessiner une forme (un rectangle ici). (création itération 3)
