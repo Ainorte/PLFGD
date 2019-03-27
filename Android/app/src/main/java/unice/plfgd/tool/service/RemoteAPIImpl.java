@@ -43,7 +43,7 @@ public class RemoteAPIImpl implements API {
 		this.user = new User(conf.getOrNull("username"));
 
 		try {
-			socket = IO.socket("http://" + conf.getOrNull("serverDomain"));
+			socket = IO.socket("http://" + conf.getOrNull("serverURL"));
 
 			defineHandlers();
 		} catch (URISyntaxException e) {
