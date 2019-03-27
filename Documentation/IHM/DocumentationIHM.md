@@ -32,7 +32,7 @@ Memoire de forme : Création et livraison à l'itération 7
 	- MDF-Echec : Le joueur a echouer a memoriser à la forme numero x, on lui affiche le nombre de forme qu'il a retenu, si 0 on lui affiche qu'il n'a rien retenu.
 	- MDF-Victoire : Le joueur a valide toutes les formes.
 
-Rectangle Rond Triangle : Création et livraison à l'itération 6
+Rectangle Rond Triangle : Création et livraison à l'itération 7
 	- RRT-Action : Le joueur dessine un carre (pierre), un rond (papier) ou un triangle (ciseau).
 	- RRT-Gagne : Le joueur a gagne (ici : rectangle vs triangle = pierre vs ciseau = pierre gagne)
 	- RRT-Perdu : Le joueur a perdu (ici : rectangle vs rond = pierre vs papier = papier gagne)
