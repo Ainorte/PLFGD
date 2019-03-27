@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import unice.plfgd.PreferencesActivity;
 import unice.plfgd.R;
-import unice.plfgd.draw.DrawActivity;
+import unice.plfgd.menu.MenuActivity;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.LocalAPIImpl;
@@ -24,6 +24,7 @@ import java.util.Objects;
 public class HomeFragment extends Fragment implements HomeContract.View {
 
 	private HomeContract.Presenter mPresenter;
+	private TextView mText;
 	private Button mConnectButton;
 	private Button mEntButton;
 
@@ -79,6 +80,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_fragment, container, false);
+
+		mText = view.findViewById(R.id.home_welcome);
+		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+
+
 		mConnectButton = view.findViewById(R.id.connect_button);
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -87,7 +93,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 				String serverDomain = c.getOrNull("serverURL");
 				String username = c.getOrNull("username");
 
-				mPresenter.initSocket(serverDomain, username);
+				mPresenter.initSocket();
 			}
 		});
 
@@ -96,8 +102,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mEntButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				APIService.getInstance().setClient(new LocalAPIImpl());
-				mPresenter.setDrawActivity();
+				mPresenter.initLocal();
 			}
 		});
 
@@ -129,8 +134,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-	public void setDrawActivity() {
-		Intent intent = new Intent(getContext(), DrawActivity.class);
+	public void setMenuActivity() {
+		Intent intent = new Intent(getContext(), MenuActivity.class);
 		startActivity(intent);
 	}
 

@@ -1,24 +1,22 @@
-package unice.plfgd.home;
+package unice.plfgd.menu;
 
+import android.app.Activity;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
+import unice.plfgd.common.data.Game;
 
-public interface HomeContract {
+public interface MenuContract {
 	interface View extends BaseView<Presenter> {
 		void blockInteration();
 
 		void resetInteraction();
 
-		void setMenuActivity();
+		void setActivity(Class<? extends Activity> activity);
 	}
 
 	interface Presenter extends BasePresenter {
-		void initSocket();
-
-		void initLocal();
+		void launchGame(Game game);
 
 		String getUserName();
-
-		void setMenuActivity();
 	}
 }

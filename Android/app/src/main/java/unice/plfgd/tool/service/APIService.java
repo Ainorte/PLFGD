@@ -2,6 +2,7 @@ package unice.plfgd.tool.service;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.net.Packet;
+import unice.plfgd.common.data.Game;
 
 public class APIService {
 	private static APIService instance;
@@ -9,6 +10,7 @@ public class APIService {
 
 	//
 	private BasePresenter presenter;
+	private Game actualGame;
 
 	public static APIService getInstance() {
 		if (instance == null) {
@@ -27,6 +29,26 @@ public class APIService {
 
 	public void setPresenter(BasePresenter presenter) {
 		this.presenter = presenter;
+	}
+
+	public void lauchGame(Game game){
+		actualGame = game;
+
+		switch (actualGame){
+			case DRAWFORME:
+				sendMessage("drawForme",null);
+				break;
+			case SCT:
+				//TODO
+				break;
+			default:
+				//nothing
+				break;
+		}
+	}
+
+	public void sendResponse(Packet packet){
+
 	}
 
 	public void sendMessage(String event, Packet payload) {

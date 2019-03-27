@@ -2,7 +2,7 @@ package unice.plfgd.draw;
 
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.Forme;
 
 public interface DrawContract {
@@ -26,8 +26,6 @@ public interface DrawContract {
 		void resultSwitch(Draw draw);
 
 		void setDraw(Draw draw);
-
-		Draw getResult();
 
 		DrawCanvas.OnSizeChange onDrawSizeChange();
 

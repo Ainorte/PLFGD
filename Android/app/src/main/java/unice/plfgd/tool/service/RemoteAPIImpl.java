@@ -6,7 +6,7 @@ import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.json.JSONObject;
-import unice.plfgd.common.data.User;
+import unice.plfgd.common.data.packet.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.responsehandler.AbstractHandler;
@@ -43,7 +43,7 @@ public class RemoteAPIImpl implements API {
 		this.user = new User(conf.getOrNull("username"));
 
 		try {
-			socket = IO.socket("http://" + conf.getOrNull("serverDomain"));
+			socket = IO.socket("http://" + conf.getOrNull("serverURL"));
 
 			defineHandlers();
 		} catch (URISyntaxException e) {

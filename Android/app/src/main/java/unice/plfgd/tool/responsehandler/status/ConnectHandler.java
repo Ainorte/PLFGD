@@ -12,6 +12,6 @@ public class ConnectHandler extends AbstractConnexionHandler {
 	@Override
 	public void call(Object... args) {
 		getConnexion().Identify();
-		getPresenter(HomeContract.Presenter.class).setDrawActivity();
+		getPresenter(HomeContract.Presenter.class).setMenuActivity();
 	}
 }
