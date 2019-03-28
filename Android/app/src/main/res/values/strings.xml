@@ -35,4 +35,6 @@
 	<string name="username_label">Nom d\'utilisateur</string>
 	<string name="is">Tu as dessiné un</string>
 	<string name="isnt">Ceci n\'est pas un</string>
+	<string name="pseudo">Pseudo</string>
+	<string name="username_order">Saisis ton pseudo</string>
 </resources>

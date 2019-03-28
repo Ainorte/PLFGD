@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
 		mText = view.findViewById(R.id.home_welcome);
         mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome),
-                mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+				mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
 
 
 		mConnectButton = view.findViewById(R.id.connect_button);
