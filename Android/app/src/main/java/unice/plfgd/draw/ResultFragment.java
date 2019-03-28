@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.service.RemoteAPIImpl;
@@ -96,9 +97,9 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		});
 
 		mResponse = view.findViewById(R.id.result_text);
-		mResponse.setText(R.string.good_job);
 		mComment = view.findViewById(R.id.result_comment);
-		mComment.setText(R.string.good_comment);
+
+		mPresenter.setCommentary();
 
 		mCanvas = view.findViewById(R.id.result_canvas);
 		mCanvas.setActive(false);
@@ -132,5 +133,21 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	@Override
 	public DrawCanvas getCanvas() {
 		return mCanvas;
+	}
+
+	@Override
+	public void setCommentary(Game game, boolean win, Forme forme) {
+		switch (game) {
+			case DRAWFORME:
+				if (win) {
+					mResponse.setText(R.string.good_job);
+					mResponse.setTextColor(getResources().getColor(R.color.green));
+					mComment.setText(String.format("%s %s", getResources().getText(R.string.is), forme.toString()));
+				} else {
+					mResponse.setText(R.string.retry);
+					mResponse.setTextColor(getResources().getColor(R.color.red));
+					mComment.setText(String.format("%s %s", getResources().getText(R.string.isnt), forme.toString()));
+				}
+		}
 	}
 }

@@ -55,6 +55,13 @@ public class APIService {
 	}
 
 	public void sendResponse(Packet packet){
+		switch (actualGame) {
+			case DRAWFORME:
+				sendMessage("resultDrawForme", packet);
+			case SCT:
+				//TODO
+				break;
+		}
 	}
 
 	public Game getActualGame() {

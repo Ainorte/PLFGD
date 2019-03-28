@@ -3,6 +3,7 @@ package unice.plfgd.draw;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;
 
 public interface ResultContract {
@@ -12,6 +13,8 @@ public interface ResultContract {
 		void changeFragment(Packet payload);
 
 		DrawCanvas getCanvas();
+
+		void setCommentary(Game game, boolean win, Forme forme);
 	}
 
 	interface Presenter extends BasePresenter {
@@ -26,5 +29,7 @@ public interface ResultContract {
 		void replay();
 
 		void changeFragment(Packet payload);
+
+		void setCommentary();
 	}
 }

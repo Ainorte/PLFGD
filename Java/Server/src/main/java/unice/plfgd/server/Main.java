@@ -2,7 +2,7 @@ package unice.plfgd.server;
 
 import com.corundumstudio.socketio.Configuration;
 import unice.plfgd.server.handler.DrawFormeHandler;
-import unice.plfgd.server.handler.DrawHandler;
+import unice.plfgd.server.handler.ResultDrawFormeHandler;
 import unice.plfgd.server.handler.Handler;
 import unice.plfgd.server.handler.IdentHandler;
 
@@ -32,7 +32,7 @@ public class Main {
 		config.setPort(uglyStringToInt(env.getOrDefault("PORT", "10101"), 10101));
 		var handlers = Handler.buildHandlersMap();
 		handlers.put("ident", new IdentHandler());
-		handlers.put("draw", new DrawHandler());
+		handlers.put("resultDrawForme", new ResultDrawFormeHandler());
 		handlers.put("drawForme", new DrawFormeHandler());
 
 		var server = new Server(config, handlers);

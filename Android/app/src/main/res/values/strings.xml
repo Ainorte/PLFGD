@@ -14,8 +14,8 @@
 	<string name="draw">Dessine</string>
 	<string name="wait">Merci de patienter</string>
 	<string name="back">Retour</string>
-	<string name="good_job">Bien Joué !</string>
-	<string name="good_comment">Tu sais dessiner</string>
+	<string name="good_job">Bravo !</string>
+	<string name="retry">Essaie encore!</string>
 	<string name="square">un carré</string>
 	<string name="round">un rond</string>
 	<string name="triangle">un triangle</string>
@@ -33,4 +33,6 @@
 	<string name="preferences">Préférences</string>
 	<string name="server_url">Adresse du serveur</string>
 	<string name="username_label">Nom d\'utilisateur</string>
+	<string name="is">Tu as dessiné un</string>
+	<string name="isnt">Ceci n\'est pas un</string>
 </resources>

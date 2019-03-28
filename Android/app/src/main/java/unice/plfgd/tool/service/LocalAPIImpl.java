@@ -2,12 +2,12 @@ package unice.plfgd.tool.service;
 
 import android.util.Log;
 import unice.plfgd.common.action.Action;
-import unice.plfgd.common.action.DrawAction;
 import unice.plfgd.common.action.DrawFormeAction;
+import unice.plfgd.common.action.ResultDrawFormeAction;
 import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.responsehandler.DrawFormeHandler;
-import unice.plfgd.tool.responsehandler.RecogHandler;
+import unice.plfgd.tool.responsehandler.ResultDrawFormeHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +43,7 @@ public class LocalAPIImpl implements API {
 	}
 
 	private void registerHandlers() {
-		this.routes.put("draw", new DrawAction(new RecogHandler(APIService.getInstance())));
+		this.routes.put("ResultDrawFormeHandler", new ResultDrawFormeAction(new ResultDrawFormeHandler(APIService.getInstance())));
 		this.routes.put("drawForme",new DrawFormeAction( new DrawFormeHandler(APIService.getInstance())));
 	}
 }

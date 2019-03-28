@@ -1,8 +1,9 @@
 package unice.plfgd.common.action;
 
 import unice.plfgd.common.data.UserStore;
-import unice.plfgd.common.data.packet.DetecForme;
 import unice.plfgd.common.data.packet.Draw;
+import unice.plfgd.common.data.packet.FormeRequest;
+import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.forme.FormeFactory;
 import unice.plfgd.common.forme.Point;
@@ -11,10 +12,10 @@ import unice.plfgd.common.forme.RecogForme;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawAction extends Action<Draw, DetecForme> {
+public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 	private Handler resultHandler;
 
-	public DrawAction(Handler resultHandler) {
+	public ResultDrawFormeAction(Handler resultHandler) {
 		this.resultHandler = resultHandler;
 	}
 
@@ -23,7 +24,10 @@ public class DrawAction extends Action<Draw, DetecForme> {
 	}
 
 	@Override
-    public DetecForme run(UserStore store, Draw payload) {
+	public ResultDrawForme run(UserStore store, Draw payload) {
+
+		Forme expected = store.getData("forme", FormeRequest.class).getForme();
+
 		List<List<Point>> ptGroups = payload.getPoints();
 		List<Point> pts = new ArrayList<>();
 		for (List<Point> p : ptGroups) {
@@ -32,11 +36,14 @@ public class DrawAction extends Action<Draw, DetecForme> {
 
 		final List<Object> results = RecogForme.process(pts);
 
-		return new DetecForme(
+		ResultDrawForme resultDrawForme = new ResultDrawForme(
 				new Draw(new ArrayList<List<Point>>() {{
 					add(FormeFactory.make(results));
 				}}, payload.getWidth(), payload.getHeight()),
-				(Forme) results.get(0)
+				(Forme) results.get(0),
+				expected
 		);
+
+		return resultDrawForme;
 	}
 }

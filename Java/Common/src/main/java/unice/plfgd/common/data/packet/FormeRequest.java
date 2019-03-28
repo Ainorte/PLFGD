@@ -1,4 +1,4 @@
-package unice.plfgd.common.data;
+package unice.plfgd.common.data.packet;
 
 import unice.plfgd.common.forme.Forme;
 import unice.plfgd.common.net.Packet;

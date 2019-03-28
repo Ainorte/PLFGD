@@ -51,7 +51,7 @@ public class DrawPresenter implements DrawContract.Presenter {
 		// test pour recup le tableau des points et le mettre dans un TextView
 		mView.onSending();
 
-		APIService.getInstance().sendMessage("draw", mDraw.convertRefactor(1000, 1000));
+		APIService.getInstance().sendResponse(mDraw.convertRefactor(1000, 1000));
 	}
 
 	@Override

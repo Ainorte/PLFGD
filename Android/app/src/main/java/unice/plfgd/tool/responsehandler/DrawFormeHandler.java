@@ -1,8 +1,6 @@
 package unice.plfgd.tool.responsehandler;
 
-import unice.plfgd.common.action.Handler;
-import unice.plfgd.common.data.FormeRequest;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.data.packet.FormeRequest;
 import unice.plfgd.draw.ResultPresenter;
 import unice.plfgd.menu.MenuPresenter;
 import unice.plfgd.tool.service.APIService;
