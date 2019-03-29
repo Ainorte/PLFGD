@@ -59,9 +59,6 @@ public class RecogForme {
 		} else if (convexTriangleRatio > 0.6 & convexTriangleRatio < 1 && angleSize < 4) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (thinnessRatio < 10 && angleSize < 1) {
-			res.add(Forme.CIRCLE);
-			res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
 		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 5) {
 			if (convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1) {
 				Point G = MethodesForme.barycentre(convexHull);
@@ -72,6 +69,9 @@ public class RecogForme {
 				res.add(Forme.RECTANGLE);
 				res.add(rectangle);
 			}
+        } else if (thinnessRatio < 12.5 && angleSize < 1) {
+            res.add(Forme.CIRCLE);
+            res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
 		} else {
 			res.add(Forme.UNKNOWN);
 			res.add(new Inconnu(convexHull));
