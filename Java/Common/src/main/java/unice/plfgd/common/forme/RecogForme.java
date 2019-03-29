@@ -59,7 +59,7 @@ public class RecogForme {
 		} else if (thinnessRatio < 12.5 && angleSize < 1) {
 			res.add(Forme.CIRCLE);
 			res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
-		} else if (convexTriangleRatio > 0.7 & convexTriangleRatio < 1 && angleSize < 4) {
+		} else if (convexTriangleRatio > 0.6 & convexTriangleRatio < 1 && angleSize < 4) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
 		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 5) {
