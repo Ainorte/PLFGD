@@ -13,12 +13,12 @@ public class RecogForme {
 		List<Point >convexHull = TraitementPoints.refineEndPoints(sanitized, 2);
 		convexHull = TraitementPoints.closeStroke(convexHull);
 		convexHull = ConvexHull.getConvexHull(convexHull);
-		if (convexHull == null) {
-			List<Object> obj = new ArrayList<>();
-			obj.add(Forme.UNKNOWN);
-			obj.add(new Inconnu(pts));
-			return obj;
-		}
+        if(convexHull == null){
+            List<Object> obj = new ArrayList<>();
+            obj.add(Forme.SEGMENT);
+            obj.add(new Segment(pts.get(0), pts.get(pts.size()-1)));
+            return obj;
+        }
 		List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
 		List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
 		return recog(sanitized, convexHull, encTriangle, encRectangle);
