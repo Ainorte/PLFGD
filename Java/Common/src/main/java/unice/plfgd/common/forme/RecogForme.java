@@ -60,7 +60,7 @@ public class RecogForme {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
 		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 5) {
-			if (convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1) {
+			if (convexRectangleRatio > 0.95 & convexRectangleRatio < 1.05) {
 				Point G = MethodesForme.barycentre(convexHull);
 				Carre carre = new Carre(G, rectanglePerim / 4, 0);
 				res.add(Forme.SQUARE);
