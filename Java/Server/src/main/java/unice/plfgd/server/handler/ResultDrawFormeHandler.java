@@ -8,6 +8,7 @@ import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.*;
 import unice.plfgd.server.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultDrawFormeHandler extends Handler<Draw> {
@@ -37,10 +38,12 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			Log.log(Log.State.BLUE, maxTri.toString());
 			maxTri = new Triangle(maxTri).make();
 
-			pts.add(encRec);
-			pts.add(maxTri);
+			List<List<Point>> res = new ArrayList<>();
+			res.add(closed);
+			res.add(encRec);
+			res.add(maxTri);
 
-			Draw futureDraw = new Draw(pts,data.getWidth(),data.getHeight());
+			Draw futureDraw = new Draw(res,data.getWidth(),data.getHeight());
 			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
 
 
