@@ -46,4 +46,9 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 
 		return resultDrawForme;
 	}
+	// Return the payload with no action made on the draw;
+	public DetecForme nullRun(Draw payload){
+		return new DetecForme(payload,Forme.UNKNOWN);
+	}
+
 }
