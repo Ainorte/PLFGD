@@ -33,6 +33,11 @@ public class MethodesForme {
 		return new Point(sumX, sumY);
 	}
 
+	public static double courbure(Point a, Point b, Point c){
+		Segment seg = new Segment(a, c);
+		return seg.findAngleToPoint(b);
+	}
+
     /*static Point barycentre(List<Double> xn, List<Double> yn){
         double xB = xn.parallelStream().reduce(0.0, (x1, x2) -> x1 + x2)/xn.size();
         double yB = yn.parallelStream().reduce(0.0, (y1, y2) -> y1 + y2)/yn.size();

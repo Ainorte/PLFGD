@@ -28,8 +28,8 @@ public class RecogForme {
 
 		List<Object> res = new ArrayList<>();
 
-		List<Double> angle = getBigAngle(convexHull);
-		int angleSize = angle.size();
+		List<Object> angle = TraitementPoints.findVertices(convexHull);
+		int angleSize = (int) angle.get(2);
 		System.out.println("ANGLE NUMBER: "  + angleSize);
 
 		Triangle triangle = new Triangle(new Point(0, 0), encTriangle.get(0), encTriangle.get(1), encTriangle.get(2), 0);
@@ -77,32 +77,5 @@ public class RecogForme {
 			res.add(new Inconnu(convexHull));
 		}
 		return res;
-	}
-
-
-
-	public static List<Double> getBigAngle(List<Point> pointList){
-
-	List<Double> angleList = new ArrayList<>();
-		for (int i = 1; i < pointList.size()-1; i++) {
-			Point P1 = pointList.get(i-1);
-			Point P2 = pointList.get(i);
-			Point P3 = pointList.get(i+1);
-
-			if(Math.abs(P1.getxV()) > Math.abs(P2.getxV()) && Math.abs(P2.getxV()) < Math.abs(P3.getxV()) &&
-					Math.abs(P1.getyV()) > Math.abs(P2.getyV()) && Math.abs(P2.getyV()) < Math.abs(P3.getyV())	)
-			{
-				double angle = Math.atan2(P3.getY() - P1.getY(), P3.getX() - P1.getX()) - Math.atan2(P2.getY() - P1.getY(), P2.getX() - P1.getX());
-
-
-				if (Math.abs(angle) >= Math.PI / 6) {
-					angleList.add(angle);
-				}
-			}
-		}
-
-		return angleList;
-
-
 	}
 }

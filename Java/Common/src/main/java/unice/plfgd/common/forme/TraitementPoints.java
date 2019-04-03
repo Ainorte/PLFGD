@@ -319,4 +319,31 @@ public class TraitementPoints {
 		}
 		return listSeg;
 	}
+
+	public static List<Object> findVertices(List<Point> pts){
+		int cpt = 0;
+		List<Object> finalList = new ArrayList<>();
+		List<Point> vertices = new ArrayList<>();
+		List<Integer> verticesIndices = new ArrayList<>();
+		int listSize = pts.size();
+		if(listSize < 3) {
+			finalList.add(verticesIndices);
+			finalList.add(vertices);
+			finalList.add(0);
+			return finalList;
+		}
+		for(int i = 1; i < pts.size(); i++){
+			double courbure = MethodesForme.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
+			System.out.println(Math.toDegrees(courbure));
+			if(Math.abs(Math.toDegrees(courbure)) > 30){
+				cpt += 1;
+				verticesIndices.add(i%listSize);
+				vertices.add(pts.get(i%listSize));
+			}
+		}
+		finalList.add(verticesIndices);
+		finalList.add(vertices);
+		finalList.add(cpt);
+		return finalList;
+	}
 }
