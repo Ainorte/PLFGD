@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
 	<android.support.constraint.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-	>
+			android:layout_height="wrap_content">
 		<TextView
 				android:textSize="32sp"
-				android:id="@+id/accueil_text"
+				android:id="@+id/username_order"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text=""
+				android:text="@string/username_order"
 				android:layout_marginTop="20dp"
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp"
@@ -23,11 +20,24 @@
 				app:layout_constraintTop_toTopOf="parent"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintBottom_toTopOf="@id/but_des"
+				app:layout_constraintBottom_toTopOf="@id/username_field"
 		/>
+		<EditText
+				android:id="@+id/username_field"
+				android:layout_marginTop="15dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="15dp"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/username_order"
+				android:hint="@string/pseudo"
+				android:singleLine="true"
 
+		/>
 		<Button
-				android:id="@+id/but_des"
+				android:id="@+id/valid_button"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="15dp"
@@ -35,27 +45,10 @@
 				android:layout_marginRight="15dp"
 				android:layout_marginBottom="15dp"
 				android:padding="30dp"
-				android:text="@string/drawforme"
+				android:text="@string/valid"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/accueil_text"
+				app:layout_constraintTop_toBottomOf="@id/username_field"
 		/>
-
-		<Button
-				android:id="@+id/but_ctr"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
-				android:layout_marginBottom="15dp"
-				android:padding="30dp"
-				android:text="@string/sct"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/but_des"
-		/>
-
 	</android.support.constraint.ConstraintLayout>
-
 </ScrollView>

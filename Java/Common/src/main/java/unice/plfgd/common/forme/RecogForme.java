@@ -13,14 +13,14 @@ public class RecogForme {
 		List<Point >convexHull = TraitementPoints.refineEndPoints(sanitized, 2);
 		convexHull = TraitementPoints.closeStroke(convexHull);
 		convexHull = ConvexHull.getConvexHull(convexHull);
-		if (convexHull == null) {
-			List<Object> obj = new ArrayList<>();
-			obj.add(Forme.UNKNOWN);
-			obj.add(new Inconnu(pts));
-			return obj;
-		}
+        if(convexHull == null){
+            List<Object> obj = new ArrayList<>();
+            obj.add(Forme.SEGMENT);
+            obj.add(new Segment(pts.get(0), pts.get(pts.size()-1)));
+            return obj;
+        }
 		List<Point> encTriangle = TraitementPoints.maximumAreaEnclosedTriangle(convexHull);
-		List<Point> encRectangle = RotatingCalipers.getMinimumBoundingRectangle(convexHull);
+		List<Point> encRectangle = TraitementPoints.minimumAreaEnclosingRectangle(convexHull);
 		return recog(sanitized, convexHull, encTriangle, encRectangle);
 	}
 
@@ -53,17 +53,14 @@ public class RecogForme {
 		double convexTriangleRatio = triangleArea / convexHullArea;
 		double convexRectangleRatio = convexHullPerim / rectanglePerim;
 
-		if (thinnessRatio > 50 && angleSize < 1) {
+		if (thinnessRatio > 50) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
-		} else if (thinnessRatio < 12.5 && angleSize < 1) {
-			res.add(Forme.CIRCLE);
-			res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
-		} else if (convexTriangleRatio > 0.7 & convexTriangleRatio < 1 && angleSize < 4) {
+		} else if (convexTriangleRatio > 0.6 & convexTriangleRatio < 1 && angleSize < 4) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
 		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 5) {
-			if (convexRectangleRatio > 0.9 & convexRectangleRatio < 1.1) {
+			if (convexRectangleRatio > 0.95 & convexRectangleRatio < 1.05) {
 				Point G = MethodesForme.barycentre(convexHull);
 				Carre carre = new Carre(G, rectanglePerim / 4, 0);
 				res.add(Forme.SQUARE);
@@ -72,6 +69,9 @@ public class RecogForme {
 				res.add(Forme.RECTANGLE);
 				res.add(rectangle);
 			}
+        } else if (thinnessRatio < 12.5 && angleSize < 1) {
+            res.add(Forme.CIRCLE);
+            res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
 		} else {
 			res.add(Forme.UNKNOWN);
 			res.add(new Inconnu(convexHull));

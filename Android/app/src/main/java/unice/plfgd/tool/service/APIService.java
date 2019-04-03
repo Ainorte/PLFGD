@@ -1,14 +1,19 @@
 package unice.plfgd.tool.service;
 
+import android.util.Log;
 import unice.plfgd.base.BasePresenter;
+import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.net.Packet;
 
 public class APIService {
 	private static APIService instance;
-	private API client;
 
-	//
+    //
+    private API client;
+    private UserStore localCache = new UserStore();
 	private BasePresenter presenter;
+	private Game actualGame;
 
 	public static APIService getInstance() {
 		if (instance == null) {
@@ -22,11 +27,49 @@ public class APIService {
 	}
 
 	public void setClient(API client) {
+        if (client instanceof LocalAPIImpl) {
+            ((LocalAPIImpl) client).setCache(localCache);
+        }
 		this.client = client;
 	}
 
 	public void setPresenter(BasePresenter presenter) {
 		this.presenter = presenter;
+	}
+
+	public void lauchGame(Game game){
+		actualGame = game;
+
+		switch (actualGame){
+			case DRAWFORME:
+				sendMessage("drawForme",null);
+				break;
+			case SCT:
+				//TODO
+                Log.wtf("APIService", "TODO Game mode SCT");
+				break;
+			default:
+				//nothing
+				break;
+		}
+	}
+
+	public void sendResponse(Packet packet){
+		switch (actualGame) {
+			case DRAWFORME:
+				sendMessage("resultDrawForme", packet);
+			case SCT:
+				//TODO
+				break;
+		}
+	}
+
+	public Game getActualGame() {
+		return actualGame;
+	}
+
+	public void resetGame(){
+		actualGame = Game.NONE;
 	}
 
 	public void sendMessage(String event, Packet payload) {

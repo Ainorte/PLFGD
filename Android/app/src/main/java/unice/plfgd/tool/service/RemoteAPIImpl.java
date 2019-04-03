@@ -6,12 +6,12 @@ import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.json.JSONObject;
-import unice.plfgd.common.data.User;
+import unice.plfgd.common.data.packet.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
 import unice.plfgd.tool.responsehandler.AbstractHandler;
-import unice.plfgd.tool.responsehandler.DrawHandler;
-import unice.plfgd.tool.responsehandler.RecogHandler;
+import unice.plfgd.tool.responsehandler.DrawFormeHandler;
+import unice.plfgd.tool.responsehandler.ResultDrawFormeHandler;
 import unice.plfgd.tool.responsehandler.status.ConnectHandler;
 import unice.plfgd.tool.responsehandler.status.DisconnectHandler;
 import unice.plfgd.tool.responsehandler.status.TimeoutHandler;
@@ -43,7 +43,7 @@ public class RemoteAPIImpl implements API {
 		this.user = new User(conf.getOrNull("username"));
 
 		try {
-			socket = IO.socket("http://" + conf.getOrNull("serverDomain"));
+			socket = IO.socket("http://" + conf.getOrNull("serverURL"));
 
 			defineHandlers();
 		} catch (URISyntaxException e) {
@@ -87,8 +87,8 @@ public class RemoteAPIImpl implements API {
 		socket.on(Socket.EVENT_CONNECT_ERROR, th);
 		socket.on(Socket.EVENT_CONNECT, new ConnectHandler(svc).setConnexion(this));
 		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
-		socket.on("draw", new DrawHandler(svc));
-		socket.on("recog", new RecogHandler(svc));
+		socket.on("resultDrawForme", new ResultDrawFormeHandler(svc));
+		socket.on("drawForme", new DrawFormeHandler(svc));
 	}
 
 	public enum ResetSocketMessage {

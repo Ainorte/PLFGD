@@ -5,16 +5,20 @@ import unice.plfgd.base.BaseView;
 
 public interface HomeContract {
 	interface View extends BaseView<Presenter> {
-		void blockInteration();
+        void blockInteraction();
 
 		void resetInteraction();
 
-		void setDrawActivity();
+		void setMenuActivity();
 	}
 
 	interface Presenter extends BasePresenter {
-		void initSocket(String serverURL, String username);
+		void initSocket();
 
-		void setDrawActivity();
+		void initLocal();
+
+		String getUserName();
+
+		void setMenuActivity();
 	}
 }

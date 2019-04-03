@@ -3,7 +3,8 @@
 	<string name="replay">Rejouer</string>
 	<string name="connect">Se connecter</string>
 	<string name="connecting">Connexion en cours</string>
-	<string name="welcome">Bienvenue sur PLFGD !</string>
+	<string name="welcome">Bienvenue</string>
+	<string name="exclamationPoint">!</string>
 	<string name="connexionLost">Connexion au serveur perdu</string>
 	<string name="nonemptyInputs">Les champs ne doivent pas être vides</string>
 	<string name="host_unreachable">Imposible de joindre le serveur</string>
@@ -13,8 +14,8 @@
 	<string name="draw">Dessine</string>
 	<string name="wait">Merci de patienter</string>
 	<string name="back">Retour</string>
-	<string name="good_job">Bien Joué !</string>
-	<string name="good_comment">Tu sais dessiner</string>
+	<string name="good_job">Bravo !</string>
+	<string name="retry">Essaie encore!</string>
 	<string name="square">un carré</string>
 	<string name="round">un rond</string>
 	<string name="triangle">un triangle</string>
@@ -24,12 +25,16 @@
 	<string name="username">Nom d\'utilisateur</string>
 	<string name="training">Entrainement</string>
 	<string name="win">Vous avez gagnez !</string>
-	<string name="lose">Vous avez perdu...</string>
+	<string name="lose">Vous avez perdu…</string>
 	<string name="vs">VS</string>
-	<string name="sct">Carre Triangle Rond</string>
+	<string name="sct">Carre Rond Triangle</string>
 	<string name="drawforme">Dessiner une forme</string>
 	<string name="title_activity_preferences">PreferencesActivity</string>
 	<string name="preferences">Préférences</string>
 	<string name="server_url">Adresse du serveur</string>
 	<string name="username_label">Nom d\'utilisateur</string>
+	<string name="is">Tu as dessiné un</string>
+	<string name="isnt">Ceci n\'est pas un</string>
+	<string name="pseudo">Pseudo</string>
+	<string name="username_order">Saisis ton pseudo</string>
 </resources>

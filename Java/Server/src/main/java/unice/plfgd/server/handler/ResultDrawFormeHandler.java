@@ -2,11 +2,11 @@ package unice.plfgd.server.handler;
 
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
-import unice.plfgd.common.action.DrawAction;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.action.ResultDrawFormeAction;
+import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.server.Log;
 
-public class DrawHandler extends Handler<Draw> {
+public class ResultDrawFormeHandler extends Handler<Draw> {
 
 	@Override
 	public void onData(SocketIOClient client, Draw data, AckRequest ackSender) {
@@ -16,12 +16,12 @@ public class DrawHandler extends Handler<Draw> {
 			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
-			var detecForme = new DrawAction(null).run(data);
+			var detecForme = new ResultDrawFormeAction(null).run(getStore(client), data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());
 
-			client.sendEvent("recog", detecForme);
+			client.sendEvent("resultDrawForme", detecForme);
 		}
 	}
 }

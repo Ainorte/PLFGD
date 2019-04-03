@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
-import unice.plfgd.common.data.Draw;
+import unice.plfgd.common.data.Game;
+import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
@@ -48,6 +50,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
 
@@ -63,9 +66,12 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
 		if (getArguments() != null && mPresenter != null) {
-			if (getArguments().getSerializable("draw") != null) {
-				mPresenter.setResult((Draw) getArguments().getSerializable("draw"));
+			if (getArguments().getSerializable("result") != null) {
+				mPresenter.setResult((Packet) getArguments().getSerializable("result"));
 			}
+			if(getArguments().getSerializable("game") != null){
+			    mPresenter.setGame((Game) getArguments().getSerializable("game"));
+            }
 		}
 	}
 
@@ -91,9 +97,9 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		});
 
 		mResponse = view.findViewById(R.id.result_text);
-		mResponse.setText(R.string.good_job);
 		mComment = view.findViewById(R.id.result_comment);
-		mComment.setText(R.string.good_comment);
+
+		mPresenter.setCommentary();
 
 		mCanvas = view.findViewById(R.id.result_canvas);
 		mCanvas.setActive(false);
@@ -109,11 +115,16 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public void replay() {
+	public void changeFragment(Packet payload){
 		FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
 
 		DrawFragment fragment = DrawFragment.newInstance();
 		DrawPresenter presenter = new DrawPresenter(fragment);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("payload", payload);
+
+        fragment.setArguments(bundle);
 
 		transaction.replace(R.id.contentFrame, fragment);
 		transaction.commit();
@@ -122,5 +133,21 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	@Override
 	public DrawCanvas getCanvas() {
 		return mCanvas;
+	}
+
+	@Override
+	public void setCommentary(Game game, boolean win, Forme forme) {
+		switch (game) {
+			case DRAWFORME:
+				if (win) {
+					mResponse.setText(R.string.good_job);
+					mResponse.setTextColor(getResources().getColor(R.color.green));
+					mComment.setText(String.format("%s %s", getResources().getText(R.string.is), forme.toString()));
+				} else {
+					mResponse.setText(R.string.retry);
+					mResponse.setTextColor(getResources().getColor(R.color.red));
+					mComment.setText(String.format("%s %s", getResources().getText(R.string.isnt), forme.toString()));
+				}
+		}
 	}
 }
