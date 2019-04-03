@@ -7,6 +7,7 @@ import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.ConvexHull;
 import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.forme.TraitementPoints;
 import unice.plfgd.server.Log;
 
 import java.util.List;
@@ -22,16 +23,16 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
 
-			/*Uncomment this block to display convexHull with the draw without recognition, debug purpose.
+			//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
 			List<List<Point>> pts = data.getPoints();
-			List<Point> convex = ConvexHull.getConvexHullList(data.getPoints());
-			pts.add(convex);
+			List<Point> encRec = TraitementPoints.minimumAreaEnclosingRectangle(TraitementPoints.mergeList(data.getPoints()));
+			pts.add(encRec);
 			Draw futureDraw = new Draw(pts,data.getWidth(),data.getHeight());
 			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
-			*/
 
 
-			var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
+
+			//var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());
