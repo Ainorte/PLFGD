@@ -5,9 +5,7 @@ import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.ResultDrawFormeAction;
 import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
-import unice.plfgd.common.forme.ConvexHull;
-import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.forme.TraitementPoints;
+import unice.plfgd.common.forme.*;
 import unice.plfgd.server.Log;
 
 import java.util.List;
@@ -25,8 +23,23 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 
 			//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
 			List<List<Point>> pts = data.getPoints();
-			List<Point> encRec = TraitementPoints.minimumAreaEnclosingRectangle(TraitementPoints.mergeList(data.getPoints()));
+			List<Point> merge = TraitementPoints.mergeList(data.getPoints());
+			List<Point> sanitezed = TraitementPoints.sanitize(merge,2);
+			List<Point> refined = TraitementPoints.refineEndPoints(sanitezed,2);
+			List<Point> closed = TraitementPoints.closeStroke(refined);
+			List<Point> convex = ConvexHull.getConvexHull(closed);
+
+			List<Point> encRec = TraitementPoints.minimumAreaEnclosingRectangle(convex);
+			encRec = new Quadrilatere(encRec).make();
+
+
+			List<Point> maxTri = TraitementPoints.maximumAreaEnclosedTriangle(convex);
+			Log.log(Log.State.BLUE, maxTri.toString());
+			maxTri = new Triangle(maxTri).make();
+
 			pts.add(encRec);
+			pts.add(maxTri);
+
 			Draw futureDraw = new Draw(pts,data.getWidth(),data.getHeight());
 			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
 
