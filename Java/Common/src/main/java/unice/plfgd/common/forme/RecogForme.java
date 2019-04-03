@@ -59,7 +59,7 @@ public class RecogForme {
 		} else if (convexTriangleRatio > 0.6 & convexTriangleRatio < 1 && angleSize < 4) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 5) {
+		} else if (convexRectangleRatio > 0.85 & convexRectangleRatio < 1.25 && angleSize < 10) {
 			if (convexRectangleRatio > 0.95 & convexRectangleRatio < 1.05) {
 				Point G = MethodesForme.barycentre(convexHull);
 				Carre carre = new Carre(G, rectanglePerim / 4, 0);
@@ -69,7 +69,7 @@ public class RecogForme {
 				res.add(Forme.RECTANGLE);
 				res.add(rectangle);
 			}
-        } else if (thinnessRatio < 12.5 && angleSize < 1) {
+        } else if (thinnessRatio < 12.5 && angleSize < 5) {
             res.add(Forme.CIRCLE);
             res.add(new Cercle(MethodesForme.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
 		} else {

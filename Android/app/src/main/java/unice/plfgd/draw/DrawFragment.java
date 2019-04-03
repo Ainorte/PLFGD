@@ -108,29 +108,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 			Objects.requireNonNull(getView()).post(new Runnable() {
 				@Override
 				public void run() {
-					CharSequence f = "";
-
-					switch (forme) {
-						case SQUARE:
-							f = getText(R.string.square);
-							break;
-						case CIRCLE:
-							f = getText(R.string.round);
-							break;
-						case TRIANGLE:
-							f = getText(R.string.triangle);
-							break;
-						case POINT:
-							f = getText(R.string.point);
-							break;
-						case SEGMENT:
-							f = getText(R.string.segment);
-							break;
-						default:
-							f = "autre";
-					}
-
-					mOrder.setText(String.format("%s %s", getText(R.string.draw), f));
+					mOrder.setText(String.format("%s %s", getText(R.string.draw), forme.toString()));
 				}
 			});
 		}
