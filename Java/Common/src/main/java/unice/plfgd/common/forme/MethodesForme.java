@@ -123,6 +123,10 @@ public class MethodesForme {
 
 	static Point rotation_inverse(Point pt, double x0, double y0, double rot) {
 		double[] rotation = rotation(pt.getX(), pt.getY(), x0, y0, rot);
+		return newRotatedPoint(x0, y0, rot, rotation);
+	}
+
+	private static Point newRotatedPoint(double x0, double y0, double rot, double[] rotation) {
 		double x_inv = rotation[0];
 		double y_inv = rotation[1];
 		double new_x = (x_inv - x0) * Math.cos(rot) + (y_inv - y0) * Math.sin(rot) + x0;
@@ -132,11 +136,7 @@ public class MethodesForme {
 
 	static Point rotation_inverse(double x, double y, double x0, double y0, double rot) {
 		double[] rotation = rotation(x, y, x0, y0, rot);
-		double x_inv = rotation[0];
-		double y_inv = rotation[1];
-		double new_x = (x_inv - x0) * Math.cos(rot) + (y_inv - y0) * Math.sin(rot) + x0;
-		double new_y = -(x_inv - x0) * Math.sin(rot) + (y_inv - y0) * Math.cos(rot) + y0;
-		return new Point(new_x, new_y);
+		return newRotatedPoint(x0, y0, rot, rotation);
 	}
 
     /*static List<Segment> axesSym(List<Point> pts, double tolerance){
