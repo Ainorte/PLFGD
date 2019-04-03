@@ -5,6 +5,40 @@ import java.util.*;
 
 public class TraitementPoints {
 
+
+
+	public static List<Point> mergeList(List<List<Point>> pointList){
+		List<Point> base = pointList.get(0);
+		for(int i = 1;i<pointList.size();i++){
+			List<Point> merge = pointList.get(i);
+
+			Point baseStart = base.get(0);
+			Point baseEnd = base.get(base.size()-1);
+
+			Point mergeStart = merge.get(0);
+			Point mergeEnd = merge.get(merge.size()-1);
+
+			double distanceStartToStart = MethodesForme.norme(baseStart,mergeStart);
+			double distanceEndToStart = MethodesForme.norme(baseEnd,mergeStart);
+			double distanceEndToEnd = MethodesForme.norme(baseEnd,mergeEnd);
+
+			double minDistance = Math.min(distanceStartToStart,Math.min(distanceEndToStart,distanceEndToEnd));
+
+			if(minDistance == distanceEndToStart){
+				base.addAll(merge);
+			}
+			else{
+				Collections.reverse(merge);
+				if(minDistance == distanceStartToStart){
+					Collections.reverse(base);
+				}
+				base.addAll(merge);
+			}
+		}
+
+		return base;
+	}
+
 	public static List<Point> sanitize(List<Point> pointList, double tolerance) {
 		if (pointList.size() < 3) {
 			return pointList;
