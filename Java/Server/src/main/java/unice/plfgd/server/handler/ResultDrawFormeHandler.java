@@ -4,7 +4,11 @@ import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.ResultDrawFormeAction;
 import unice.plfgd.common.data.packet.Draw;
+import unice.plfgd.common.forme.ConvexHull;
+import unice.plfgd.common.forme.Point;
 import unice.plfgd.server.Log;
+
+import java.util.List;
 
 public class ResultDrawFormeHandler extends Handler<Draw> {
 
@@ -16,7 +20,17 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
-			var detecForme = new ResultDrawFormeAction(null).run(getStore(client), data);
+
+			/*Uncomment this block to display convexHull with the draw without recognition, debug purpose.
+			List<List<Point>> pts = data.getPoints();
+			List<Point> convex = ConvexHull.getConvexHullList(data.getPoints());
+			pts.add(convex);
+			Draw futureDraw = new Draw(pts,data.getWidth(),data.getHeight());
+			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
+			*/
+
+
+			var detecForme = new ResultDrawFormeAction(null).run(data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());
