@@ -18,6 +18,14 @@ public class Quadrilatere {
 		this.D = D;
 	}
 
+	public Quadrilatere(List<Point> pointList){
+		this.A = pointList.get(0);
+		this.B = pointList.get(1);
+		this.C = pointList.get(2);
+		this.D = pointList.get(3);
+	}
+
+
 	public Point getA() {
 		return A;
 	}
