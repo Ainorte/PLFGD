@@ -9,6 +9,7 @@ import unice.plfgd.common.forme.FormeFactory;
 import unice.plfgd.common.forme.Point;
 import unice.plfgd.common.forme.RecogForme;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 		return resultDrawForme;
 	}
 	// Return the payload with no action made on the draw;
-	public DetecForme nullRun(Draw payload){
-		return new DetecForme(payload,Forme.UNKNOWN);
+	public ResultDrawForme nullRun(Draw payload){
+		return new ResultDrawForme(payload,Forme.UNKNOWN,false,Forme.UNKNOWN);
 	}
 
 }
