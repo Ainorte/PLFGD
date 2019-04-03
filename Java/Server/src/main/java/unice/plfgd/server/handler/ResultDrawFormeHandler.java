@@ -3,6 +3,7 @@ package unice.plfgd.server.handler;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.ResultDrawFormeAction;
+import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.ConvexHull;
 import unice.plfgd.common.forme.Point;
@@ -30,7 +31,7 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			*/
 
 
-			var detecForme = new ResultDrawFormeAction(null).run(data);
+			var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());
