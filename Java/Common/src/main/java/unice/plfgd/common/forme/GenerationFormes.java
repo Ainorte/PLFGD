@@ -106,7 +106,7 @@ public class GenerationFormes {
         }
         return randForme;
     }
-    
+
 
 	public static Forme randEnumForme(){
 		Forme arr[] = new Forme[]{Forme.CIRCLE, Forme.RECTANGLE, Forme.TRIANGLE, Forme.SQUARE};
