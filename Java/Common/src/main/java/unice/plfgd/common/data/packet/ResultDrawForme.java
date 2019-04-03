@@ -21,7 +21,7 @@ public class ResultDrawForme extends Packet {
 		this.draw = draw;
 		this.forme = forme;
 		this.expected = expected;
-		this.validate = forme == expected;
+		this.validate = expected == Forme.RECTANGLE ? forme == Forme.SQUARE || forme == Forme.RECTANGLE : forme == expected;
 	}
 
 	public ResultDrawForme() {
