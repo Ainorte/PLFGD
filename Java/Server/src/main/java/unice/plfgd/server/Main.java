@@ -1,10 +1,7 @@
 package unice.plfgd.server;
 
 import com.corundumstudio.socketio.Configuration;
-import unice.plfgd.server.handler.DrawFormeHandler;
-import unice.plfgd.server.handler.ResultDrawFormeHandler;
-import unice.plfgd.server.handler.Handler;
-import unice.plfgd.server.handler.IdentHandler;
+import unice.plfgd.server.handler.*;
 
 import java.util.Map;
 
@@ -34,6 +31,8 @@ public class Main {
 		handlers.put("ident", new IdentHandler());
 		handlers.put("resultDrawForme", new ResultDrawFormeHandler());
 		handlers.put("drawForme", new DrawFormeHandler());
+		handlers.put("sct",new SCTHandler());
+		handlers.put("resultSCT", new ResultSCTHandler());
 
 		var server = new Server(config, handlers);
 		server.start();

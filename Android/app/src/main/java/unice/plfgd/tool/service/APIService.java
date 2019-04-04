@@ -45,8 +45,7 @@ public class APIService {
 				sendMessage("drawForme",null);
 				break;
 			case SCT:
-				//TODO
-                Log.wtf("APIService", "TODO Game mode SCT");
+				sendMessage("sct", null);
 				break;
 			default:
 				//nothing
@@ -58,8 +57,9 @@ public class APIService {
 		switch (actualGame) {
 			case DRAWFORME:
 				sendMessage("resultDrawForme", packet);
+				break;
 			case SCT:
-				//TODO
+				sendMessage("resultSCT",packet);
 				break;
 		}
 	}

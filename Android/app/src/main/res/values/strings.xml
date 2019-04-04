@@ -11,16 +11,11 @@
 	<string name="draw_Title">Dessin</string>
 	<string name="valid">Valider</string>
 	<string name="reset">Reset</string>
-	<string name="draw">Dessine</string>
+	<string name="draw">Dessine un</string>
 	<string name="wait">Merci de patienter</string>
 	<string name="back">Retour</string>
 	<string name="good_job">Bravo !</string>
 	<string name="retry">Essaie encore!</string>
-	<string name="square">un carré</string>
-	<string name="round">un rond</string>
-	<string name="triangle">un triangle</string>
-	<string name="segment">un segment</string>
-	<string name="point">un point</string>
 	<string name="server_address_port">10.0.2.2:10101</string>
 	<string name="username">Nom d\'utilisateur</string>
 	<string name="training">Entrainement</string>
@@ -37,4 +32,7 @@
 	<string name="isnt">Ceci n\'est pas un</string>
 	<string name="pseudo">Pseudo</string>
 	<string name="username_order">Saisis ton pseudo</string>
+	<string name="you_win">Vous avez gagné</string>
+	<string name="you_loose">Vous avez perdu</string>
+	<string name="equality">Égalité</string>
 </resources>

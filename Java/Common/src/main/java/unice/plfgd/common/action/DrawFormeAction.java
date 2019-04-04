@@ -10,10 +10,8 @@ import java.util.Random;
 
 public class DrawFormeAction extends Action<Packet, FormeRequest> {
 
-	private Handler handler;
-
 	public DrawFormeAction(Handler handler) {
-		this.handler = handler;
+		super(handler);
 	}
 
 	@Override
@@ -23,10 +21,5 @@ public class DrawFormeAction extends Action<Packet, FormeRequest> {
 		FormeRequest forme = new FormeRequest(formes[new Random().nextInt(formes.length)]);
 		store.addOrReplaceData("forme", forme);
 		return forme;
-	}
-
-	@Override
-	public Handler getResultHandler() {
-		return handler;
 	}
 }

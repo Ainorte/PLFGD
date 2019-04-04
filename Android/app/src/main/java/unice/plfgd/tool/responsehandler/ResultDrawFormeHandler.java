@@ -3,6 +3,8 @@ package unice.plfgd.tool.responsehandler;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.draw.DrawContract;
+import unice.plfgd.draw.ResultFragment;
+import unice.plfgd.draw.ResultPresenter;
 import unice.plfgd.tool.service.APIService;
 
 public class ResultDrawFormeHandler extends AbstractHandler {

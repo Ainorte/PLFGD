@@ -9,9 +9,7 @@ import org.json.JSONObject;
 import unice.plfgd.common.data.packet.User;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.Configuration;
-import unice.plfgd.tool.responsehandler.AbstractHandler;
-import unice.plfgd.tool.responsehandler.DrawFormeHandler;
-import unice.plfgd.tool.responsehandler.ResultDrawFormeHandler;
+import unice.plfgd.tool.responsehandler.*;
 import unice.plfgd.tool.responsehandler.status.ConnectHandler;
 import unice.plfgd.tool.responsehandler.status.DisconnectHandler;
 import unice.plfgd.tool.responsehandler.status.TimeoutHandler;
@@ -89,6 +87,8 @@ public class RemoteAPIImpl implements API {
 		socket.on(Socket.EVENT_DISCONNECT, new DisconnectHandler(svc).setConnexion(this));
 		socket.on("resultDrawForme", new ResultDrawFormeHandler(svc));
 		socket.on("drawForme", new DrawFormeHandler(svc));
+		socket.on("sct", new SCTHandler(svc));
+		socket.on("resultSCT",new ResultSCTHandler(svc));
 	}
 
 	public enum ResetSocketMessage {
