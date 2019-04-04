@@ -337,7 +337,7 @@ public class TraitementPoints {
 
 			double newAire = new Quadrilatere(r1, r2, r3, r4).getAire();
 
-			if (newAire < minAire) {
+			if (newAire <= minAire) {
 				minAire = newAire;
 				minRectArray = new Point[]{r1, r2, r3, r4};
 			}

@@ -19,6 +19,14 @@ public class Triangle extends AbstractForme {
 		this.rot = rot;
 	}
 
+	public Triangle(List<Point> pointList) {
+		super(MethodesForme.barycentre(pointList));
+		this.A = pointList.get(0);
+		this.B = pointList.get(1);
+		this.C = pointList.get(2);
+		this.rot = 0;
+	}
+
 	public static void main(String[] args) {
 		Triangle triangle1 = new Triangle(new Point(1, 1), new Point(0, 0), new Point(2, 2), new Point(4, 0), 0.0);
 		System.out.println(triangle1.getPerim());
