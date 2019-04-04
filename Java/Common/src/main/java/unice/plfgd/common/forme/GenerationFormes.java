@@ -109,7 +109,7 @@ public class GenerationFormes {
 
 
 	public static Forme randEnumForme(){
-		Forme arr[] = new Forme[]{Forme.CIRCLE, Forme.RECTANGLE, Forme.TRIANGLE, Forme.SQUARE};
+		Forme[] arr = new Forme[]{Forme.CIRCLE, Forme.RECTANGLE, Forme.TRIANGLE, Forme.SQUARE};
 		int random = (int) (Math.random() * 4);
 		return arr[random];
 	}
