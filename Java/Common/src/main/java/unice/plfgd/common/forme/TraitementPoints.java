@@ -1,5 +1,6 @@
 package unice.plfgd.common.forme;
 
+import java.awt.geom.Point2D;
 import java.util.*;
 
 
@@ -234,6 +235,29 @@ public class TraitementPoints {
 		return sommetsTriangle;
 	}
 
+	public static List<Point> minimumAreaEnclosingRectangle(List<Point> convexHull){
+		int size = convexHull.size();
+		int[] xs = new int[size];
+		int[] ys = new int[size];
+
+		for(int i = 0; i<size;i++){
+			Point pts = convexHull.get(i);
+			xs[i] = (int)pts.getX();
+			ys[i] = (int)pts.getY();
+		}
+
+		Point2D.Double[] temp = RotatingCalipers.getMinimumBoundingRectangle(xs,ys);
+		List<Point> res = new ArrayList<>();
+
+		for(Point2D.Double pts : temp){
+			Point newpts = new Point(pts.x,pts.y);
+			res.add(newpts);
+		}
+
+		return res;
+	}
+
+	/*
 	public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts) {
 
 		double minX = Double.POSITIVE_INFINITY;
@@ -345,7 +369,7 @@ public class TraitementPoints {
 		}
 		return Arrays.asList(minRectArray);
 	}
-
+*/
 	static public List<Segment> pointsToSegments(List<Point> pts) {
 		List<Segment> listSeg = new ArrayList<>();
 		for (int i = 0; i < pts.size() - 2; i++) {

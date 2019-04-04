@@ -30,7 +30,7 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			List<Point> closed = TraitementPoints.closeStroke(refined);
 			List<Point> convex = ConvexHull.getConvexHull(closed);
 
-			List<Point> encRec = MethodesForme.getMinimumEnclosingRectangle(convex);
+			List<Point> encRec = TraitementPoints.minimumAreaEnclosingRectangle(convex);
 			encRec = new Quadrilatere(encRec).make();
 
 
