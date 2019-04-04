@@ -21,7 +21,7 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			// It is in fact not, it's still pixel based, we still need to find a good solution
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
-
+			/*
 			//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
 			List<List<Point>> pts = data.getPoints();
 			List<Point> merge = TraitementPoints.mergeList(pts);
@@ -45,10 +45,10 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 
 			Draw futureDraw = new Draw(res,data.getWidth(),data.getHeight());
 			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
+			*/
 
 
-
-			//var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
+			var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());
