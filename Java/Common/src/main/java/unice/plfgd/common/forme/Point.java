@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public class Point implements Serializable {
 
-	protected double x;
-	protected double y;
-	protected double xV;
-	protected double yV;
+	public double x;
+	public double y;
+	public double xV;
+	public double yV;
 	protected Forme type = Forme.POINT;
 
 	public Point(double x, double y) {
