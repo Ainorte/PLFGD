@@ -27,7 +27,7 @@
 	<string name="win">Vous avez gagnez !</string>
 	<string name="lose">Vous avez perdu…</string>
 	<string name="vs">VS</string>
-	<string name="sct">Carre Rond Triangle</string>
+	<string name="sct">Rectangle Rond Triangle</string>
 	<string name="drawforme">Dessiner une forme</string>
 	<string name="title_activity_preferences">PreferencesActivity</string>
 	<string name="preferences">Préférences</string>
