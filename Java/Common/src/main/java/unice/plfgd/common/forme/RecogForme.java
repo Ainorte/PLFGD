@@ -30,7 +30,7 @@ public class RecogForme {
 
 		List<Object> angle = TraitementPoints.findVertices(convexHull);
 		int angleSize = (int) angle.get(2);
-		System.out.println("ANGLE NUMBER: "  + angleSize);
+		//System.out.println("ANGLE NUMBER: "  + angleSize);
 
 		Triangle triangle = new Triangle(new Point(0, 0), encTriangle.get(0), encTriangle.get(1), encTriangle.get(2), 0);
 		double triangleArea = triangle.getAire();

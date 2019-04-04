@@ -114,7 +114,7 @@ public class TraitementPoints {
 		if (intersections.isEmpty()) {
 			return handleNoIntersections(pts);
 		}
-		System.out.println(intersections);
+		//System.out.println(intersections);
 		return handleIntersections(pts, intersections);
 	}
 
@@ -392,7 +392,7 @@ public class TraitementPoints {
 		}
 		for(int i = 1; i < pts.size(); i++){
 			double courbure = MethodesForme.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
-			System.out.println(Math.toDegrees(courbure));
+			//System.out.println(Math.toDegrees(courbure));
 			if(Math.abs(Math.toDegrees(courbure)) > 30){
 				cpt += 1;
 				verticesIndices.add(i%listSize);

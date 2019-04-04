@@ -29,8 +29,8 @@ public class Triangle extends AbstractForme {
 
 	public static void main(String[] args) {
 		Triangle triangle1 = new Triangle(new Point(1, 1), new Point(0, 0), new Point(2, 2), new Point(4, 0), 0.0);
-		System.out.println(triangle1.getPerim());
-		System.out.println(triangle1.getAire());
+		//System.out.println(triangle1.getPerim());
+		//System.out.println(triangle1.getAire());
 	}
 
 	public double getAire() {
