@@ -28,7 +28,7 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
                 1000,1000
         );
 
-    //    result.setEnemy(enemy);
+        result.setEnemy(enemy);
         result.setEnemyF(forme);
         result.setPlayer(payload);
         result.setPlayerF(player);
