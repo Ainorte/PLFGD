@@ -13,7 +13,7 @@ public class GenerationFormes {
 		switch (random) {
 			case 1:
 				List<Object> objCarre = new ArrayList<>();
-				objCarre.add("carre");
+				objCarre.add(Forme.SQUARE);
 				objCarre.add(G);
 				objCarre.add(l / 2);
 				objCarre.add(0.0);
@@ -21,7 +21,7 @@ public class GenerationFormes {
 				break;
 			case 2:
 				List<Object> objRect = new ArrayList<>();
-				objRect.add("rectangle");
+				objRect.add(Forme.RECTANGLE);
 				objRect.add(G);
 				objRect.add(l / 2);
 				objRect.add(h / 2);
@@ -30,7 +30,7 @@ public class GenerationFormes {
 				break;
 			case 3:
 				List<Object> objCercle = new ArrayList<>();
-				objCercle.add("cercle");
+				objCercle.add(Forme.CIRCLE);
 				objCercle.add(G);
 				objCercle.add(l / 4);
 				objCercle.add(0.0);
@@ -45,7 +45,7 @@ public class GenerationFormes {
 				objTriangle.add(B);
 				objTriangle.add(C);
 				List<Object> objTriangle2 = new ArrayList<>();
-				objTriangle2.add("triangle");
+				objTriangle2.add(Forme.TRIANGLE);
 				objTriangle2.add(G);
 				objTriangle2.addAll(objTriangle);
 				objTriangle2.add(0.0);
@@ -122,7 +122,7 @@ public class GenerationFormes {
 		switch (random) {
 			case 1:
 				List<Object> objCarre = new ArrayList<>();
-				objCarre.add("carre");
+				objCarre.add(Forme.SQUARE);
 				Point randG = isCentered ? new Point(l / 2, h / 2) : randG(l, h);
 				double randL = randL(randG, l, h);
 				objCarre.add(randG);
@@ -132,7 +132,7 @@ public class GenerationFormes {
 				break;
 			case 2:
 				List<Object> objRect = new ArrayList<>();
-				objRect.add("rectangle");
+				objRect.add(Forme.RECTANGLE);
 				Point randG2 = isCentered ? new Point(l / 2, h / 2) : randG(l, h);
 				double randL2 = randL(randG2, l, h);
 				double randH2 = randL(randG2, l, h);
@@ -144,7 +144,7 @@ public class GenerationFormes {
 				break;
 			case 3:
 				List<Object> objCercle = new ArrayList<>();
-				objCercle.add("cercle");
+				objCercle.add(Forme.CIRCLE);
 				Point randG3 = isCentered ? new Point(l / 2, h / 2) : randG(l, h);
 				double randL3 = randL(randG3, l / 2, h / 2);
 				objCercle.add(randG3);
@@ -162,7 +162,7 @@ public class GenerationFormes {
 				objTriangle.add(C);
 				Point G = MethodesForme.barycentre(objTriangle);
 				List<Object> objTriangle2 = new ArrayList<>();
-				objTriangle2.add("triangle");
+				objTriangle2.add(Forme.TRIANGLE);
 				objTriangle2.add(G);
 				objTriangle2.addAll(objTriangle);
 				objTriangle2.add(randRotation);
