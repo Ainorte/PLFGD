@@ -34,14 +34,7 @@ public class MenuPresenter implements MenuContract.Presenter {
 	@Override
 	public void launchGame(Game game) {
 		mView.blockInteration();
-		switch (game){
-			case DRAWFORME:
-				APIService.getInstance().lauchGame(game);
-				break;
-			case SCT:
-				mView.onSocketReset(RemoteAPIImpl.ResetSocketMessage.CONNEXION_LOST);
-				break;
-		}
+		APIService.getInstance().lauchGame(game);
 	}
 
 	@Override

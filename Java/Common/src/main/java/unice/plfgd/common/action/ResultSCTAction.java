@@ -23,11 +23,11 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
         ResultDrawForme recog = new ResultDrawFormeAction(null).run(new UserStore(),payload);
         Forme player = recog.getForme();
 
-    /*      Draw enemy = new Draw(
+         Draw enemy = new Draw(
                 new ArrayList<List<Point>>(){{add(GenerationFormes.generateEnumForme(forme,1000,1000));}},
                 1000,1000
         );
-	*/
+
     //    result.setEnemy(enemy);
         result.setEnemyF(forme);
         result.setPlayer(payload);

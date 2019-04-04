@@ -11,6 +11,8 @@ public interface DrawContract {
 	interface View extends BaseView<Presenter> {
 		void showOrder(Forme forme);
 
+		void showOrder(Game game);
+
 		void resetCanvas();
 
 		DrawCanvas getCanvas();
@@ -18,6 +20,8 @@ public interface DrawContract {
 		void onSending();
 
 		void resultSwitch(Packet result, Game game);
+
+		void resultSCTSwitch(Packet result, Game game);
 	}
 
 	interface Presenter extends BasePresenter {
@@ -26,6 +30,8 @@ public interface DrawContract {
 		void onValid();
 
 		void resultSwitch(Packet result, Game game);
+
+		void resultSCTSwitch(Packet result, Game game);
 
 		void setDraw(Draw draw);
 

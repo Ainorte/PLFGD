@@ -17,17 +17,17 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 	private Handler resultHandler;
 
 	public ResultDrawFormeAction(Handler resultHandler) {
-		this.resultHandler = resultHandler;
-	}
-
-	public Handler getResultHandler() {
-		return resultHandler;
+		super(resultHandler);
 	}
 
 	@Override
 	public ResultDrawForme run(UserStore store, Draw payload) {
 
-		Forme expected = store.getData("forme", FormeRequest.class).getForme();
+		FormeRequest ex = store.getData("forme", FormeRequest.class);
+		Forme expected = Forme.UNKNOWN;
+		if(ex != null){
+			expected = ex.getForme();
+		}
 
 		List<List<Point>> ptGroups = payload.getPoints();
 		List<Point> pts = new ArrayList<>();
@@ -44,6 +44,8 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 				(Forme) results.get(0),
 				expected
 		);
+
+		store.resetGame();
 
 		return resultDrawForme;
 	}
