@@ -39,7 +39,7 @@ public class ResultPresenter implements ResultContract.Presenter {
 
 	@Override
 	public void replay() {
-		APIService.getInstance().lauchGame(game);
+		APIService.getInstance().launchGame(game);
 	}
 
     @Override

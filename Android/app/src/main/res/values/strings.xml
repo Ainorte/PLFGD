@@ -37,4 +37,5 @@
 	<string name="isnt">Ceci n\'est pas un</string>
 	<string name="pseudo">Pseudo</string>
 	<string name="username_order">Saisis ton pseudo</string>
+	<string name="deviner_la_forme">Deviner la forme</string>
 </resources>

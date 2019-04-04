@@ -22,8 +22,7 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	private MenuContract.Presenter mPresenter;
 
 	private TextView mText;
-	private Button mDrawForme;
-	private Button mSCT;
+	private Button mDrawForme, mSCT, mDeviner;
 
 	public MenuFragment() {
 		//Required
@@ -65,7 +64,7 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 
 		mText = view.findViewById(R.id.accueil_text);
-		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+		mText.setText(String.format("%s, %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
 
 		mDrawForme = view.findViewById(R.id.but_des);
 		mDrawForme.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +81,15 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 				mPresenter.launchGame(Game.SCT);
 			}
 		});
+
+		mDeviner = view.findViewById(R.id.but_dev);
+		mDeviner.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.launchGame(Game.DEVINER);
+			}
+		});
+
 		return view;
 	}
 

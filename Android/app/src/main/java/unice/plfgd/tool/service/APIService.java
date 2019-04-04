@@ -37,7 +37,7 @@ public class APIService {
 		this.presenter = presenter;
 	}
 
-	public void lauchGame(Game game){
+	public void launchGame(Game game){
 		actualGame = game;
 
 		switch (actualGame){
@@ -47,6 +47,8 @@ public class APIService {
 			case SCT:
 				//TODO
                 Log.wtf("APIService", "TODO Game mode SCT");
+				break;
+			case DEVINER:
 				break;
 			default:
 				//nothing
