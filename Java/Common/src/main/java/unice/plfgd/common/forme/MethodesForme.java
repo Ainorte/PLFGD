@@ -1,6 +1,9 @@
 package unice.plfgd.common.forme;
 
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class MethodesForme {
 
@@ -229,4 +232,28 @@ public class MethodesForme {
 		}
 		return true;
 	}
+
+
+	public static List<Point> getMinimumEnclosingRectangle(List<Point> convexHull){
+		int size = convexHull.size();
+		int[] xs = new int[size];
+		int[] ys = new int[size];
+
+		for(int i = 0; i<size;i++){
+			Point pts = convexHull.get(i);
+			xs[i] = (int)pts.getX();
+			ys[i] = (int)pts.getY();
+		}
+
+		Point2D.Double[] temp = RotatingCalipers.getMinimumBoundingRectangle(xs,ys);
+		List<Point> res = new ArrayList<>();
+
+		for(Point2D.Double pts : temp){
+			Point newpts = new Point(pts.x,pts.y);
+			res.add(newpts);
+		}
+
+		return res;
+	}
+
 }
