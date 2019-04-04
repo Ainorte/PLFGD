@@ -16,16 +16,8 @@ public class DevinerFormeResult extends Packet {
 
 	private List<Forme> formes;
 
-	public DevinerFormeResult(int score) {
-		this.score = score;
-	}
-
-	public DevinerFormeResult(List<Forme> formes, int score) {
-		this.formes = formes;
-		this.score = score;
-	}
-
 	private int score;
+	private Boolean hasWon;
 
 	public DevinerFormeResult() {
 	}
@@ -36,6 +28,14 @@ public class DevinerFormeResult extends Packet {
 
 	public int getScore() {
 		return score;
+	}
+
+	public Boolean getHasWon() {
+		return hasWon;
+	}
+
+	public void setHasWon(Boolean hasWon) {
+		this.hasWon = hasWon;
 	}
 
 	public void setScore(int score) {
