@@ -63,7 +63,7 @@ public class GenerationFormes {
         switch (forme) {
             case SQUARE:
                 List<Object> objCarre = new ArrayList<>();
-                objCarre.add("carre");
+                objCarre.add(forme);
                 objCarre.add(G);
                 objCarre.add(l / 2);
                 objCarre.add(0.0);
@@ -71,7 +71,7 @@ public class GenerationFormes {
                 break;
             case RECTANGLE:
                 List<Object> objRect = new ArrayList<>();
-                objRect.add("rectangle");
+                objRect.add(forme);
                 objRect.add(G);
                 objRect.add(l / 2);
                 objRect.add(h / 2);
@@ -80,7 +80,7 @@ public class GenerationFormes {
                 break;
             case CIRCLE:
                 List<Object> objCercle = new ArrayList<>();
-                objCercle.add("cercle");
+                objCercle.add(forme);
                 objCercle.add(G);
                 objCercle.add(l / 4);
                 objCercle.add(0.0);
@@ -95,7 +95,7 @@ public class GenerationFormes {
                 objTriangle.add(B);
                 objTriangle.add(C);
                 List<Object> objTriangle2 = new ArrayList<>();
-                objTriangle2.add("triangle");
+                objTriangle2.add(forme);
                 objTriangle2.add(G);
                 objTriangle2.addAll(objTriangle);
                 objTriangle2.add(0.0);
