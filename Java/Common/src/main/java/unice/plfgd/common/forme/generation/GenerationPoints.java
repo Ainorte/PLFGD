@@ -1,4 +1,7 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.generation;
+
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Segment;
 
 import java.util.ArrayList;
 import java.util.List;

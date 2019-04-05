@@ -1,4 +1,7 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.forme;
+
+import unice.plfgd.common.forme.generation.GenerationPoints;
+import unice.plfgd.common.forme.method.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ public class Triangle extends AbstractForme {
 	}
 
 	public Triangle(List<Point> pointList) {
-		super(MethodesForme.barycentre(pointList));
+		super(utils.barycentre(pointList));
 		this.A = pointList.get(0);
 		this.B = pointList.get(1);
 		this.C = pointList.get(2);
@@ -34,18 +37,18 @@ public class Triangle extends AbstractForme {
 	}
 
 	public double getAire() {
-		double distAB = MethodesForme.norme(A, B);
-		double distBC = MethodesForme.norme(B, C);
-		double distAC = MethodesForme.norme(A, C);
+		double distAB = utils.norme(A, B);
+		double distBC = utils.norme(B, C);
+		double distAC = utils.norme(A, C);
 		double s = (distAB + distBC + distAC) / 2;
 		double h = 2 * Math.sqrt(s * (s - distAB) * (s - distBC) * (s - distAC)) / distAC;
 		return distAC * h;
 	}
 
 	public double getPerim() {
-		double distAB = MethodesForme.norme(A, B);
-		double distBC = MethodesForme.norme(B, C);
-		double distAC = MethodesForme.norme(A, C);
+		double distAB = utils.norme(A, B);
+		double distBC = utils.norme(B, C);
+		double distAC = utils.norme(A, C);
 		return distAB + distBC + distAC;
 	}
 

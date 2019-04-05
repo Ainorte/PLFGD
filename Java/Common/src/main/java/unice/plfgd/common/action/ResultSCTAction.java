@@ -5,7 +5,9 @@ import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.FormeRequest;
 import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.common.data.packet.ResultSCT;
-import unice.plfgd.common.forme.*;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.generation.GenerationFormes;
 
 import java.util.ArrayList;
 import java.util.List;

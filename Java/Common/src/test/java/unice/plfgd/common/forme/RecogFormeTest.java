@@ -1,6 +1,8 @@
 package unice.plfgd.common.forme;
 
 import org.junit.Test;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.method.RecogForme;
 
 import java.util.ArrayList;
 import java.util.List;

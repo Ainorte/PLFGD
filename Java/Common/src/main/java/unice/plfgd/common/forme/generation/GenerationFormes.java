@@ -1,4 +1,9 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.generation;
+
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.generation.FormeFactory;
+import unice.plfgd.common.forme.method.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +165,7 @@ public class GenerationFormes {
 				objTriangle.add(A);
 				objTriangle.add(B);
 				objTriangle.add(C);
-				Point G = MethodesForme.barycentre(objTriangle);
+				Point G = utils.barycentre(objTriangle);
 				List<Object> objTriangle2 = new ArrayList<>();
 				objTriangle2.add(Forme.TRIANGLE);
 				objTriangle2.add(G);

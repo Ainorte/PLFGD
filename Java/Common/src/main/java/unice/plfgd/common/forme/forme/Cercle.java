@@ -1,4 +1,4 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.forme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ public class Cercle extends Ellipse {
 	protected Point G;
 	protected Forme type = Forme.CIRCLE;
 
-	Cercle(Point G, double a, double rot) {
+	public Cercle(Point G, double a, double rot) {
 		super(G, a, a, rot);
 		this.G = G;
 	}

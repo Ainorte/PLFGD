@@ -1,4 +1,6 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.forme;
+
+import unice.plfgd.common.forme.generation.FormeGeometrique;
 
 abstract public class AbstractForme implements FormeGeometrique {
 

@@ -1,6 +1,6 @@
 package unice.plfgd.common.data.packet;
 
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 
 public class ResultSCT extends Packet {
