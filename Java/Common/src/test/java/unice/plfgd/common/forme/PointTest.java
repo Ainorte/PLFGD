@@ -1,22 +1,21 @@
 package unice.plfgd.common.forme;
 
 import org.junit.Test;
-
-import java.awt.*;
+import unice.plfgd.common.forme.forme.Point;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
-	Point p1;
-	Point p2;
-	Point sym;
+	unice.plfgd.common.forme.forme.Point p1;
+	unice.plfgd.common.forme.forme.Point p2;
+	unice.plfgd.common.forme.forme.Point sym;
 
 	@org.junit.Before
 	public void setUp() throws Exception {
-		p1 = new Point(2,2);
-		p2 = new Point(0,0);
+		p1 = new unice.plfgd.common.forme.forme.Point(2,2);
+		p2 = new unice.plfgd.common.forme.forme.Point(0,0);
 	}
 
 	@Test

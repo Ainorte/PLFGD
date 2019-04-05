@@ -4,10 +4,10 @@ import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.FormeRequest;
 import unice.plfgd.common.data.packet.ResultDrawForme;
-import unice.plfgd.common.forme.Forme;
-import unice.plfgd.common.forme.FormeFactory;
-import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.forme.RecogForme;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.generation.FormeFactory;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.method.RecogForme;
 
 
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package unice.plfgd.draw;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Game;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 
 public interface ResultContract {

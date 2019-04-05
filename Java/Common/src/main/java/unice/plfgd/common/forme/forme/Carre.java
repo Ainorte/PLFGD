@@ -1,7 +1,4 @@
-package unice.plfgd.common.forme;
-
-import java.util.ArrayList;
-import java.util.List;
+package unice.plfgd.common.forme.forme;
 
 public class Carre extends Rectangle {
 

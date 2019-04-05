@@ -1,6 +1,6 @@
 package unice.plfgd.common.data.packet;
 
-import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.net.Packet;
 
 import java.util.ArrayList;

@@ -2,7 +2,10 @@
  * Copyright (c) 2010, Bart Kiers
  * Modified to fit our needs on the projects
  */
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.method;
+
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Point2D;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.game;
 
 public class PFC {
 

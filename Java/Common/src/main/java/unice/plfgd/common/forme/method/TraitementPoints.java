@@ -1,4 +1,9 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.method;
+
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Point2D;
+import unice.plfgd.common.forme.forme.Segment;
+import unice.plfgd.common.forme.forme.Triangle;
 
 import java.util.*;
 
@@ -18,9 +23,9 @@ public class TraitementPoints {
 			Point mergeStart = merge.get(0);
 			Point mergeEnd = merge.get(merge.size()-1);
 
-			double distanceStartToStart = MethodesForme.norme(baseStart,mergeStart);
-			double distanceEndToStart = MethodesForme.norme(baseEnd,mergeStart);
-			double distanceEndToEnd = MethodesForme.norme(baseEnd,mergeEnd);
+			double distanceStartToStart = utils.norme(baseStart,mergeStart);
+			double distanceEndToStart = utils.norme(baseEnd,mergeStart);
+			double distanceEndToEnd = utils.norme(baseEnd,mergeEnd);
 
 			double minDistance = Math.min(distanceStartToStart,Math.min(distanceEndToStart,distanceEndToEnd));
 
@@ -81,7 +86,7 @@ public class TraitementPoints {
 			if (binStart.size() <= binSize) binStart.add(pts.get(i));
 			else break;
 		}
-		Point start = MethodesForme.barycentre(binStart);
+		Point start = utils.barycentre(binStart);
 		start = closestDiscretePoint(start);
 
 		List<Point> binEnd = new ArrayList<>();
@@ -90,7 +95,7 @@ public class TraitementPoints {
 			if (binEnd.size() <= binSize) binEnd.add(pts.get(maxBinPts - j));
 			else break;
 		}
-		Point end = MethodesForme.barycentre(binEnd);
+		Point end = utils.barycentre(binEnd);
 		end = closestDiscretePoint(end);
 
 		List<Point> result = new ArrayList<>();
@@ -135,8 +140,8 @@ public class TraitementPoints {
 			Segment headExt = new Segment(pts.get(0), pts.get(1));
 			Segment tailExt = new Segment(pts.get(listSize - 2), pts.get(listSize - 1));
 			Point inter = headExt.crossPoint(tailExt);
-			if (MethodesForme.norme(inter, pts.get(0)) < MethodesForme.norme(inter, pts.get(1))
-					& MethodesForme.norme(inter, pts.get(listSize - 1)) < MethodesForme.norme(inter, pts.get(listSize - 2))) {
+			if (utils.norme(inter, pts.get(0)) < utils.norme(inter, pts.get(1))
+					& utils.norme(inter, pts.get(listSize - 1)) < utils.norme(inter, pts.get(listSize - 2))) {
 				pts.remove(0);
 				pts.add(0, inter);
 				pts.add(inter);
@@ -148,8 +153,8 @@ public class TraitementPoints {
 
 					Point headCross = listSeg.get(i).crossPoint(headExt);
 					Point tailCross = listSeg.get(i).crossPoint(tailExt);
-					Double distHeadCross = MethodesForme.norme(headExt.getP1(), headCross);
-					if (distHeadCross < MethodesForme.norme(headExt.getP2(), headCross)) {
+					Double distHeadCross = utils.norme(headExt.getP1(), headCross);
+					if (distHeadCross < utils.norme(headExt.getP2(), headCross)) {
 						if (distHeadCross <= MDE) {
 							pts = pts.subList(0, i + 1);
 							pts.add(0, headCross);
@@ -157,8 +162,8 @@ public class TraitementPoints {
 							break;
 						}
 					}
-					Double distTailCross = MethodesForme.norme(tailExt.getP2(), tailCross);
-					if (distTailCross < MethodesForme.norme(tailExt.getP1(), tailCross)) {
+					Double distTailCross = utils.norme(tailExt.getP2(), tailCross);
+					if (distTailCross < utils.norme(tailExt.getP1(), tailCross)) {
 						if (distTailCross <= MCPL) {
 							pts = pts.subList(i + 1, pts.size());
 							pts.add(0, tailCross);
@@ -178,8 +183,8 @@ public class TraitementPoints {
 		Point closestInter = new Point(0, 0);
 		double minDistance = Double.POSITIVE_INFINITY;
 		for (Point inter : inters) {
-			double distStart = MethodesForme.norme(inter, startPoint);
-			double distEnd = MethodesForme.norme(inter, endPoint);
+			double distStart = utils.norme(inter, startPoint);
+			double distEnd = utils.norme(inter, endPoint);
 			if (distStart + distEnd <= minDistance) closestInter = inter;
 		}
 		int MCPL = 100;//maximum cutted path length
@@ -390,7 +395,7 @@ public class TraitementPoints {
 			return finalList;
 		}
 		for(int i = 1; i < pts.size(); i++){
-			double courbure = MethodesForme.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
+			double courbure = utils.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
 			//System.out.println(Math.toDegrees(courbure));
 			if(Math.abs(Math.toDegrees(courbure)) > 30){
 				cpt += 1;

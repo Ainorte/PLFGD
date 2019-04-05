@@ -14,7 +14,7 @@ import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.packet.FormeRequest;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.service.APIService;

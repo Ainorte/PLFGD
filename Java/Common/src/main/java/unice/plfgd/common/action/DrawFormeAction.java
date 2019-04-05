@@ -3,7 +3,7 @@ package unice.plfgd.common.action;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.FormeRequest;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 
 import java.util.Random;
