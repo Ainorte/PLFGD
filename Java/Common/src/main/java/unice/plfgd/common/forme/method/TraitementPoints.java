@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import unice.plfgd.common.forme.forme.Point;
-import unice.plfgd.common.forme.forme.Point2D;
+import unice.plfgd.common.forme.forme.Quadrilatere;
 import unice.plfgd.common.forme.forme.Segment;
 import unice.plfgd.common.forme.forme.Triangle;
-import unice.plfgd.common.forme.forme.Quadrilatere;
 
 
 public class TraitementPoints {
@@ -245,30 +244,8 @@ public class TraitementPoints {
 		return sommetsTriangle;
 	}
 
-	public static List<Point> minimumAreaEnclosingRectangle(List<Point> convexHull){
-		int size = convexHull.size();
-		int[] xs = new int[size];
-		int[] ys = new int[size];
 
-		for(int i = 0; i<size;i++){
-			Point pts = convexHull.get(i);
-			xs[i] = (int)pts.getX();
-			ys[i] = (int)pts.getY();
-		}
-
-		Point2D.Double[] temp = RotatingCalipers.getMinimumBoundingRectangle(xs,ys);
-		List<Point> res = new ArrayList<>();
-
-		for(Point2D.Double pts : temp){
-			Point newpts = new Point(pts.x,pts.y);
-			res.add(newpts);
-		}
-
-		return res;
-	}
-
-
-	public static List<Point> minimumAreaEnclosingRectangle2(List<Point> pts) {
+	public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts) {
 
 		double minX = Double.POSITIVE_INFINITY;
 		double minY = Double.POSITIVE_INFINITY;
