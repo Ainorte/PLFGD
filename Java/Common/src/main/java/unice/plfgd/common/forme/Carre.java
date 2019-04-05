@@ -28,15 +28,4 @@ public class Carre extends Rectangle {
 	}
 
 
-	public List<Point> make() {
-		Point A = new Point(G.getX() - l / 2, G.getY() + l / 2);
-		Point B = new Point(G.getX() + l / 2, G.getY() + l / 2);
-		Point C = new Point(G.getX() + l / 2, G.getY() - l / 2);
-		Point D = new Point(G.getX() - l / 2, G.getY() - l / 2);
-		Segment[] segmentsCarre = new Segment[]{new Segment(A, B), new Segment(B, C), new Segment(C, D), new Segment(D, A)};
-		for (Segment seg : segmentsCarre) seg.rotation(this.getG(), rot);
-		List<Point> listPts = new ArrayList<>();
-		for (Segment seg : segmentsCarre) listPts.addAll(GenerationPoints.generatePtsFromSeg(seg, 10));
-		return listPts;
-	}
 }
