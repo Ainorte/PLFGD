@@ -357,6 +357,10 @@ public class TraitementPoints {
 		return Arrays.asList(minRectArray);
 	}
 
+	public static List<Point> minimumAreaEnclosingRectangle2(List<Point> pts){
+	    return RotatingCalipers.getMinimumBoundingRectangle(pts);
+    }
+
 	static public List<Segment> pointsToSegments(List<Point> pts) {
 		List<Segment> listSeg = new ArrayList<>();
 		for (int i = 0; i < pts.size() - 2; i++) {
