@@ -1,11 +1,17 @@
 package unice.plfgd.common.forme.method;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.forme.forme.Point2D;
 import unice.plfgd.common.forme.forme.Segment;
 import unice.plfgd.common.forme.forme.Triangle;
-
-import java.util.*;
+import unice.plfgd.common.forme.forme.Quadrilatere;
 
 
 public class TraitementPoints {
@@ -261,8 +267,8 @@ public class TraitementPoints {
 		return res;
 	}
 
-	/*
-	public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts) {
+
+	public static List<Point> minimumAreaEnclosingRectangle2(List<Point> pts) {
 
 		double minX = Double.POSITIVE_INFINITY;
 		double minY = Double.POSITIVE_INFINITY;
@@ -354,10 +360,10 @@ public class TraitementPoints {
 
 			Point ptR = pts.get(ptRotation);
 
-			caliperX1.rotation(ptR, minAngle);
-			caliperX2.rotation(ptR, minAngle);
-			caliperY1.rotation(ptR, minAngle);
-			caliperY2.rotation(ptR, minAngle);
+			caliperX1.rotation(r1, minAngle);
+			caliperX2.rotation(r3, minAngle);
+			caliperY1.rotation(r4, minAngle);
+			caliperY2.rotation(r2, minAngle);
 			r1 = caliperX1.crossPoint(caliperY1);
 			r2 = caliperX1.crossPoint(caliperY2);
 			r3 = caliperX2.crossPoint(caliperY2);
@@ -373,7 +379,7 @@ public class TraitementPoints {
 		}
 		return Arrays.asList(minRectArray);
 	}
-*/
+
 	static public List<Segment> pointsToSegments(List<Point> pts) {
 		List<Segment> listSeg = new ArrayList<>();
 		for (int i = 0; i < pts.size() - 2; i++) {
