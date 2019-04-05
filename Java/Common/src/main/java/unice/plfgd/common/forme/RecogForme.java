@@ -61,7 +61,7 @@ public class RecogForme {
 
 
 
-		if (thinnessRatio < 2) {
+		if (thinnessRatio < 4) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
 		} else if (convexTriangleRatio > 0.9 && convexTriangleRatio < 2.4
