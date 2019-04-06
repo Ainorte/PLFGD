@@ -1,11 +1,17 @@
 package unice.plfgd.common.forme.method;
 
 
-import unice.plfgd.common.forme.forme.Quadrilatere;
-import unice.plfgd.common.forme.forme.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import unice.plfgd.common.forme.forme.Carre;
+import unice.plfgd.common.forme.forme.Cercle;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Inconnu;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Quadrilatere;
+import unice.plfgd.common.forme.forme.Segment;
+import unice.plfgd.common.forme.forme.Triangle;
 
 public class RecogForme {
 
@@ -88,7 +94,7 @@ public class RecogForme {
 				&& convexTriangleRatio > 0.5 && convexTriangleRatio < 1.1
 				&& angleSize < 5) {
             res.add(Forme.CIRCLE);
-            res.add(new Cercle(utils.barycentre(convexHull), rectanglePerim / (2 * Math.PI), 0));
+            res.add(new Cercle(utils.barycentre(convexHull), Math.sqrt(convexHullArea/Math.PI), 0));
 		} else {
 			res.add(Forme.UNKNOWN);
 			res.add(new Inconnu(convexHull));
