@@ -316,27 +316,21 @@ public class TraitementPoints {
 			minAngle = Math.min(minAngle, minAngle2);
 			if (minAngle == 0) minAngle = Math.max(minAngle, minAngle2);
 
-			int ptRotation = 0;
+
 			if (teta1 == minAngle) {
-				ptRotation = ptMinX;
 				ptMinX = (ptMinX + 1) % listSize;
 				seg1 = new Segment(pts.get(ptMinX % listSize), pts.get((ptMinX + 1) % listSize));
 			} else if (teta2 == minAngle) {
-				ptRotation = ptMaxX;
 				ptMaxX = (ptMaxX + 1) % listSize;
 				seg2 = new Segment(pts.get(ptMaxX % listSize), pts.get((ptMaxX + 1) % listSize));
 			} else if (teta3 == minAngle) {
-				ptRotation = ptMinY;
 				ptMinY = (ptMinY + 1) % listSize;
 				seg3 = new Segment(pts.get(ptMinY % listSize), pts.get((ptMinY + 1) % listSize));
 			} else if (teta4 == minAngle) {
-				ptRotation = ptMaxY;
 				ptMaxY = (ptMaxY + 1) % listSize;
 				seg4 = new Segment(pts.get(ptMaxY % listSize), pts.get((ptMaxY + 1) % listSize));
 			}
-
-			Point ptR = pts.get(ptRotation);
-
+			
 			caliperX1.rotation(r1, minAngle);
 			caliperX2.rotation(r3, minAngle);
 			caliperY1.rotation(r4, minAngle);
