@@ -25,7 +25,7 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
 
-			/*//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
+			/*//Uncomment this block to display convexHull and lot of information with the draw without recognition, debug purpose.
 			List<List<Point>> pts = data.getPoints();
 			List<Point> merge = TraitementPoints.mergeList(pts);
 			List<Point> sanitezed = TraitementPoints.sanitize(merge,2);
