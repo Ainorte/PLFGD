@@ -316,35 +316,57 @@ public class TraitementPoints {
 			minAngle = Math.min(minAngle, minAngle2);
 			if (minAngle == 0) minAngle = Math.max(minAngle, minAngle2);
 
+			Point ptR = new Point(0,0);
 
 			if (teta1 == minAngle) {
+			    ptR = pts.get(ptMinX%listSize);
+                caliperX1.rotation(ptR, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMinX = (ptMinX + 1) % listSize;
+                r1 = pts.get(ptMinX%listSize);
 				seg1 = new Segment(pts.get(ptMinX % listSize), pts.get((ptMinX + 1) % listSize));
 			} else if (teta2 == minAngle) {
+                ptR = pts.get(ptMaxX%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(ptR, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMaxX = (ptMaxX + 1) % listSize;
+                r3 = pts.get(ptMaxX%listSize);
 				seg2 = new Segment(pts.get(ptMaxX % listSize), pts.get((ptMaxX + 1) % listSize));
 			} else if (teta3 == minAngle) {
+                ptR = pts.get(ptMinY%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(ptR, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMinY = (ptMinY + 1) % listSize;
+                r4 = pts.get(ptMinY%listSize);
 				seg3 = new Segment(pts.get(ptMinY % listSize), pts.get((ptMinY + 1) % listSize));
 			} else if (teta4 == minAngle) {
+                ptR = pts.get(ptMaxY%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(ptR, minAngle);
 				ptMaxY = (ptMaxY + 1) % listSize;
+                r2 = pts.get(ptMaxY%listSize);
 				seg4 = new Segment(pts.get(ptMaxY % listSize), pts.get((ptMaxY + 1) % listSize));
 			}
-			
-			caliperX1.rotation(r1, minAngle);
-			caliperX2.rotation(r3, minAngle);
-			caliperY1.rotation(r4, minAngle);
-			caliperY2.rotation(r2, minAngle);
-			r1 = caliperX1.crossPoint(caliperY1);
-			r2 = caliperX1.crossPoint(caliperY2);
-			r3 = caliperX2.crossPoint(caliperY2);
-			r4 = caliperX2.crossPoint(caliperY1);
 
-			double newAire = new Quadrilatere(r1, r2, r3, r4).getAire();
+
+			Point R1 = caliperX1.crossPoint(caliperY1);
+			Point R2 = caliperX1.crossPoint(caliperY2);
+			Point R3 = caliperX2.crossPoint(caliperY2);
+			Point R4 = caliperX2.crossPoint(caliperY1);
+
+			double newAire = new Quadrilatere(R1, R2, R3, R4).getAire();
 
 			if (newAire <= minAire) {
 				minAire = newAire;
-				minRectArray = new Point[]{r1, r2, r3, r4};
+				minRectArray = new Point[]{R1, R2, R3, R4};
 			}
 			j += minAngle;
 		}
