@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import unice.plfgd.common.net.Packet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class HandlerTest {
 
@@ -19,10 +19,10 @@ public class HandlerTest {
 
 	@Test
 	public void getGenericTypeClass() {
-		assertEquals( handler.getGenericTypeClass(),TestPacket.class);
+		assertEquals(handler.getGenericTypeClass(), TestPacket.class);
 	}
 
-	private class TestHandler extends Handler<TestPacket>{
+	private class TestHandler extends Handler<TestPacket> {
 
 		@Override
 		public void onData(SocketIOClient client, TestPacket data, AckRequest ackSender) throws Exception {

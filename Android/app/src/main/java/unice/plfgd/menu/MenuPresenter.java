@@ -34,7 +34,7 @@ public class MenuPresenter implements MenuContract.Presenter {
 	@Override
 	public void launchGame(Game game) {
 		mView.blockInteration();
-		APIService.getInstance().lauchGame(game);
+		APIService.getInstance().launchGame(game);
 	}
 
 	@Override

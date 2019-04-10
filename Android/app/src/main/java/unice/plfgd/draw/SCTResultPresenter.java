@@ -63,7 +63,7 @@ public class SCTResultPresenter implements SCTResultContract.Presenter {
 
 	@Override
 	public void replay() {
-		APIService.getInstance().lauchGame(game);
+		APIService.getInstance().launchGame(game);
 	}
 
     @Override

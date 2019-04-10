@@ -6,6 +6,8 @@ import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.forme.method.RecogForme;
 
+import java.util.List;
+
 public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 	private Handler handler;
 
@@ -18,7 +20,7 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 	public DevinerFormeResult run(UserStore store, Draw payload) {
 		DevinerFormeResult formes = store.getData("formes", DevinerFormeResult.class);
 
-		var toGuess = formes.getFormes();
+		List<Forme> toGuess = formes.getFormes();
 		if (!toGuess.isEmpty()) {
 			Forme toCheck = toGuess.remove(0);
 			// WTF is this hell? Types, modafucka...
