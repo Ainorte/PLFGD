@@ -94,7 +94,7 @@ public class GenerationFormes {
             case TRIANGLE:
                 List<Point> objTriangle = new ArrayList<>();
                 Point A = new Point(l / 4, 3 * h / 4);
-                Point B = new Point(l / 2, 3 * h / 4);
+                Point B = new Point(l / 2, h / 4);
                 Point C = new Point(3 * l / 4, 3 * h / 4);
                 objTriangle.add(A);
                 objTriangle.add(B);

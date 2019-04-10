@@ -49,8 +49,8 @@ public class UserStore {
 	}
 
 	public <T extends Packet> T getData(String name, Class<T> clazz) {
-		Packet packet = data.getOrDefault(name, null);
-		if (clazz.isInstance(packet)) {
+		Packet packet = data.get(name);
+		if (packet != null && clazz.isInstance(packet)) {
 			return (T) packet;
 		}
 		return null;
