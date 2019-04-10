@@ -39,8 +39,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		mPresenter.start();
 		resetInteraction();
 
-		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome),
-			mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+		mText.setText(String.format(getResources().getString(R.string.welcome), mPresenter.getUserName()));
 	}
 
 
