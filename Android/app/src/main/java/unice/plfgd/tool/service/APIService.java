@@ -47,6 +47,7 @@ public class APIService {
 				sendMessage("sct", null);
 				break;
 			case DEVINER:
+                sendMessage("devinerFormeInit", null);
 				break;
 			default:
 				//nothing
@@ -62,6 +63,12 @@ public class APIService {
 			case SCT:
 				sendMessage("resultSCT", packet);
 				break;
+            case DEVINER:
+                sendMessage("devinerCheckDraw",packet);
+                break;
+            default:
+                //nothing
+                break;
 		}
 	}
 

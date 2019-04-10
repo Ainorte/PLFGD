@@ -19,12 +19,11 @@ import org.junit.runner.RunWith;
 import unice.plfgd.R;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -34,13 +33,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class FailedConnectAndPreferencesTest {
+public class DrawFormeTest {
 
 	@Rule
 	public ActivityTestRule<HomeActivity> mActivityTestRule = new ActivityTestRule<>(HomeActivity.class);
 
 	@Test
-	public void failedConnectAndPreferencesTest() {
+	public void drawFormeTest() {
 		ViewInteraction appCompatEditText = onView(
 				allOf(withId(R.id.username_field),
 						childAtPosition(
@@ -60,124 +59,82 @@ public class FailedConnectAndPreferencesTest {
 		appCompatButton.perform(scrollTo(), click());
 
 		ViewInteraction appCompatButton2 = onView(
-				allOf(withId(R.id.connect_button), withText("Se connecter"),
+				allOf(withId(R.id.ent_button), withText("Entrainement"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.widget.ScrollView")),
+										0),
+								2)));
+		appCompatButton2.perform(scrollTo(), click());
+
+		ViewInteraction appCompatButton3 = onView(
+				allOf(withId(R.id.but_des), withText("Dessiner une forme"),
 						childAtPosition(
 								childAtPosition(
 										withClassName(is("android.widget.ScrollView")),
 										0),
 								1)));
-		appCompatButton2.perform(scrollTo(), click());
-
-		ViewInteraction appCompatButton3 = onView(
-				allOf(withId(R.id.settings_btn), withText("Préférences"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.widget.ScrollView")),
-										0),
-								3)));
 		appCompatButton3.perform(scrollTo(), click());
 
-		ViewInteraction appCompatEditText2 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
+		ViewInteraction view = onView(
+				allOf(withId(R.id.draw_canvas),
 						childAtPosition(
 								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText2.perform(click());
-
-		ViewInteraction appCompatEditText3 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText3.perform(replaceText("10.0.2.2:1010"));
-
-		ViewInteraction appCompatEditText4 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText4.perform(closeSoftKeyboard());
-
-		ViewInteraction appCompatEditText5 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText5.perform(pressImeActionButton());
-
-		ViewInteraction appCompatEditText6 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText6.perform(replaceText("10.0.2.2:10101"));
-
-		ViewInteraction appCompatEditText7 = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText7.perform(closeSoftKeyboard());
-
-		ViewInteraction appCompatEditText8 = onView(
-				allOf(withId(R.id.name_field), withText("J1"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								3),
-						isDisplayed()));
-		appCompatEditText8.perform(replaceText("J2"));
-
-		ViewInteraction appCompatEditText9 = onView(
-				allOf(withId(R.id.name_field), withText("J2"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								3),
-						isDisplayed()));
-		appCompatEditText9.perform(closeSoftKeyboard());
-
-		ViewInteraction appCompatEditText10 = onView(
-				allOf(withId(R.id.name_field), withText("J2"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								3),
-						isDisplayed()));
-		appCompatEditText10.perform(pressImeActionButton());
-
-		ViewInteraction floatingActionButton = onView(
-				allOf(withId(R.id.fab),
-						childAtPosition(
-								childAtPosition(
-										withId(android.R.id.content),
+										withId(R.id.contentFrame),
 										0),
 								2),
 						isDisplayed()));
-		floatingActionButton.perform(click());
+		view.check(matches(isDisplayed()));
 
-		pressBack();
+		ViewInteraction appCompatButton4 = onView(
+				allOf(withId(R.id.draw_reset), withText("Reset"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								1),
+						isDisplayed()));
+		appCompatButton4.perform(click());
+
+		ViewInteraction appCompatButton5 = onView(
+				allOf(withId(R.id.draw_valid), withText("Valider"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								3),
+						isDisplayed()));
+		appCompatButton5.perform(click());
+
+		ViewInteraction appCompatButton6 = onView(
+				allOf(withId(R.id.result_replay), withText("Rejouer"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								4),
+						isDisplayed()));
+		appCompatButton6.perform(click());
+
+		ViewInteraction appCompatButton7 = onView(
+				allOf(withId(R.id.draw_valid), withText("Valider"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								3),
+						isDisplayed()));
+		appCompatButton7.perform(click());
+
+		ViewInteraction appCompatButton8 = onView(
+				allOf(withId(R.id.result_back), withText("Retour"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								3),
+						isDisplayed()));
+		appCompatButton8.perform(click());
 	}
 
 	private static Matcher<View> childAtPosition(
