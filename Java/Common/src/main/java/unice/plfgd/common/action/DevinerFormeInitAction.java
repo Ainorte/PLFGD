@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DevinerFormeInitAction extends Action<Packet, DevinerFormeResult> {
+	private static final int GUESS_COUNT = 5;
 	private Handler handler;
 
 	public DevinerFormeInitAction(Handler handler) {
@@ -24,7 +25,7 @@ public class DevinerFormeInitAction extends Action<Packet, DevinerFormeResult> {
 		DevinerFormeResult formes = new DevinerFormeResult();
 
 		List<Forme> toGuess = new ArrayList<>();
-		formes.setScoreToReach(5);
+		formes.setScoreToReach(GUESS_COUNT);
 		for (int i = 0; i < formes.getScoreToReach(); ++i) {
 			toGuess.add(GenerationFormes.randEnumForme());
 		}
