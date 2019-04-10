@@ -400,7 +400,7 @@ public class TraitementPoints {
 		for(int i = 1; i < pts.size(); i++){
 			double courbure = utils.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
 			//System.out.println(Math.toDegrees(courbure));
-			if(Math.abs(Math.toDegrees(courbure)) > 30){
+			if(Math.abs(Math.toDegrees(courbure)) > 35){
 				cpt += 1;
 				verticesIndices.add(i%listSize);
 				vertices.add(pts.get(i%listSize));
