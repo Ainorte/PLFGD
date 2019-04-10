@@ -43,7 +43,7 @@ public class RecogForme {
 
 		List<Object> res = new ArrayList<>();
 
-		List<Object> angle = TraitementPoints.findVertices(convexHull);
+		List<Object> angle = TraitementPoints.findVertex(convexHull);
 		int angleSize = (int) angle.get(2);
 		//System.out.println("ANGLE NUMBER: "  + angleSize);
 
@@ -70,9 +70,9 @@ public class RecogForme {
 
 
 		//Print ratio:
-		System.out.println("Thinness Ratio " + thinnessRatio);
-		System.out.println("Convex Triangle Ratio " + convexTriangleRatio);
-		System.out.println("Convex Rectangle Ratio " + convexRectangleRatio);
+		//System.out.println("Thinness Ratio " + thinnessRatio);
+		//System.out.println("Convex Triangle Ratio " + convexTriangleRatio);
+		//System.out.println("Convex Rectangle Ratio " + convexRectangleRatio);
 
 
 		if (thinnessRatio < 4) {

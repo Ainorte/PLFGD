@@ -2,10 +2,10 @@ package unice.plfgd.common.forme.method;
 
 
 
+import java.util.List;
+
 import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.forme.forme.Segment;
-
-import java.util.List;
 
 
 public class utils {
@@ -78,6 +78,7 @@ public class utils {
 	public static double normalizeAngle(double angle) {
 		return Math.atan2(Math.sin(angle), Math.cos(angle));
 	}
+
 
 	// n is the point to find courbature around, k is neighborhood size
 	public static double courbature(List<Point> pts, int n, int k) {
