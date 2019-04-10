@@ -3,6 +3,7 @@ package unice.plfgd.draw;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
@@ -22,6 +23,8 @@ public interface DrawContract {
 		void resultSwitch(Packet result, Game game);
 
 		void resultSCTSwitch(Packet result, Game game);
+
+		void showText(final String s);
 	}
 
 	interface Presenter extends BasePresenter {
@@ -40,5 +43,9 @@ public interface DrawContract {
 		DrawCanvas.OnSizeChange onDrawSizeChange();
 
 		android.view.View.OnTouchListener onCanvasTouch();
+
+		void setDevine(DevinerFormeResult devine);
+
+		void startTimer();
 	}
 }

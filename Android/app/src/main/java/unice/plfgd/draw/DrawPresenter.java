@@ -1,15 +1,21 @@
 package unice.plfgd.draw;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.generation.GenerationFormes;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.service.API;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
@@ -22,6 +28,12 @@ public class DrawPresenter implements DrawContract.Presenter {
 	private VelocityTracker velocityTracker;
 
 	private Forme order;
+	private List<Forme> formeList;
+	private int numberFormes;
+	private int counterForme;
+
+	private int time;
+	private boolean white;
 
 	public DrawPresenter(@NonNull DrawContract.View view) {
 		this.mView = view;
@@ -91,6 +103,9 @@ public class DrawPresenter implements DrawContract.Presenter {
 				} else {
 					mDraw = mView.getCanvas().getEmptyDraw();
 				}
+				if(APIService.getInstance().getActualGame() == Game.DEVINER){
+					startTimer();
+				}
 			}
 		};
 	}
@@ -156,5 +171,51 @@ public class DrawPresenter implements DrawContract.Presenter {
 				return false;
 			}
 		};
+	}
+
+	@Override
+	public void setDevine(DevinerFormeResult devine) {
+		formeList = devine.getFormes();
+		numberFormes = devine.getScoreToReach();
+		mDraw = new Draw(new ArrayList<List<Point>>(){{ add(GenerationFormes.generateEnumForme(formeList.remove(0), 1000, 1000));}},1000,1000);
+		counterForme++;
+		time = 0;
+	}
+
+	@Override
+	public void startTimer() {
+
+		white = false;
+
+		final Handler handler = new Handler();
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				if(white){
+					mDraw = new Draw(new ArrayList<List<Point>>(){{ add(GenerationFormes.generateEnumForme(formeList.remove(0), 1000, 1000));}},1000,1000);
+					mView.getCanvas().drawResult(mDraw);
+					handler.postDelayed(this, 0);
+					white = false;
+				}
+				else if(time <= 5) {
+					mView.showText(5 - time + "s : " + counterForme + "/" + numberFormes);
+					time++;
+					handler.postDelayed(this, 1000);
+				}
+				else if(counterForme < numberFormes){
+					counterForme++;
+					time = 0;
+					mView.getCanvas().clear();
+					handler.postDelayed(this, 500);
+					white = true;
+				}
+				else{
+					counterForme = 0;
+					handler.removeCallbacks(this);
+				}
+			}
+		};
+
+		handler.postDelayed(runnable, 0);
 	}
 }
