@@ -17,7 +17,7 @@ public class RecogForme {
 
 
 	public static List<Object> process(List<Point> pts) {
-	    if(pts == null) {
+	    if(pts.isEmpty()) {
             List<Object> objNull = new ArrayList<>();
             objNull.add(Forme.UNKNOWN);
             objNull.add(new Inconnu(pts));
@@ -82,8 +82,7 @@ public class RecogForme {
 			&& convexRectangleRatio < 0.90) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.80 && convexRectangleRatio < 1.25
-			&& convexTriangleRatio < 1.3) {
+		} else if (convexRectangleRatio > 0.80 && convexRectangleRatio < 1.25) {
 			if (convexRectangleRatio > 0.95 && convexRectangleRatio < 1.05
 				&& convexTriangleRatio < 1) {
 				Point G = utils.barycentre(convexHull);
