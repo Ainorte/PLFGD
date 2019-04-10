@@ -1,15 +1,28 @@
 package unice.plfgd.common.forme.method;
 
 
-import unice.plfgd.common.forme.forme.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import unice.plfgd.common.forme.forme.Carre;
+import unice.plfgd.common.forme.forme.Cercle;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Inconnu;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Quadrilatere;
+import unice.plfgd.common.forme.forme.Segment;
+import unice.plfgd.common.forme.forme.Triangle;
 
 public class RecogForme {
 
 
 	public static List<Object> process(List<Point> pts) {
+	    if(pts == null) {
+            List<Object> objNull = new ArrayList<>();
+            objNull.add(Forme.UNKNOWN);
+            objNull.add(new Inconnu(pts));
+            return objNull;
+        }
 		List<Point> sanitized = TraitementPoints.sanitize(pts, 0.02);
 
 		List<Point> convexHull = TraitementPoints.refineEndPoints(sanitized, 2);
