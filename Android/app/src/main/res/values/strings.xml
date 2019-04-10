@@ -3,7 +3,7 @@
 	<string name="replay">Rejouer</string>
 	<string name="connect">Se connecter</string>
 	<string name="connecting">Connexion en cours</string>
-	<string name="welcome">Bienvenue</string>
+	<string name="welcome">Bienvenue, </string>
 	<string name="exclamationPoint">!</string>
 	<string name="connexionLost">Connexion au serveur perdu</string>
 	<string name="nonemptyInputs">Les champs ne doivent pas être vides</string>

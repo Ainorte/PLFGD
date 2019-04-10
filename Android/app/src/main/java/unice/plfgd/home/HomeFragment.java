@@ -38,6 +38,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		super.onResume();
 		mPresenter.start();
 		resetInteraction();
+
+		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome),
+			mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
 	}
 
 
@@ -57,11 +60,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		switch (message) {
 			case TIMEOUT:
 				Snackbar.make(Objects.requireNonNull(getView()),
-						R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
+					R.string.host_unreachable, Snackbar.LENGTH_LONG).show();
 				break;
 			case CONNEXION_LOST:
 				Snackbar.make(Objects.requireNonNull(getView()),
-						R.string.connexionLost, Snackbar.LENGTH_LONG).show();
+					R.string.connexionLost, Snackbar.LENGTH_LONG).show();
 				break;
 		}
 
@@ -73,15 +76,13 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 		});
 	}
 
+
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_fragment, container, false);
 
 		mText = view.findViewById(R.id.home_welcome);
-        mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome),
-				mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
-
 
 		mConnectButton = view.findViewById(R.id.connect_button);
 		mConnectButton.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +105,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 			@Override
 			public void onClick(View v) {
 				startActivity(
-						new Intent(getContext(), PreferencesActivity.class)
+					new Intent(getContext(), PreferencesActivity.class)
 				);
 			}
 		});
@@ -113,7 +114,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
-    public void blockInteraction() {
+	public void blockInteraction() {
 		mConnectButton.setEnabled(false);
 		mEntButton.setEnabled(false);
 
