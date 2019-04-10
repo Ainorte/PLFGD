@@ -41,6 +41,15 @@ public class FailedConnectAndPreferencesTest {
 
 	@Test
 	public void failedConnectAndPreferencesTest() {
+		ViewInteraction appCompatEditText = onView(
+				allOf(withId(R.id.username_field),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.widget.ScrollView")),
+										0),
+								1)));
+		appCompatEditText.perform(scrollTo(), replaceText("J1"), closeSoftKeyboard());
+
 		ViewInteraction appCompatButton = onView(
 				allOf(withId(R.id.valid_button), withText("Valider"),
 						childAtPosition(
@@ -68,16 +77,6 @@ public class FailedConnectAndPreferencesTest {
 								3)));
 		appCompatButton3.perform(scrollTo(), click());
 
-		ViewInteraction appCompatEditText = onView(
-				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.support.design.widget.CoordinatorLayout")),
-										1),
-								1),
-						isDisplayed()));
-		appCompatEditText.perform(click());
-
 		ViewInteraction appCompatEditText2 = onView(
 				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
 						childAtPosition(
@@ -86,7 +85,7 @@ public class FailedConnectAndPreferencesTest {
 										1),
 								1),
 						isDisplayed()));
-		appCompatEditText2.perform(replaceText("10.0.2.2:10101"));
+		appCompatEditText2.perform(click());
 
 		ViewInteraction appCompatEditText3 = onView(
 				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
@@ -96,29 +95,77 @@ public class FailedConnectAndPreferencesTest {
 										1),
 								1),
 						isDisplayed()));
-		appCompatEditText3.perform(closeSoftKeyboard());
+		appCompatEditText3.perform(replaceText("10.0.2.2:1010"));
 
 		ViewInteraction appCompatEditText4 = onView(
-				allOf(withId(R.id.name_field),
+				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
 						childAtPosition(
 								childAtPosition(
 										withClassName(is("android.support.design.widget.CoordinatorLayout")),
 										1),
-								3),
+								1),
 						isDisplayed()));
-		appCompatEditText4.perform(replaceText("Flo"), closeSoftKeyboard());
+		appCompatEditText4.perform(closeSoftKeyboard());
 
 		ViewInteraction appCompatEditText5 = onView(
-				allOf(withId(R.id.name_field), withText("Flo"),
+				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
 						childAtPosition(
 								childAtPosition(
 										withClassName(is("android.support.design.widget.CoordinatorLayout")),
 										1),
-								3),
+								1),
 						isDisplayed()));
 		appCompatEditText5.perform(pressImeActionButton());
 
-		pressBack();
+		ViewInteraction appCompatEditText6 = onView(
+				allOf(withId(R.id.server_field), withText("10.0.2.2:1010"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.support.design.widget.CoordinatorLayout")),
+										1),
+								1),
+						isDisplayed()));
+		appCompatEditText6.perform(replaceText("10.0.2.2:10101"));
+
+		ViewInteraction appCompatEditText7 = onView(
+				allOf(withId(R.id.server_field), withText("10.0.2.2:10101"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.support.design.widget.CoordinatorLayout")),
+										1),
+								1),
+						isDisplayed()));
+		appCompatEditText7.perform(closeSoftKeyboard());
+
+		ViewInteraction appCompatEditText8 = onView(
+				allOf(withId(R.id.name_field), withText("J1"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.support.design.widget.CoordinatorLayout")),
+										1),
+								3),
+						isDisplayed()));
+		appCompatEditText8.perform(replaceText("J2"));
+
+		ViewInteraction appCompatEditText9 = onView(
+				allOf(withId(R.id.name_field), withText("J2"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.support.design.widget.CoordinatorLayout")),
+										1),
+								3),
+						isDisplayed()));
+		appCompatEditText9.perform(closeSoftKeyboard());
+
+		ViewInteraction appCompatEditText10 = onView(
+				allOf(withId(R.id.name_field), withText("J2"),
+						childAtPosition(
+								childAtPosition(
+										withClassName(is("android.support.design.widget.CoordinatorLayout")),
+										1),
+								3),
+						isDisplayed()));
+		appCompatEditText10.perform(pressImeActionButton());
 
 		ViewInteraction floatingActionButton = onView(
 				allOf(withId(R.id.fab),
