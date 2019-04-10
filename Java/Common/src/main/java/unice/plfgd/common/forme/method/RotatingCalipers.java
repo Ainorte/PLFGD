@@ -1,33 +1,23 @@
-package unice.plfgd.common.forme;
-
+package unice.plfgd.common.forme.method;
 /*
  * Copyright (c) 2010, Bart Kiers
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * Modified to fit our needs on the projects
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
+
+import unice.plfgd.common.forme.forme.Point;
+
 
 public final class RotatingCalipers {
+
+	protected enum Corner { UPPER_RIGHT, UPPER_LEFT, LOWER_LEFT, LOWER_RIGHT }
 
 	public static double getArea(Point[] rectangle) {
 
@@ -43,9 +33,10 @@ public final class RotatingCalipers {
 		return lengthAB * lengthBC;
 	}
 
+
 	public static List<Point[]> getAllBoundingRectangles(List<Point> points) throws IllegalArgumentException {
 
-		List<Point[]> rectangles = new ArrayList<>();
+		List<Point[]> rectangles = new ArrayList<Point[]>();
 
 		List<Point> convexHull = GrahamScan.getConvexHull(points);
 
@@ -54,7 +45,7 @@ public final class RotatingCalipers {
 		Caliper K = new Caliper(convexHull, getIndex(convexHull, Corner.LOWER_LEFT), 270);
 		Caliper L = new Caliper(convexHull, getIndex(convexHull, Corner.LOWER_RIGHT), 0);
 
-		while (L.currentAngle < 90.0) {
+		while(L.currentAngle < 90.0) {
 
 			rectangles.add(new Point[]{
 					L.getIntersection(I),
@@ -74,6 +65,7 @@ public final class RotatingCalipers {
 		return rectangles;
 	}
 
+
 	public static List<Point> getMinimumBoundingRectangle(List<Point> points) throws IllegalArgumentException {
 
 		List<Point[]> rectangles = getAllBoundingRectangles(points);
@@ -90,8 +82,8 @@ public final class RotatingCalipers {
 				area = tempArea;
 			}
 		}
-		return Arrays.asList(minimum);
-		//return minimum;
+		List<Point> res = Arrays.asList(minimum);
+		return res;
 	}
 
 	private static double getSmallestTheta(Caliper I, Caliper J, Caliper K, Caliper L) {
@@ -101,13 +93,16 @@ public final class RotatingCalipers {
 		double thetaK = K.getDeltaAngleNextPoint();
 		double thetaL = L.getDeltaAngleNextPoint();
 
-		if (thetaI <= thetaJ && thetaI <= thetaK && thetaI <= thetaL) {
+		if(thetaI <= thetaJ && thetaI <= thetaK && thetaI <= thetaL) {
 			return thetaI;
-		} else if (thetaJ <= thetaK && thetaJ <= thetaL) {
+		}
+		else if(thetaJ <= thetaK && thetaJ <= thetaL) {
 			return thetaJ;
-		} else if (thetaK <= thetaL) {
+		}
+		else if(thetaK <= thetaL) {
 			return thetaK;
-		} else {
+		}
+		else {
 			return thetaL;
 		}
 	}
@@ -117,12 +112,12 @@ public final class RotatingCalipers {
 		int index = 0;
 		Point point = convexHull.get(index);
 
-		for (int i = 1; i < convexHull.size() - 1; i++) {
+		for(int i = 1; i < convexHull.size() - 1; i++) {
 
 			Point temp = convexHull.get(i);
 			boolean change = false;
 
-			switch (corner) {
+			switch(corner) {
 				case UPPER_RIGHT:
 					change = (temp.getX() > point.getX() || (temp.getX() == point.getX() && temp.getY() > point.getY()));
 					break;
@@ -137,7 +132,7 @@ public final class RotatingCalipers {
 					break;
 			}
 
-			if (change) {
+			if(change) {
 				index = i;
 				point = temp;
 			}
@@ -145,8 +140,6 @@ public final class RotatingCalipers {
 
 		return index;
 	}
-
-	protected enum Corner {UPPER_RIGHT, UPPER_LEFT, LOWER_LEFT, LOWER_RIGHT}
 
 	protected static class Caliper {
 
@@ -164,10 +157,10 @@ public final class RotatingCalipers {
 
 		double getAngleNextPoint() {
 
-			Point p1 = convexHull.get(pointIndex % convexHull.size());
+			Point p1 = convexHull.get(pointIndex);
 			Point p2 = convexHull.get((pointIndex + 1) % convexHull.size());
 
-			double deltaX = p2.getX() - p1.getY();
+			double deltaX = p2.getX() - p1.getX();
 			double deltaY = p2.getY() - p1.getY();
 
 			double angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
@@ -177,7 +170,7 @@ public final class RotatingCalipers {
 
 		double getConstant() {
 
-			Point p = convexHull.get(pointIndex % convexHull.size());
+			Point p = convexHull.get(pointIndex);
 
 			return p.getY() - (getSlope() * p.getX());
 		}
@@ -198,19 +191,23 @@ public final class RotatingCalipers {
 			// the y-intercept of 'this' and 'that', given 'x': (m*x) + c
 			double y;
 
-			if (this.isVertical()) {
+			if(this.isVertical()) {
 				x = convexHull.get(pointIndex).getX();
-			} else if (this.isHorizontal()) {
+			}
+			else if(this.isHorizontal()) {
 				x = that.convexHull.get(that.pointIndex).getX();
-			} else {
-				x = (that.getConstant() - this.getConstant()) / (this.getSlope() - that.getSlope());
+			}
+			else {
+				x = (that.getConstant() -  this.getConstant()) / (this.getSlope() - that.getSlope());
 			}
 
-			if (this.isVertical()) {
+			if(this.isVertical()) {
 				y = that.getConstant();
-			} else if (this.isHorizontal()) {
+			}
+			else if(this.isHorizontal()) {
 				y = this.getConstant();
-			} else {
+			}
+			else {
 				y = (this.getSlope() * x) + this.getConstant();
 			}
 
@@ -231,7 +228,7 @@ public final class RotatingCalipers {
 
 		void rotateBy(double angle) {
 
-			if (this.getDeltaAngleNextPoint() == angle) {
+			if(this.getDeltaAngleNextPoint() == angle) {
 				pointIndex++;
 			}
 
@@ -245,20 +242,22 @@ public final class RotatingCalipers {
 	 */
 	private static class GrahamScan {
 
+		protected static enum Turn { CLOCKWISE, COUNTER_CLOCKWISE, COLLINEAR }
+
 		protected static boolean areAllCollinear(List<Point> points) {
 
-			if (points.size() < 2) {
+			if(points.size() < 2) {
 				return true;
 			}
 
 			final Point a = points.get(0);
 			final Point b = points.get(1);
 
-			for (int i = 2; i < points.size(); i++) {
+			for(int i = 2; i < points.size(); i++) {
 
 				Point c = points.get(i);
 
-				if (getTurn(a, b, c) != Turn.COLLINEAR) {
+				if(getTurn(a, b, c) != Turn.COLLINEAR) {
 					return false;
 				}
 			}
@@ -270,11 +269,11 @@ public final class RotatingCalipers {
 
 			List<Point> sorted = new ArrayList<Point>(getSortedPointSet(points));
 
-			if (sorted.size() < 3) {
+			if(sorted.size() < 3) {
 				throw new IllegalArgumentException("can only create a convex hull of 3 or more unique points");
 			}
 
-			if (areAllCollinear(sorted)) {
+			if(areAllCollinear(sorted)) {
 				throw new IllegalArgumentException("cannot create a convex hull from collinear points");
 			}
 
@@ -290,7 +289,7 @@ public final class RotatingCalipers {
 
 				Turn turn = getTurn(tail, middle, head);
 
-				switch (turn) {
+				switch(turn) {
 					case COUNTER_CLOCKWISE:
 						stack.push(middle);
 						stack.push(head);
@@ -313,11 +312,11 @@ public final class RotatingCalipers {
 
 			Point lowest = points.get(0);
 
-			for (int i = 1; i < points.size(); i++) {
+			for(int i = 1; i < points.size(); i++) {
 
 				Point temp = points.get(i);
 
-				if (temp.getY() < lowest.getY() || (temp.getY() == lowest.getY() && temp.getX() < lowest.getX())) {
+				if(temp.getY() < lowest.getY() || (temp.getY() == lowest.getY() && temp.getX() < lowest.getX())) {
 					lowest = temp;
 				}
 			}
@@ -333,26 +332,29 @@ public final class RotatingCalipers {
 				@Override
 				public int compare(Point a, Point b) {
 
-					if (a == b || a.equals(b)) {
+					if(a == b || a.equals(b)) {
 						return 0;
 					}
 
-					double thetaA = Math.atan2(a.getY() - lowest.getY(), a.getX() - lowest.getX());
-					double thetaB = Math.atan2(b.getY() - lowest.getY(), b.getX() - lowest.getX());
+					double thetaA = Math.atan2((long)a.getY() - lowest.getY(), (long)a.getX() - lowest.getX());
+					double thetaB = Math.atan2((long)b.getY() - lowest.getY(), (long)b.getX() - lowest.getX());
 
-					if (thetaA < thetaB) {
+					if(thetaA < thetaB) {
 						return -1;
-					} else if (thetaA > thetaB) {
+					}
+					else if(thetaA > thetaB) {
 						return 1;
-					} else {
-						double distanceA = Math.sqrt(((lowest.getX() - a.getX()) * (lowest.getX() - a.getX())) +
-								((lowest.getY() - a.getY()) * (lowest.getY() - a.getY())));
-						double distanceB = Math.sqrt(((lowest.getX() - b.getX()) * (lowest.getX() - b.getX())) +
-								((lowest.getY() - b.getY()) * (lowest.getY() - b.getY())));
+					}
+					else {
+						double distanceA = Math.sqrt((((long)lowest.getX() - a.getX()) * ((long)lowest.getX() - a.getX())) +
+								(((long)lowest.getY() - a.getY()) * ((long)lowest.getY() - a.getY())));
+						double distanceB = Math.sqrt((((long)lowest.getX() - b.getX()) * ((long)lowest.getX() - b.getX())) +
+								(((long)lowest.getY() - b.getY()) * ((long)lowest.getY() - b.getY())));
 
-						if (distanceA < distanceB) {
+						if(distanceA < distanceB) {
 							return -1;
-						} else {
+						}
+						else {
 							return 1;
 						}
 					}
@@ -366,18 +368,18 @@ public final class RotatingCalipers {
 
 		protected static Turn getTurn(Point a, Point b, Point c) {
 
-			double crossProduct = ((b.getX() - a.getX()) * (c.getY() - a.getY())) -
-					((b.getY() - a.getY()) * (c.getX() - a.getX()));
+			double crossProduct = (((long)b.getX() - a.getX()) * ((long)c.getY() - a.getY())) -
+					(((long)b.getY() - a.getY()) * ((long)c.getX() - a.getX()));
 
-			if (crossProduct > 0) {
+			if(crossProduct > 0) {
 				return Turn.COUNTER_CLOCKWISE;
-			} else if (crossProduct < 0) {
+			}
+			else if(crossProduct < 0) {
 				return Turn.CLOCKWISE;
-			} else {
+			}
+			else {
 				return Turn.COLLINEAR;
 			}
 		}
-
-		protected enum Turn {CLOCKWISE, COUNTER_CLOCKWISE, COLLINEAR}
 	}
 }

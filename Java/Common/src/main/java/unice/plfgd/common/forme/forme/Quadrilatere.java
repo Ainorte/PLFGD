@@ -1,4 +1,7 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.forme;
+
+import unice.plfgd.common.forme.generation.GenerationPoints;
+import unice.plfgd.common.forme.method.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,25 +48,25 @@ public class Quadrilatere {
 	public Point getG() {
 		Point[] ptsArray = new Point[]{A, B, C, D};
 		List<Point> pts = Arrays.asList(ptsArray);
-		return MethodesForme.barycentre(pts);
+		return utils.barycentre(pts);
 	}
 
 	public double getAire() {
-		double distAB = MethodesForme.norme(A, B);
-		double distBC = MethodesForme.norme(B, C);
-		double distCD = MethodesForme.norme(C, D);
-		double distAD = MethodesForme.norme(A, D);
-		double angleA = Math.toRadians(MethodesForme.findAngle(A, B, D));
-		double angleD = Math.toRadians(MethodesForme.findAngle(D, A, C));
+		double distAB = utils.norme(A, B);
+		double distBC = utils.norme(B, C);
+		double distCD = utils.norme(C, D);
+		double distAD = utils.norme(A, D);
+		double angleA = Math.toRadians(utils.findAngle(A, B, D));
+		double angleD = Math.toRadians(utils.findAngle(D, A, C));
 		return 0.5 * distAB * distAD * Math.sin(angleA) + 0.5 * distBC * distCD * Math.sin(angleD);
 
 	}
 
 	public double getPerim() {
-		double distAB = MethodesForme.norme(A, B);
-		double distBC = MethodesForme.norme(B, C);
-		double distCD = MethodesForme.norme(C, D);
-		double distAD = MethodesForme.norme(A, D);
+		double distAB = utils.norme(A, B);
+		double distBC = utils.norme(B, C);
+		double distCD = utils.norme(C, D);
+		double distAD = utils.norme(A, D);
 		return distAB + distBC + distCD + distAD;
 	}
 

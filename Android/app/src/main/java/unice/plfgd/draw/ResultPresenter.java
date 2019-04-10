@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.ResultDrawForme;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;

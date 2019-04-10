@@ -4,10 +4,10 @@ import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.FormeRequest;
 import unice.plfgd.common.data.packet.ResultDrawForme;
-import unice.plfgd.common.forme.Forme;
-import unice.plfgd.common.forme.FormeFactory;
-import unice.plfgd.common.forme.Point;
-import unice.plfgd.common.forme.RecogForme;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.generation.FormeFactory;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.method.RecogForme;
 
 
 import java.util.ArrayList;
@@ -17,17 +17,17 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 	private Handler resultHandler;
 
 	public ResultDrawFormeAction(Handler resultHandler) {
-		this.resultHandler = resultHandler;
-	}
-
-	public Handler getResultHandler() {
-		return resultHandler;
+		super(resultHandler);
 	}
 
 	@Override
 	public ResultDrawForme run(UserStore store, Draw payload) {
 
-		Forme expected = store.getData("forme", FormeRequest.class).getForme();
+		FormeRequest ex = store.getData("forme", FormeRequest.class);
+		Forme expected = Forme.UNKNOWN;
+		if(ex != null){
+			expected = ex.getForme();
+		}
 
 		List<List<Point>> ptGroups = payload.getPoints();
 		List<Point> pts = new ArrayList<>();
@@ -44,6 +44,8 @@ public class ResultDrawFormeAction extends Action<Draw, ResultDrawForme> {
 				(Forme) results.get(0),
 				expected
 		);
+
+		store.resetGame();
 
 		return resultDrawForme;
 	}

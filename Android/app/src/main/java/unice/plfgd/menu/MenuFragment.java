@@ -39,8 +39,6 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 		resetInteraction();
 	}
 
-
-
 	@Override
 	public void setPresenter(@NonNull MenuContract.Presenter presenter) {
 		this.mPresenter = presenter;
@@ -108,7 +106,8 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	@Override
 	public void setActivity(Class<? extends Activity> activity, Packet payload) {
 		Intent intent = new Intent(getContext(), activity);
-		intent.putExtra("payload", payload);
+		if(payload != null)
+			intent.putExtra("payload", payload);
 		startActivity(intent);
 	}
 

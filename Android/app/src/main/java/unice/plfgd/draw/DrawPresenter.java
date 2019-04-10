@@ -6,9 +6,10 @@ import android.view.VelocityTracker;
 import android.view.View;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.packet.Draw;
-import unice.plfgd.common.forme.Forme;
-import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.net.Packet;
+import unice.plfgd.tool.service.API;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
@@ -30,7 +31,13 @@ public class DrawPresenter implements DrawContract.Presenter {
 
 	@Override
 	public void start() {
-		mView.showOrder(order);
+		switch (APIService.getInstance().getActualGame()) {
+			case DRAWFORME:
+				mView.showOrder(order);
+				break;
+			default:
+				mView.showOrder(APIService.getInstance().getActualGame());
+		}
 		APIService.getInstance().setPresenter(this);
 	}
 
@@ -57,6 +64,11 @@ public class DrawPresenter implements DrawContract.Presenter {
 	@Override
 	public void resultSwitch(Packet result, Game game) {
 		mView.resultSwitch(result, game);
+	}
+
+	@Override
+	public void resultSCTSwitch(Packet result, Game game) {
+		mView.resultSCTSwitch(result, game);
 	}
 
 	@Override

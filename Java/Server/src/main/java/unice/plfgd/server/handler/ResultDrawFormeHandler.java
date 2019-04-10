@@ -3,9 +3,12 @@ package unice.plfgd.server.handler;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.ResultDrawFormeAction;
-import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.Draw;
-import unice.plfgd.common.forme.*;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Quadrilatere;
+import unice.plfgd.common.forme.forme.Triangle;
+import unice.plfgd.common.forme.method.ConvexHull;
+import unice.plfgd.common.forme.method.TraitementPoints;
 import unice.plfgd.server.Log;
 
 import java.util.ArrayList;
@@ -22,9 +25,9 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 			Log.log(Log.State.GREEN, data.getPoints().toString());
 
 
-			//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
+			/*//Uncomment this block to display convexHull with the draw without recognition, debug purpose.
 			List<List<Point>> pts = data.getPoints();
-			List<Point> merge = TraitementPoints.mergeList(data.getPoints());
+			List<Point> merge = TraitementPoints.mergeList(pts);
 			List<Point> sanitezed = TraitementPoints.sanitize(merge,2);
 			List<Point> refined = TraitementPoints.refineEndPoints(sanitezed,2);
 			List<Point> closed = TraitementPoints.closeStroke(refined);
@@ -45,10 +48,10 @@ public class ResultDrawFormeHandler extends Handler<Draw> {
 
 			Draw futureDraw = new Draw(res,data.getWidth(),data.getHeight());
 			var detecForme = new ResultDrawFormeAction(null).nullRun(futureDraw);
+			//*/
 
 
-
-			//var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
+			var detecForme = new ResultDrawFormeAction(null).run(getStore(client),data);
 
 			Log.log(detecForme.getDraw().toString());
 			Log.log(detecForme.getForme().toString());

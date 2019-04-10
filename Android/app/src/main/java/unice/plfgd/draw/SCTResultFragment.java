@@ -13,37 +13,36 @@ import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Game;
-import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.Objects;
 
-public class ResultFragment extends Fragment implements ResultContract.View {
+public class SCTResultFragment extends Fragment implements SCTResultContract.View {
 
 	private Button mReturn;
 	private TextView mResponse;
-	private TextView mComment;
-	private DrawCanvas mCanvas;
+	private DrawCanvas mServerCanvas;
+	private DrawCanvas mClientCanvas;
 	private Button mReplay;
-	private ResultContract.Presenter mPresenter;
+	private SCTResultContract.Presenter mPresenter;
 
-	public ResultFragment() {
+	public SCTResultFragment() {
 
 	}
 
-	public static ResultFragment newInstance() {
-		return new ResultFragment();
+	public static SCTResultFragment newInstance() {
+		return new SCTResultFragment();
 	}
 
 	@Override
-	public void setPresenter(ResultContract.Presenter presenter) {
+	public void setPresenter(SCTResultContract.Presenter presenter) {
 		mPresenter = presenter;
 	}
 
 	@Override
-	public ResultContract.Presenter getPresenter() {
+	public SCTResultContract.Presenter getPresenter() {
 		return mPresenter;
 	}
 
@@ -67,7 +66,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 		setRetainInstance(true);
 		if (getArguments() != null && mPresenter != null) {
 			if (getArguments().getSerializable("result") != null) {
-				mPresenter.setResult((Packet) getArguments().getSerializable("result"));
+				mPresenter.setServerResult((Packet) getArguments().getSerializable("result"));
 			}
 			if(getArguments().getSerializable("game") != null){
 			    mPresenter.setGame((Game) getArguments().getSerializable("game"));
@@ -79,16 +78,16 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.result_fragment, container, false);
+		View view = inflater.inflate(R.layout.sct_res_fragment, container, false);
 
-		mReturn = view.findViewById(R.id.result_back);
+		mReturn = view.findViewById(R.id.ctr_retour);
 		mReturn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mPresenter.back();
 			}
 		});
-		mReplay = view.findViewById(R.id.result_replay);
+		mReplay = view.findViewById(R.id.ctr_rejouer);
 		mReplay.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -96,14 +95,17 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 			}
 		});
 
-		mResponse = view.findViewById(R.id.result_text);
-		mComment = view.findViewById(R.id.result_comment);
+		mResponse = view.findViewById(R.id.ctr_res);
 
 		mPresenter.setCommentary();
 
-		mCanvas = view.findViewById(R.id.result_canvas);
-		mCanvas.setActive(false);
-		mCanvas.setOnSizeChange(mPresenter.onDrawSizeChange());
+		mServerCanvas = view.findViewById(R.id.Canvas_serveur);
+		mServerCanvas.setActive(false);
+		mServerCanvas.setOnSizeChange(mPresenter.onServerDrawSizeChange());
+
+		mClientCanvas = view.findViewById(R.id.Canvas_client);
+		mClientCanvas.setActive(false);
+		mClientCanvas.setOnSizeChange(mPresenter.onClientDrawSizeChange());
 
 		return view;
 	}
@@ -131,22 +133,28 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public DrawCanvas getCanvas() {
-		return mCanvas;
+	public DrawCanvas getServerCanvas() {
+		return mServerCanvas;
 	}
 
 	@Override
-	public void setCommentary(Game game, boolean win, Forme forme) {
+	public DrawCanvas getClientCanvas() {
+		return mClientCanvas;
+	}
+
+	@Override
+	public void setCommentary(Game game, Boolean win) {
 		switch (game) {
-			case DRAWFORME:
-				if (win) {
-					mResponse.setText(R.string.good_job);
+			case SCT:
+                if(win == null) {
+                    mResponse.setText(R.string.equality);
+                }
+				else if (win) {
+					mResponse.setText(R.string.you_win);
 					mResponse.setTextColor(getResources().getColor(R.color.green));
-					mComment.setText(String.format("%s %s", getResources().getText(R.string.is), forme.toString()));
 				} else {
-					mResponse.setText(R.string.retry);
+					mResponse.setText(R.string.you_loose);
 					mResponse.setTextColor(getResources().getColor(R.color.red));
-					mComment.setText(String.format("%s %s", getResources().getText(R.string.isnt), forme.toString()));
 				}
 		}
 	}

@@ -1,4 +1,6 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.generation;
+
+import unice.plfgd.common.forme.forme.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class FormeFactory {
 					listForme = new Cercle((Point) forme.get(1), (double) forme.get(2), (double) forme.get(3)).make();
 					break;
 				default:
-					System.out.println("error not such form");
+					//System.out.println("error not such form");
 			}
 		} else {
 			switch (formeType) {
@@ -54,7 +56,7 @@ public class FormeFactory {
 				case UNKNOWN:
 					listForme = ((Inconnu) forme.get(1)).make();
 				default:
-					System.out.println("error not such form");
+					//System.out.println("error not such form");
 			}
 		}
 		return listForme;

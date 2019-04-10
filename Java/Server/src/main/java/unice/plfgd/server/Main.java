@@ -32,6 +32,8 @@ public class Main {
 		handlers.put("resultDrawForme", new ResultDrawFormeHandler());
 		handlers.put("drawForme", new DrawFormeHandler());
 		handlers.put("devinerFormeInit", new DevinerFormeInitHandler());
+		handlers.put("sct",new SCTHandler());
+		handlers.put("resultSCT", new ResultSCTHandler());
 
 		var server = new Server(config, handlers);
 		server.start();

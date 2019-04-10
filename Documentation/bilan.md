@@ -1,5 +1,11 @@
 LIVRAISON 07 :
 
--Refonte de l'Ècran d'accueil, le client peut dÈsormais changer de pseudo en allant dans prÈference.
+-Refonte de l'√©cran d'accueil, le client peut d√©sormais changer de pseudo en allant dans pr√©ference.
 -Refonte du 1er jeu dessiner une forme (la reconnaissance de forme est quasiment complete)
 
+
+LIVRAISON 08 :
+
+-Mise ne place du jeu "Rectangle Rond Triangle"
+-Am√©lioration de la reconnaissance de forme.
+-Am√©lioration de perfomance et de poids de l'application et du serveur.

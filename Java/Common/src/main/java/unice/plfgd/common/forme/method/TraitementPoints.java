@@ -1,6 +1,16 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.method;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Quadrilatere;
+import unice.plfgd.common.forme.forme.Segment;
+import unice.plfgd.common.forme.forme.Triangle;
 
 
 public class TraitementPoints {
@@ -18,9 +28,9 @@ public class TraitementPoints {
 			Point mergeStart = merge.get(0);
 			Point mergeEnd = merge.get(merge.size()-1);
 
-			double distanceStartToStart = MethodesForme.norme(baseStart,mergeStart);
-			double distanceEndToStart = MethodesForme.norme(baseEnd,mergeStart);
-			double distanceEndToEnd = MethodesForme.norme(baseEnd,mergeEnd);
+			double distanceStartToStart = utils.norme(baseStart,mergeStart);
+			double distanceEndToStart = utils.norme(baseEnd,mergeStart);
+			double distanceEndToEnd = utils.norme(baseEnd,mergeEnd);
 
 			double minDistance = Math.min(distanceStartToStart,Math.min(distanceEndToStart,distanceEndToEnd));
 
@@ -81,7 +91,7 @@ public class TraitementPoints {
 			if (binStart.size() <= binSize) binStart.add(pts.get(i));
 			else break;
 		}
-		Point start = MethodesForme.barycentre(binStart);
+		Point start = utils.barycentre(binStart);
 		start = closestDiscretePoint(start);
 
 		List<Point> binEnd = new ArrayList<>();
@@ -90,7 +100,7 @@ public class TraitementPoints {
 			if (binEnd.size() <= binSize) binEnd.add(pts.get(maxBinPts - j));
 			else break;
 		}
-		Point end = MethodesForme.barycentre(binEnd);
+		Point end = utils.barycentre(binEnd);
 		end = closestDiscretePoint(end);
 
 		List<Point> result = new ArrayList<>();
@@ -113,7 +123,7 @@ public class TraitementPoints {
 		if (intersections.isEmpty()) {
 			return handleNoIntersections(pts);
 		}
-		System.out.println(intersections);
+		//System.out.println(intersections);
 		return handleIntersections(pts, intersections);
 	}
 
@@ -135,8 +145,8 @@ public class TraitementPoints {
 			Segment headExt = new Segment(pts.get(0), pts.get(1));
 			Segment tailExt = new Segment(pts.get(listSize - 2), pts.get(listSize - 1));
 			Point inter = headExt.crossPoint(tailExt);
-			if (MethodesForme.norme(inter, pts.get(0)) < MethodesForme.norme(inter, pts.get(1))
-					& MethodesForme.norme(inter, pts.get(listSize - 1)) < MethodesForme.norme(inter, pts.get(listSize - 2))) {
+			if (utils.norme(inter, pts.get(0)) < utils.norme(inter, pts.get(1))
+					& utils.norme(inter, pts.get(listSize - 1)) < utils.norme(inter, pts.get(listSize - 2))) {
 				pts.remove(0);
 				pts.add(0, inter);
 				pts.add(inter);
@@ -148,8 +158,8 @@ public class TraitementPoints {
 
 					Point headCross = listSeg.get(i).crossPoint(headExt);
 					Point tailCross = listSeg.get(i).crossPoint(tailExt);
-					Double distHeadCross = MethodesForme.norme(headExt.getP1(), headCross);
-					if (distHeadCross < MethodesForme.norme(headExt.getP2(), headCross)) {
+					Double distHeadCross = utils.norme(headExt.getP1(), headCross);
+					if (distHeadCross < utils.norme(headExt.getP2(), headCross)) {
 						if (distHeadCross <= MDE) {
 							pts = pts.subList(0, i + 1);
 							pts.add(0, headCross);
@@ -157,8 +167,8 @@ public class TraitementPoints {
 							break;
 						}
 					}
-					Double distTailCross = MethodesForme.norme(tailExt.getP2(), tailCross);
-					if (distTailCross < MethodesForme.norme(tailExt.getP1(), tailCross)) {
+					Double distTailCross = utils.norme(tailExt.getP2(), tailCross);
+					if (distTailCross < utils.norme(tailExt.getP1(), tailCross)) {
 						if (distTailCross <= MCPL) {
 							pts = pts.subList(i + 1, pts.size());
 							pts.add(0, tailCross);
@@ -178,8 +188,8 @@ public class TraitementPoints {
 		Point closestInter = new Point(0, 0);
 		double minDistance = Double.POSITIVE_INFINITY;
 		for (Point inter : inters) {
-			double distStart = MethodesForme.norme(inter, startPoint);
-			double distEnd = MethodesForme.norme(inter, endPoint);
+			double distStart = utils.norme(inter, startPoint);
+			double distEnd = utils.norme(inter, endPoint);
 			if (distStart + distEnd <= minDistance) closestInter = inter;
 		}
 		int MCPL = 100;//maximum cutted path length
@@ -233,6 +243,7 @@ public class TraitementPoints {
 
 		return sommetsTriangle;
 	}
+
 
 	public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts) {
 
@@ -305,46 +316,66 @@ public class TraitementPoints {
 			minAngle = Math.min(minAngle, minAngle2);
 			if (minAngle == 0) minAngle = Math.max(minAngle, minAngle2);
 
-			int ptRotation = 0;
+			Point ptR = new Point(0,0);
+
 			if (teta1 == minAngle) {
-				ptRotation = ptMinX;
+			    ptR = pts.get(ptMinX%listSize);
+                caliperX1.rotation(ptR, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMinX = (ptMinX + 1) % listSize;
+                r1 = pts.get(ptMinX%listSize);
 				seg1 = new Segment(pts.get(ptMinX % listSize), pts.get((ptMinX + 1) % listSize));
 			} else if (teta2 == minAngle) {
-				ptRotation = ptMaxX;
+                ptR = pts.get(ptMaxX%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(ptR, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMaxX = (ptMaxX + 1) % listSize;
+                r3 = pts.get(ptMaxX%listSize);
 				seg2 = new Segment(pts.get(ptMaxX % listSize), pts.get((ptMaxX + 1) % listSize));
 			} else if (teta3 == minAngle) {
-				ptRotation = ptMinY;
+                ptR = pts.get(ptMinY%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(ptR, minAngle);
+                caliperY2.rotation(r2, minAngle);
 				ptMinY = (ptMinY + 1) % listSize;
+                r4 = pts.get(ptMinY%listSize);
 				seg3 = new Segment(pts.get(ptMinY % listSize), pts.get((ptMinY + 1) % listSize));
 			} else if (teta4 == minAngle) {
-				ptRotation = ptMaxY;
+                ptR = pts.get(ptMaxY%listSize);
+                caliperX1.rotation(r1, minAngle);
+                caliperX2.rotation(r3, minAngle);
+                caliperY1.rotation(r4, minAngle);
+                caliperY2.rotation(ptR, minAngle);
 				ptMaxY = (ptMaxY + 1) % listSize;
+                r2 = pts.get(ptMaxY%listSize);
 				seg4 = new Segment(pts.get(ptMaxY % listSize), pts.get((ptMaxY + 1) % listSize));
 			}
 
-			Point ptR = pts.get(ptRotation);
 
-			caliperX1.rotation(ptR, minAngle);
-			caliperX2.rotation(ptR, minAngle);
-			caliperY1.rotation(ptR, minAngle);
-			caliperY2.rotation(ptR, minAngle);
-			r1 = caliperX1.crossPoint(caliperY1);
-			r2 = caliperX1.crossPoint(caliperY2);
-			r3 = caliperX2.crossPoint(caliperY2);
-			r4 = caliperX2.crossPoint(caliperY1);
+			Point R1 = caliperX1.crossPoint(caliperY1);
+			Point R2 = caliperX1.crossPoint(caliperY2);
+			Point R3 = caliperX2.crossPoint(caliperY2);
+			Point R4 = caliperX2.crossPoint(caliperY1);
 
-			double newAire = new Quadrilatere(r1, r2, r3, r4).getAire();
+			double newAire = new Quadrilatere(R1, R2, R3, R4).getAire();
 
 			if (newAire <= minAire) {
 				minAire = newAire;
-				minRectArray = new Point[]{r1, r2, r3, r4};
+				minRectArray = new Point[]{R1, R2, R3, R4};
 			}
 			j += minAngle;
 		}
 		return Arrays.asList(minRectArray);
 	}
+
+	public static List<Point> minimumAreaEnclosingRectangle2(List<Point> pts){
+	    return RotatingCalipers.getMinimumBoundingRectangle(pts);
+    }
 
 	static public List<Segment> pointsToSegments(List<Point> pts) {
 		List<Segment> listSeg = new ArrayList<>();
@@ -367,8 +398,8 @@ public class TraitementPoints {
 			return finalList;
 		}
 		for(int i = 1; i < pts.size(); i++){
-			double courbure = MethodesForme.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
-			System.out.println(Math.toDegrees(courbure));
+			double courbure = utils.courbure(pts.get(i-1),pts.get(i%listSize),pts.get((i+1)%listSize));
+			//System.out.println(Math.toDegrees(courbure));
 			if(Math.abs(Math.toDegrees(courbure)) > 30){
 				cpt += 1;
 				verticesIndices.add(i%listSize);

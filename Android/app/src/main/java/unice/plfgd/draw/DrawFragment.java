@@ -14,9 +14,10 @@ import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.packet.FormeRequest;
-import unice.plfgd.common.forme.Forme;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
 import unice.plfgd.home.HomeActivity;
+import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.io.Serializable;
@@ -49,12 +50,16 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
-		if (getArguments() != null && mPresenter != null) {
-			Serializable serializable = getArguments().getSerializable("payload");
-			if (serializable != null) {
-				FormeRequest forme = (FormeRequest) serializable;
-				mPresenter.setOrder(forme.getForme());
-			}
+		switch (APIService.getInstance().getActualGame()) {
+			case DRAWFORME:
+				if (getArguments() != null && mPresenter != null) {
+					Serializable serializable = getArguments().getSerializable("payload");
+					if (serializable != null) {
+						FormeRequest forme = (FormeRequest) serializable;
+						mPresenter.setOrder(forme.getForme());
+					}
+				}
+				break;
 		}
 	}
 
@@ -115,6 +120,20 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	}
 
 	@Override
+	public void showOrder(final Game game) {
+		Objects.requireNonNull(getView()).post(new Runnable() {
+			@Override
+			public void run() {
+				switch (game) {
+					case SCT:
+						mOrder.setText(R.string.sct);
+						break;
+				}
+			}
+		});
+	}
+
+	@Override
 	public void resetCanvas() {
 		draw.clear();
 	}
@@ -142,6 +161,23 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 		ResultFragment fragment = ResultFragment.newInstance();
 		ResultPresenter presenter = new ResultPresenter(fragment);
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("result", result);
+		bundle.putSerializable("game", game);
+
+		fragment.setArguments(bundle);
+
+		transaction.replace(R.id.contentFrame, fragment);
+		transaction.commit();
+	}
+
+	@Override
+	public void resultSCTSwitch(Packet result, Game game) {
+		FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
+
+		SCTResultFragment fragment = SCTResultFragment.newInstance();
+		SCTResultPresenter presenter = new SCTResultPresenter(fragment);
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("result", result);

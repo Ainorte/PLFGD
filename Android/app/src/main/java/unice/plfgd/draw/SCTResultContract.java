@@ -5,24 +5,29 @@ import unice.plfgd.base.BaseView;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
+import unice.plfgd.draw.DrawCanvas;
 
-public interface ResultContract {
+public interface SCTResultContract {
 	interface View extends BaseView<Presenter> {
 		void back();
 
 		void changeFragment(Packet payload);
 
-		DrawCanvas getCanvas();
+		DrawCanvas getClientCanvas();
 
-		void setCommentary(Game game, boolean win, Forme forme);
+		DrawCanvas getServerCanvas();
+
+		void setCommentary(Game game, Boolean win);
 	}
 
 	interface Presenter extends BasePresenter {
 		void back();
 
-		DrawCanvas.OnSizeChange onDrawSizeChange();
+		DrawCanvas.OnSizeChange onClientDrawSizeChange();
 
-		void setResult(Packet result);
+		DrawCanvas.OnSizeChange onServerDrawSizeChange();
+
+		void setServerResult(Packet serverResult);
 
 		void setGame(Game game);
 

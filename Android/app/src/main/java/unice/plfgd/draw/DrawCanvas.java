@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import unice.plfgd.common.data.packet.Draw;
-import unice.plfgd.common.forme.Point;
+import unice.plfgd.common.forme.forme.Point;
 
 import java.util.List;
 

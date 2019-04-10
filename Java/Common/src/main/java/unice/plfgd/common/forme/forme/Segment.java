@@ -1,4 +1,7 @@
-package unice.plfgd.common.forme;
+package unice.plfgd.common.forme.forme;
+
+import unice.plfgd.common.forme.generation.GenerationPoints;
+import unice.plfgd.common.forme.method.utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,15 +22,15 @@ public class Segment implements Serializable {
 	}
 
 	static public double distToSegmentSquared(Point p, Point v, Point w) {
-		double l2 = Math.pow(MethodesForme.norme(v, w), 2);
+		double l2 = Math.pow(utils.norme(v, w), 2);
 		if (l2 == 0) {
-			return Math.pow(MethodesForme.norme(p, v), 2);
+			return Math.pow(utils.norme(p, v), 2);
 		}
 		double t = ((p.getX() - v.getY()) * (w.getX() - v.getY()) + (p.getY() - v.getY()) * (w.getY() - v.getY())) / l2;
 		t = Math.max(0, Math.min(1, t));
 
 		Point nearest = new Point((v.getX() + t * (w.getX() - v.getX())), (v.getY() + t * (w.getY() - v.getY())));
-		return Math.pow(MethodesForme.norme(p, nearest), 2);
+		return Math.pow(utils.norme(p, nearest), 2);
 	}
 
 	public Point getP1() {
@@ -114,9 +117,9 @@ public class Segment implements Serializable {
 
 	//Connaitre l'angle d'un axe partant de l'origine p1 du segment vers un point quelconque
 	public double findAngleToPoint(Point pt) {
-		double OA = MethodesForme.norme(p1, p2);
-		double OB = MethodesForme.norme(p1, pt);
-		double AB = MethodesForme.norme(p2, pt);
+		double OA = utils.norme(p1, p2);
+		double OB = utils.norme(p1, pt);
+		double AB = utils.norme(p2, pt);
         if(OA == 0 || OB == 0) return 0;
         double res = (OA * OA + OB * OB - AB * AB) / (2 * OA * OB);
         if(res < 0) res = res < -1 ? -1 : res;
@@ -136,7 +139,7 @@ public class Segment implements Serializable {
 		double y0 = coefDir * x0 + constReelle;
 		//System.out.println(x0 + "," + y0);
 		Point pointSym = new Point(pt.getX() - 2 * (pt.getX() - x0), pt.getY() - 2 * (pt.getY() - y0));
-		//Point pointSym = MethodesForme.rotation(pt, x0, y0, Math.PI/2);
+		//Point pointSym = utils.rotation(pt, x0, y0, Math.PI/2);
 		return pointSym;
 	}
 }

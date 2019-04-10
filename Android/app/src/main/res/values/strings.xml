@@ -37,5 +37,8 @@
 	<string name="isnt">Ceci n\'est pas un</string>
 	<string name="pseudo">Pseudo</string>
 	<string name="username_order">Saisis ton pseudo</string>
+	<string name="you_win">Vous avez gagné</string>
+	<string name="you_loose">Vous avez perdu</string>
+	<string name="equality">Égalité</string>
 	<string name="deviner_la_forme">Deviner la forme</string>
 </resources>
