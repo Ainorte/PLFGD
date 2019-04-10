@@ -23,6 +23,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -46,35 +47,7 @@ public class DrawFormeTest {
 										withClassName(is("android.widget.ScrollView")),
 										0),
 								1)));
-		appCompatEditText.perform(scrollTo(), replaceText("Flo"), closeSoftKeyboard());
-
-		ViewInteraction appCompatEditText2 = onView(
-				allOf(withId(R.id.username_field), withText("Flo"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.widget.ScrollView")),
-										0),
-								1)));
-		appCompatEditText2.perform(scrollTo(), click());
-
-		ViewInteraction appCompatEditText3 = onView(
-				allOf(withId(R.id.username_field), withText("Flo"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.widget.ScrollView")),
-										0),
-								1)));
-		appCompatEditText3.perform(scrollTo(), replaceText("Flo"));
-
-		ViewInteraction appCompatEditText4 = onView(
-				allOf(withId(R.id.username_field), withText("Flo"),
-						childAtPosition(
-								childAtPosition(
-										withClassName(is("android.widget.ScrollView")),
-										0),
-								1),
-						isDisplayed()));
-		appCompatEditText4.perform(closeSoftKeyboard());
+		appCompatEditText.perform(scrollTo(), replaceText("J1"), closeSoftKeyboard());
 
 		ViewInteraction appCompatButton = onView(
 				allOf(withId(R.id.valid_button), withText("Valider"),
@@ -103,7 +76,27 @@ public class DrawFormeTest {
 								1)));
 		appCompatButton3.perform(scrollTo(), click());
 
+		ViewInteraction view = onView(
+				allOf(withId(R.id.draw_canvas),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								2),
+						isDisplayed()));
+		view.check(matches(isDisplayed()));
+
 		ViewInteraction appCompatButton4 = onView(
+				allOf(withId(R.id.draw_reset), withText("Reset"),
+						childAtPosition(
+								childAtPosition(
+										withId(R.id.contentFrame),
+										0),
+								1),
+						isDisplayed()));
+		appCompatButton4.perform(click());
+
+		ViewInteraction appCompatButton5 = onView(
 				allOf(withId(R.id.draw_valid), withText("Valider"),
 						childAtPosition(
 								childAtPosition(
@@ -111,25 +104,15 @@ public class DrawFormeTest {
 										0),
 								3),
 						isDisplayed()));
-		appCompatButton4.perform(click());
+		appCompatButton5.perform(click());
 
-		ViewInteraction appCompatButton5 = onView(
+		ViewInteraction appCompatButton6 = onView(
 				allOf(withId(R.id.result_replay), withText("Rejouer"),
 						childAtPosition(
 								childAtPosition(
 										withId(R.id.contentFrame),
 										0),
 								4),
-						isDisplayed()));
-		appCompatButton5.perform(click());
-
-		ViewInteraction appCompatButton6 = onView(
-				allOf(withId(R.id.draw_reset), withText("Reset"),
-						childAtPosition(
-								childAtPosition(
-										withId(R.id.contentFrame),
-										0),
-								1),
 						isDisplayed()));
 		appCompatButton6.perform(click());
 
