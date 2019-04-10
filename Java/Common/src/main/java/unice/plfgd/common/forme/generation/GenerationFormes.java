@@ -1,12 +1,12 @@
 package unice.plfgd.common.forme.generation;
 
-import unice.plfgd.common.forme.forme.Forme;
-import unice.plfgd.common.forme.forme.Point;
-import unice.plfgd.common.forme.generation.FormeFactory;
-import unice.plfgd.common.forme.method.utils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import unice.plfgd.common.forme.forme.Forme;
+import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.forme.Triangle;
+import unice.plfgd.common.forme.method.utils;
 
 public class GenerationFormes {
 
@@ -99,11 +99,10 @@ public class GenerationFormes {
                 objTriangle.add(A);
                 objTriangle.add(B);
                 objTriangle.add(C);
+                Triangle triangle = new Triangle(objTriangle);
                 List<Object> objTriangle2 = new ArrayList<>();
                 objTriangle2.add(forme);
-                objTriangle2.add(G);
-                objTriangle2.addAll(objTriangle);
-                objTriangle2.add(0.0);
+                objTriangle2.add(triangle);
                 randForme = FormeFactory.make(objTriangle2);
                 break;
             default:
