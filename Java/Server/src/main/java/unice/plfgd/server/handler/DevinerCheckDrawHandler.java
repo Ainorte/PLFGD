@@ -5,7 +5,7 @@ import com.corundumstudio.socketio.SocketIOClient;
 import unice.plfgd.common.action.DevinerCheckDrawAction;
 import unice.plfgd.common.data.packet.Draw;
 
-public class DevinerCheckDraw extends Handler<Draw> {
+public class DevinerCheckDrawHandler extends Handler<Draw> {
 	@Override
 	public void onData(SocketIOClient client, Draw draw, AckRequest ackRequest) {
 		client.sendEvent("devinerCheckResult", new DevinerCheckDrawAction(null)

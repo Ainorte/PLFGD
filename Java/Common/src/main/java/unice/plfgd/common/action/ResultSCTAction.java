@@ -79,7 +79,8 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
 				result.setWin(false);
         }
 
-        if (result.getWin()) {
+        final Boolean win = result.getWin();
+        if (win != null && win) {
 			store.incrementScore();
 		}
 
