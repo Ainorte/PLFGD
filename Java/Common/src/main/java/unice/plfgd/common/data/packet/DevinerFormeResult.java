@@ -19,7 +19,7 @@ public class DevinerFormeResult extends Packet {
 
 	private int scoreToReach;
 	private int score;
-	private Boolean hasWon;
+	private Boolean hasWon, hasGuessedRight;
 
 	public DevinerFormeResult() {
 	}
@@ -54,5 +54,13 @@ public class DevinerFormeResult extends Packet {
 
 	public void setScoreToReach(int scoreToReach) {
 		this.scoreToReach = scoreToReach;
+	}
+
+	public Boolean getHasGuessedRight() {
+		return hasGuessedRight;
+	}
+
+	public void setHasGuessedRight(Boolean hasGuessedRight) {
+		this.hasGuessedRight = hasGuessedRight;
 	}
 }
