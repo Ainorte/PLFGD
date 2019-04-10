@@ -12,6 +12,7 @@ public class DevinerFormeResult extends Packet {
 
 	public void setFormes(List<Forme> formes) {
 		this.formes = formes;
+		this.scoreToReach = formes.size();
 	}
 
 	private List<Forme> formes;
@@ -25,6 +26,7 @@ public class DevinerFormeResult extends Packet {
 
 	public DevinerFormeResult(List<Forme> formes) {
 		this.formes = formes;
+		this.scoreToReach = formes.size();
 	}
 
 	public int getScore() {

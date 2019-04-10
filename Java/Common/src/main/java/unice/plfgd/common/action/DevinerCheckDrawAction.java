@@ -20,18 +20,22 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 	public DevinerFormeResult run(UserStore store, Draw payload) {
 		DevinerFormeResult formes = store.getData("formes", DevinerFormeResult.class);
 
-		List<Forme> toGuess = formes.getFormes();
-		if (!toGuess.isEmpty()) {
-			Forme toCheck = toGuess.remove(0);
-			// WTF is this hell? Types, modafucka...
-			Forme found = (Forme) RecogForme.process(payload.getPoints().get(0)).get(0);
+		if (formes != null) {
+			List<Forme> toGuess = formes.getFormes();
+			if (!toGuess.isEmpty()) {
+				Forme toCheck = toGuess.remove(0);
+				// WTF is this hell? Types, modafucka...
+				Forme found = (Forme) RecogForme.process(payload.getPoints().get(0)).get(0);
 
-			if (toCheck.equals(found)) {
-				formes.incrementScore();
+				if (toCheck.equals(found)) {
+					formes.incrementScore();
+				}
 			}
-		}
 
-		formes.setHasWon(formes.getScoreToReach() == formes.getScore());
+			formes.setHasWon(formes.getScoreToReach() == formes.getScore());
+		} else {
+			System.err.println("Formes is null, wat?");
+		}
 
 		store.addOrReplaceData("formes", formes);
 		return formes;
