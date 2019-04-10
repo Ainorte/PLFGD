@@ -76,6 +76,10 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
 				result.setWin(false);
         }
 
+        if (result.getWin()) {
+			store.incrementScore();
+		}
+
         store.resetGame();
         return result;
     }
