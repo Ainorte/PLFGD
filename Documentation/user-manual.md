@@ -1,7 +1,7 @@
 
 - Pour changer le nom d'utilisateur il faut aller dans préférences.
 
-- Rectangle Rond Triangle = Pierre Papier Cizeau (respectivements)
-	- Rectangle gagne contre Triangle, perds contre Rond
-	- Triangle gagne contre Rond, perds contre Rectangle
-	- Rond gagne contre Rectangle, perds contre Triangle
+- Rectangle Rond Triangle = Papier Pierre Cizeau (respectivements)
+	- Rond gagne contre Triangle, perds contre Rectangle
+	- Triangle gagne contre Rectangle, perds contre Rond
+	- Rectangle gagne contre Rond, perds contre Triangle
