@@ -32,6 +32,7 @@ public class Main {
 		handlers.put("resultDrawForme", new ResultDrawFormeHandler());
 		handlers.put("drawForme", new DrawFormeHandler());
 		handlers.put("devinerFormeInit", new DevinerFormeInitHandler());
+		handlers.put("devinerCheckDraw", new DevinerCheckDraw());
 		handlers.put("sct",new SCTHandler());
 		handlers.put("resultSCT", new ResultSCTHandler());
 
