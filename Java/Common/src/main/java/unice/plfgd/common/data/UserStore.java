@@ -10,6 +10,10 @@ public class UserStore {
 	private Game currentGame;
 	private HashMap<String, Packet> data;
 
+	public void incrementScore() {
+		this.score++;
+	}
+
 	public UserStore() {
 		currentGame = Game.NONE;
 		data = new HashMap<>();

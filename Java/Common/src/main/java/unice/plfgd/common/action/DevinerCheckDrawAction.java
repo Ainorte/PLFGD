@@ -29,6 +29,7 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 
 				if (toCheck.equals(found)) {
 					formes.incrementScore();
+					store.incrementScore();
 					formes.setHasGuessedRight(true);
 				} else {
 					formes.setHasGuessedRight(false);
