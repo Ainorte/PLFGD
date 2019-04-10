@@ -62,7 +62,7 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 
 		mText = view.findViewById(R.id.accueil_text);
-		mText.setText(String.format("%s, %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
 
 		mDrawForme = view.findViewById(R.id.but_des);
 		mDrawForme.setOnClickListener(new View.OnClickListener() {
