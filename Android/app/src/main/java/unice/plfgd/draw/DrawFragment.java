@@ -45,6 +45,9 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
+		if (APIService.getInstance().getActualGame() == Game.DEVINER) {
+			mPresenter.startTimer();
+		}
 	}
 
 	@Override
@@ -98,26 +101,19 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 		draw = view.findViewById(R.id.draw_canvas);
 		draw.setOnSizeChange(mPresenter.onDrawSizeChange());
 
-		if(APIService.getInstance().getActualGame() == Game.DEVINER){
-			mReset.setVisibility(View.INVISIBLE);
-			mValid.setVisibility(View.INVISIBLE);
-			draw.setActive(false);
-		}
-		else {
-			mReset.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mPresenter.onResetCanvas();
-				}
-			});
-			draw.setOnTouchListener(mPresenter.onCanvasTouch());
-			mValid.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mPresenter.onValid();
-				}
-			});
-		}
+		mReset.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.onResetCanvas();
+			}
+		});
+		draw.setOnTouchListener(mPresenter.onCanvasTouch());
+		mValid.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.onValid();
+			}
+		});
 
 		return view;
 	}
@@ -144,6 +140,33 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 		});
 	}
 
+	public void hideButtons() {
+		mReset.setVisibility(View.INVISIBLE);
+		mValid.setVisibility(View.INVISIBLE);
+		draw.setActive(false);
+	}
+
+	@Override
+	public void showButtons() {
+		mReset.setVisibility(View.VISIBLE);
+		mValid.setVisibility(View.VISIBLE);
+		draw.clear();
+		draw.setActive(true);
+	}
+
+	@Override
+	public void unlockButtons() {
+		Objects.requireNonNull(getView()).post(new Runnable() {
+			@Override
+			public void run() {
+				draw.setActive(true);
+				mValid.setEnabled(true);
+				mReset.setEnabled(true);
+				mValid.setText(R.string.valid);
+			}
+		});
+	}
+
 	@Override
 	public void showOrder(final Game game) {
 		Objects.requireNonNull(getView()).post(new Runnable() {
@@ -153,6 +176,8 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 					case SCT:
 						mOrder.setText(R.string.sct);
 						break;
+					case DEVINER:
+						mOrder.setText(mPresenter.getTextForDevine());
 				}
 			}
 		});
@@ -178,6 +203,12 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 				mValid.setText(R.string.wait);
 			}
 		});
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mPresenter.stopTimer();
 	}
 
 	@Override

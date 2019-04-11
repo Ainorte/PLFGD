@@ -2,6 +2,7 @@ package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.common.forme.forme.Forme;
@@ -53,6 +54,8 @@ public class ResultPresenter implements ResultContract.Presenter {
 			case DRAWFORME:
 				mView.setCommentary(game, win, expected);
 				break;
+			case DEVINER:
+				mView.setCommentary(game, win, Forme.UNKNOWN);
 		}
 	}
 
@@ -64,6 +67,10 @@ public class ResultPresenter implements ResultContract.Presenter {
 			this.result = recogForme.getDraw();
 			this.win = recogForme.isValidate();
 			this.expected = recogForme.getExpected();
+		}
+		if (result instanceof DevinerFormeResult) {
+			DevinerFormeResult devine = (DevinerFormeResult) result;
+			this.win = devine.getHasWon();
 		}
 	}
 

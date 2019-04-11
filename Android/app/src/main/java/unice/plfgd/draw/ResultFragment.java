@@ -148,6 +148,15 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 					mResponse.setTextColor(getResources().getColor(R.color.red));
 					mComment.setText(String.format("%s %s", getResources().getText(R.string.isnt), forme.toString()));
 				}
+				break;
+			case DEVINER:
+				if (win) {
+					mResponse.setText(R.string.good_job);
+					mResponse.setTextColor(getResources().getColor(R.color.green));
+				} else {
+					mResponse.setText(R.string.retry);
+					mResponse.setTextColor(getResources().getColor(R.color.red));
+				}
 		}
 	}
 }

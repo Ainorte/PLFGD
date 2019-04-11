@@ -27,7 +27,7 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 				// WTF is this hell? Types, modafucka...
 				Forme found = (Forme) RecogForme.process(payload.getPoints().get(0)).get(0);
 
-				if (toCheck.equals(found)) {
+				if (toCheck.equals(found) || (toCheck.equals(Forme.SQUARE) && found.equals(Forme.RECTANGLE))) {
 					formes.incrementScore();
 					store.incrementScore();
 					formes.setHasGuessedRight(true);
