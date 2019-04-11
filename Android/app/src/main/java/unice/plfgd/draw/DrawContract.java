@@ -25,6 +25,12 @@ public interface DrawContract {
 		void resultSCTSwitch(Packet result, Game game);
 
 		void showText(final String s);
+
+		void showButtons();
+
+		void unlockButtons();
+
+		void hideButtons();
 	}
 
 	interface Presenter extends BasePresenter {
@@ -47,5 +53,11 @@ public interface DrawContract {
 		void setDevine(DevinerFormeResult devine);
 
 		void startTimer();
+
+		void switchNext();
+
+		void stopTimer();
+
+		String getTextForDevine();
 	}
 }
