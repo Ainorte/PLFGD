@@ -293,7 +293,7 @@ public class TraitementPoints {
         Point[] minRectArray = new Point[]{r1,r2,r3,r4};
 
         double minAire = rect.getAire();
-        Point baryRect = rect.getG();
+        
         Segment caliperX1 = new Segment(r1, r2);
         Segment caliperX2 = new Segment(r4, r3);
         Segment caliperY1 = new Segment(r1, r4);
@@ -310,18 +310,14 @@ public class TraitementPoints {
         double j = 0;
         while(j <= halfPI){
 
-            double teta1 = seg1.findAngleToPoint(caliperX1.getP2());
+            double teta1 = seg1.findAngleToPoint(caliperY1.getP2());
             teta1 = teta1 > halfPI ? teta1 - halfPI : teta1;
-            System.out.println("teta1 = " + teta1);
-            double teta2 = seg2.findAngleToPoint(caliperX2.getP2());
+            double teta2 = seg2.findAngleToPoint(caliperY2.getP1());
             teta2 = teta2 > halfPI ? teta2 - halfPI : teta2;
-            System.out.println("teta2 = " +teta2);
-            double teta3 = seg3.findAngleToPoint(caliperY1.getP2());
+            double teta3 = seg3.findAngleToPoint(caliperX1.getP1());
             teta3 = teta3 > halfPI ? teta3 - halfPI : teta3;
-            System.out.println("teta3 = " +teta3);
-            double teta4 = seg4.findAngleToPoint(caliperY2.getP2());
+            double teta4 = seg4.findAngleToPoint(caliperX2.getP2());
             teta4 = teta4 > halfPI ? teta4 - halfPI : teta4;
-            System.out.println("teta4 = " +teta4);
 
             double minAngle = Math.min(teta1,teta2);
             double minAngle2 = Math.min(teta3,teta4);
@@ -352,16 +348,16 @@ public class TraitementPoints {
                 seg4 = new Segment(pts.get(iMaxY%listSize), pts.get((iMaxY+1)%listSize));
             }
 
-            Point R1 = caliperX1.crossPoint(caliperY1);
-            Point R2 = caliperX1.crossPoint(caliperY2);
-            Point R3 = caliperX2.crossPoint(caliperY2);
-            Point R4 = caliperX2.crossPoint(caliperY1);
+            r1 = caliperX1.crossPoint(caliperY1);
+            r2 = caliperX1.crossPoint(caliperY2);
+            r3 = caliperX2.crossPoint(caliperY2);
+            r4 = caliperX2.crossPoint(caliperY1);
 
-            double newAire = new Quadrilatere(R1,R2,R3,R4).getAire();
+            double newAire = new Quadrilatere(r1,r2,r3,r4).getAire();
 
             if(newAire <= minAire){
                 minAire = newAire;
-                minRectArray = new Point[]{R1,R2,R3,R4};
+                minRectArray = new Point[]{r1,r2,r3,r4};
             }
             j += minAngle;
         }
