@@ -293,7 +293,7 @@ public class TraitementPoints {
         Point[] minRectArray = new Point[]{r1,r2,r3,r4};
 
         double minAire = rect.getAire();
-        
+
         Segment caliperX1 = new Segment(r1, r2);
         Segment caliperX2 = new Segment(r4, r3);
         Segment caliperY1 = new Segment(r1, r4);
@@ -385,7 +385,10 @@ public class TraitementPoints {
             return finalList;
         }
         for (int i = 1; i < pts.size(); i++) {
+            double halfPI = Math.PI/2;
             double courbure = utils.courbure(pts.get(i - 1), pts.get(i % listSize), pts.get((i + 1) % listSize));
+            courbure = courbure > halfPI ?  courbure - halfPI : courbure;
+
             //System.out.println(Math.toDegrees(courbure));
             if (Math.abs(Math.toDegrees(courbure)) > 25) {
                 cpt += 1;

@@ -23,7 +23,7 @@ public class RecogForme {
             objNull.add(new Inconnu(pts));
             return objNull;
         }
-		List<Point> sanitized = TraitementPoints.sanitize(pts, 0.10);
+		List<Point> sanitized = TraitementPoints.sanitize(pts, 0.01);
 
 		List<Point> convexHull = TraitementPoints.refineEndPoints(sanitized, 2);
 		convexHull = TraitementPoints.closeStroke(convexHull);
@@ -75,14 +75,14 @@ public class RecogForme {
 		//System.out.println("Convex Rectangle Ratio " + convexRectangleRatio);
 
 
-		if (thinnessRatio < 4) {
+		if (thinnessRatio < 1) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
 		} else if (convexTriangleRatio > 1.2 && convexTriangleRatio < 2.4
 			&& convexRectangleRatio < 0.90) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.65 && convexRectangleRatio < 1.25 && angleSize >= 1) {
+		} else if (convexRectangleRatio > 0.61 && convexRectangleRatio < 1.25 && angleSize >= 1) {
 			if (convexRectangleRatio > 0.90 && convexRectangleRatio < 1.05
 				&& convexTriangleRatio < 1) {
 				Point G = utils.barycentre(convexHull);
