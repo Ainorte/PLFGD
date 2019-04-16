@@ -327,6 +327,7 @@ public class TraitementPoints {
             caliperX2.rotation(ptMaxX,minAngle);
             caliperY1.rotation(ptMinY,minAngle);
             caliperY2.rotation(ptMaxY,minAngle);
+
             if(teta1 == minAngle){
                 iMinX = (iMinX+1)%listSize;
                 ptMinX = pts.get(iMinX%listSize);
@@ -352,6 +353,11 @@ public class TraitementPoints {
             r2 = caliperX1.crossPoint(caliperY2);
             r3 = caliperX2.crossPoint(caliperY2);
             r4 = caliperX2.crossPoint(caliperY1);
+
+            caliperX1 = new Segment(r1, r2);
+            caliperX2 = new Segment(r4, r3);
+            caliperY1 = new Segment(r1, r4);
+            caliperY2 = new Segment(r2, r3);
 
             double newAire = new Quadrilatere(r1,r2,r3,r4).getAire();
 
@@ -384,13 +390,15 @@ public class TraitementPoints {
             finalList.add(0);
             return finalList;
         }
-        for (int i = 1; i < pts.size(); i++) {
+        for (int i = 2; i < pts.size()-3; i++) {
             double halfPI = Math.PI/2;
             double courbure = utils.courbure(pts.get(i - 1), pts.get(i % listSize), pts.get((i + 1) % listSize));
             courbure = courbure > halfPI ?  courbure - halfPI : courbure;
+            double courbure2 = utils.courbure(pts.get(i - 2), pts.get(i % listSize), pts.get((i + 2) % listSize));
+            courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure;
 
             //System.out.println(Math.toDegrees(courbure));
-            if (Math.abs(Math.toDegrees(courbure)) > 25) {
+            if (Math.abs(Math.toDegrees(courbure)) > 26 || Math.abs(Math.toDegrees(courbure2)) > 26) {
                 cpt += 1;
                 verticesIndices.add(i % listSize);
                 vertices.add(pts.get(i % listSize));
