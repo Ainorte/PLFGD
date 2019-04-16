@@ -95,12 +95,14 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	public void blockInteration() {
 		mDrawForme.setEnabled(false);
 		mSCT.setEnabled(false);
+		mDeviner.setEnabled(false);
 	}
 
 	@Override
 	public void resetInteraction() {
 		mDrawForme.setEnabled(true);
 		mSCT.setEnabled(true);
+		mDeviner.setEnabled(true);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package unice.plfgd.common.action;
 import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
+import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.forme.method.RecogForme;
 
@@ -24,15 +25,21 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 			List<Forme> toGuess = formes.getFormes();
 			if (!toGuess.isEmpty()) {
 				Forme toCheck = toGuess.remove(0);
-				// WTF is this hell? Types, modafucka...
-				Forme found = (Forme) RecogForme.process(payload.getPoints().get(0)).get(0);
+
+				ResultDrawForme recog = new ResultDrawFormeAction(null).run(new UserStore(),payload);
+				Forme found = recog.getForme();
 
 				if (toCheck.equals(found) || (toCheck.equals(Forme.SQUARE) && found.equals(Forme.RECTANGLE))) {
 					formes.incrementScore();
 					store.incrementScore();
 					formes.setHasGuessedRight(true);
+					if(formes.getFormes().size() == 0)
+					{
+						store.resetGame();
+					}
 				} else {
 					formes.setHasGuessedRight(false);
+					store.resetGame();
 				}
 			}
 

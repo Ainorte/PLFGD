@@ -8,7 +8,7 @@ import unice.plfgd.common.data.packet.Draw;
 public class DevinerCheckDrawHandler extends Handler<Draw> {
 	@Override
 	public void onData(SocketIOClient client, Draw draw, AckRequest ackRequest) {
-		client.sendEvent("devinerCheckResult", new DevinerCheckDrawAction(null)
+		client.sendEvent("devinerCheckDraw", new DevinerCheckDrawAction(null)
 				.run(getStore(client), draw));
 	}
 }
