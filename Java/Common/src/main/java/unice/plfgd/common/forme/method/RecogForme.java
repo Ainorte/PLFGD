@@ -79,7 +79,7 @@ public class RecogForme {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
 		} else if (convexTriangleRatio > 1.18 && convexTriangleRatio < 2.4
-			&& convexRectangleRatio < 0.82) {
+			&& convexRectangleRatio < 0.89) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
 		} else if (convexRectangleRatio > 0.6 && convexRectangleRatio < 1.25 && angleSize >= 1) {
