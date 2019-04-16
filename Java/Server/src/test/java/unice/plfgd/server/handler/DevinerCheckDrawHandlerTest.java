@@ -45,14 +45,6 @@ public class DevinerCheckDrawHandlerTest {
 		}}));
 	}
 
-	@Test
-	public void testNoForme() {
-		store = new UserStore();
-		var res = action.run(store, new Draw());
-
-		assertNull(res);
-	}
-
 	// With logic, the same forme as generated should be matched when trying to guess.
 	@Test
 	public void testOneForme() {
