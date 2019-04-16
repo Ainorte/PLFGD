@@ -33,13 +33,8 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 					formes.incrementScore();
 					store.incrementScore();
 					formes.setHasGuessedRight(true);
-					if(formes.getFormes().size() == 0)
-					{
-						store.resetGame();
-					}
 				} else {
 					formes.setHasGuessedRight(false);
-					store.resetGame();
 				}
 			}
 
@@ -49,6 +44,10 @@ public class DevinerCheckDrawAction extends Action<Draw, DevinerFormeResult> {
 		}
 
 		store.addOrReplaceData("formes", formes);
+		if(formes.getFormes().size() == 0 || !formes.getHasGuessedRight())
+		{
+			store.resetGame();
+		}
 		return formes;
 	}
 

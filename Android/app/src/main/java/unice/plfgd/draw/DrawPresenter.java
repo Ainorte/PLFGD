@@ -16,6 +16,7 @@ import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DrawPresenter implements DrawContract.Presenter {
@@ -178,7 +179,7 @@ public class DrawPresenter implements DrawContract.Presenter {
 
 	@Override
 	public void setDevine(DevinerFormeResult devine) {
-		formeList = devine.getFormes();
+		formeList = new ArrayList<>(devine.getFormes());
 		numberFormes = devine.getScoreToReach();
 		mDraw = new Draw(new ArrayList<List<Point>>(){{ add(GenerationFormes.generateEnumForme(formeList.remove(0), 1000, 1000));}},1000,1000);
 		counterForme++;
