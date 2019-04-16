@@ -1,6 +1,7 @@
 package unice.plfgd.common.forme;
 
 import org.junit.Test;
+import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.forme.method.RecogForme;
 
@@ -48,8 +49,8 @@ public class RecogFormeTest {
 
 		System.out.println("AAAAAAAAAAAA : " + RecogForme.process(lc).get(0));
 		System.out.println("BBBBBBBBBBBB : " + RecogForme.process(lt));
-//		assertEquals(Forme.RECTANGLE, RecogForme.process(lc).get(0));
-//		assertEquals(Forme.TRIANGLE, RecogForme.process(lt).get(0));
+		assertEquals(Forme.RECTANGLE, RecogForme.process(lc).get(0));
+		assertEquals(Forme.TRIANGLE, RecogForme.process(lt).get(0));
 	}
 
 	@Test
