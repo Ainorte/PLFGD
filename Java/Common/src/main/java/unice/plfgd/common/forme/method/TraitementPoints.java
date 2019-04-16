@@ -398,7 +398,7 @@ public class TraitementPoints {
             courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure2;
 
 
-            if (courbure > 0.60 || courbure2 > 0.95) {
+            if (courbure > 0.52 || courbure2 > 1.2) {
 
                 cpt += 1;
                 verticesIndices.add(i % listSize);

@@ -23,7 +23,7 @@ public class RecogForme {
             objNull.add(new Inconnu(pts));
             return objNull;
         }
-		List<Point> sanitized = TraitementPoints.sanitize(pts, 0.1);
+		List<Point> sanitized = TraitementPoints.sanitize(pts, 0.05);
 
 		List<Point> convexHull = TraitementPoints.refineEndPoints(sanitized, 2);
 		convexHull = TraitementPoints.closeStroke(convexHull);
@@ -78,8 +78,8 @@ public class RecogForme {
 		if (thinnessRatio < 1) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
-		} else if (convexTriangleRatio > 1.12 && convexTriangleRatio < 2.4
-			&& convexRectangleRatio < 0.87) {
+		} else if (convexTriangleRatio > 1.18 && convexTriangleRatio < 2.4
+			&& convexRectangleRatio < 0.8) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
 		} else if (convexRectangleRatio > 0.6 && convexRectangleRatio < 1.25 && angleSize >= 1) {
