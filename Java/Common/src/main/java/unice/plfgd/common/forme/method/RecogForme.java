@@ -75,7 +75,7 @@ public class RecogForme {
 		//System.out.println("Convex Rectangle Ratio " + convexRectangleRatio);
 
 
-		if (thinnessRatio < 1) {
+		if (thinnessRatio > 21) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
 		} else if (convexTriangleRatio > 1.18 && convexTriangleRatio < 2.4
