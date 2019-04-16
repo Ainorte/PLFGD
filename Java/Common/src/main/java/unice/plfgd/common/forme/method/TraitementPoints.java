@@ -395,10 +395,11 @@ public class TraitementPoints {
             double courbure = utils.courbure(pts.get(i - 1), pts.get(i % listSize), pts.get((i + 1) % listSize));
             courbure = courbure > halfPI ?  courbure - halfPI : courbure;
             double courbure2 = utils.courbure(pts.get(i - 2), pts.get(i % listSize), pts.get((i + 2) % listSize));
-            courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure;
+            courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure2;
 
-            //System.out.println(Math.toDegrees(courbure));
-            if (Math.abs(Math.toDegrees(courbure)) > 26 || Math.abs(Math.toDegrees(courbure2)) > 26) {
+
+            if (courbure > 0.60 || courbure2 > 0.95) {
+
                 cpt += 1;
                 verticesIndices.add(i % listSize);
                 vertices.add(pts.get(i % listSize));
