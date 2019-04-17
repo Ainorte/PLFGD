@@ -12,6 +12,7 @@ import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.forme.forme.Quadrilatere;
 import unice.plfgd.common.forme.forme.Segment;
 import unice.plfgd.common.forme.forme.Triangle;
+import unice.plfgd.common.forme.forme.Ellipse;
 
 public class RecogForme {
 
@@ -42,16 +43,15 @@ public class RecogForme {
 	public static List<Object> recog(List<Point> pts, List<Point> convexHull, List<Point> encTriangle, List<Point> encRectangle) {
 
 		List<Object> res = new ArrayList<>();
-
-		List<Object> angle = TraitementPoints.findVertex(convexHull);
-		int angleSize = (int) angle.get(2);
-		//System.out.println("ANGLE NUMBER: "  + angleSize);
+        double distStartToEnd = utils.norme(pts.get(0),pts.get(pts.size()-1));
 
 		Triangle triangle = new Triangle(new Point(0, 0), encTriangle.get(0), encTriangle.get(1), encTriangle.get(2), 0);
 		double triangleArea = triangle.getAire();
 		Quadrilatere rectangle = new Quadrilatere(encRectangle.get(0), encRectangle.get(1), encRectangle.get(2), encRectangle.get(3));
 		double rectangleArea = rectangle.getAire();
 		double rectanglePerim = rectangle.getPerim();
+		Ellipse ellipse = new Ellipse(new Point(0,0), utils.norme(encRectangle.get(0), encRectangle.get(1)),utils.norme(encRectangle.get(1),encRectangle.get(2)), 0);
+		double ellipseArea = ellipse.getAire();
 
 		double convexHullArea = 0;
 		double convexHullPerim = 0;
@@ -64,25 +64,23 @@ public class RecogForme {
 			convexHullPerim += utils.norme(convexHull.get(i), convexHull.get(i + 1));
 		}
 		convexHullArea = 0.5 * Math.abs(convexHullArea);
-		double thinnessRatio = convexHullPerim * convexHullPerim / convexHullArea;
-		double convexTriangleRatio = triangleArea / convexHullArea;
+		double convexHullArea2 = utils.polygonArea(convexHull);
+		double thinnessRatio = convexHullPerim * convexHullPerim / convexHullArea2;
+		double convexTriangleRatio = triangleArea / convexHullArea2;
 		double convexRectangleRatio = convexHullPerim / rectanglePerim;
+		//double ratioCHellipse = convexHullArea2/ellipseArea;
+		double ratioCHrectangle = convexHullArea2/rectangleArea;
 
 
-		//Print ratio:
-		//System.out.println("Thinness Ratio " + thinnessRatio);
-		//System.out.println("Convex Triangle Ratio " + convexTriangleRatio);
-		//System.out.println("Convex Rectangle Ratio " + convexRectangleRatio);
 
-
-		if (thinnessRatio > 21) {
+		if (thinnessRatio > 21 || distStartToEnd > 150) {
 			res.add(Forme.SEGMENT);
-			res.add(new Segment(convexHull.get(0), convexHull.get(convexHull.size() - 1)));
+			res.add(new Segment(pts.get(0), pts.get(pts.size() - 1)));
 		} else if (convexTriangleRatio > 1.18 && convexTriangleRatio < 2.4
 			&& convexRectangleRatio < 0.89) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.6 && convexRectangleRatio < 1.25 && angleSize >= 1) {
+		} else if (convexRectangleRatio > 0.6 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.79) {
 			if (convexRectangleRatio > 0.90 && convexRectangleRatio < 1.05
 				&& convexTriangleRatio < 1) {
 				Point G = utils.barycentre(convexHull);
@@ -95,8 +93,7 @@ public class RecogForme {
 			}
 		} else if (thinnessRatio > 1
 			&& convexRectangleRatio > 0.5 && convexRectangleRatio < 1.25
-			&& convexTriangleRatio > 0.2 && convexTriangleRatio < 1.1
-			&& angleSize < 1) {
+			&& convexTriangleRatio > 0.2 && convexTriangleRatio < 1.1) {
 			res.add(Forme.CIRCLE);
 			res.add(new Cercle(utils.barycentre(convexHull), Math.sqrt(convexHullArea / Math.PI), 0));
 		} else {

@@ -244,9 +244,6 @@ public class TraitementPoints {
     }
 
 
-    public static List<Point> minimumAreaEnclosingRectangle2(List<Point> pts) {
-        return RotatingCalipers.getMinimumBoundingRectangle(pts);
-    }
 
     public static List<Point> minimumAreaEnclosingRectangle(List<Point> pts){
 
@@ -390,15 +387,16 @@ public class TraitementPoints {
             finalList.add(0);
             return finalList;
         }
+        double cptDegrees = 0.0;
         for (int i = 2; i < pts.size()-3; i++) {
             double halfPI = Math.PI/2;
             double courbure = utils.courbure(pts.get(i - 1), pts.get(i % listSize), pts.get((i + 1) % listSize));
             courbure = courbure > halfPI ?  courbure - halfPI : courbure;
             double courbure2 = utils.courbure(pts.get(i - 2), pts.get(i % listSize), pts.get((i + 2) % listSize));
             courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure2;
+            cptDegrees += Math.abs(Math.toDegrees(courbure));
 
-
-            if (courbure > 0.52 || courbure2 > 1.2) {
+            if (courbure > 0.50 || courbure2 > 1.2) {
 
                 cpt += 1;
                 verticesIndices.add(i % listSize);
@@ -408,6 +406,7 @@ public class TraitementPoints {
         finalList.add(verticesIndices);
         finalList.add(vertices);
         finalList.add(cpt);
+        finalList.add(cptDegrees);
         return finalList;
     }
 }

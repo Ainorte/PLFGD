@@ -79,6 +79,17 @@ public class utils {
 		return Math.atan2(Math.sin(angle), Math.cos(angle));
 	}
 
+	public static double polygonArea(List<Point> pts){
+		int n = pts.size();
+		double area = 0.0;
+		int j = n - 1;
+		for (int i = 0; i < n; i++)
+		{
+			area += (pts.get(j).getX() + pts.get(i).getX()) * (pts.get(j).getY() - pts.get(i).getY());
+			j = i;  // j is previous vertex to i
+		}
+		return Math.abs(area/2.0);
+	}
 
 	// n is the point to find courbature around, k is neighborhood size
 	public static double courbature(List<Point> pts, int n, int k) {
