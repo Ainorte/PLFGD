@@ -49,8 +49,13 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	}
 
 	@Override
-	public void setScore(int score) {
-		((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+	public void setScore(final int score) {
+		mCanvas.post(new Runnable() {
+			@Override
+			public void run() {
+				((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+			}
+		});
 	}
 
 	@Override

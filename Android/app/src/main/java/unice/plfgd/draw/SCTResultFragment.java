@@ -48,8 +48,13 @@ public class SCTResultFragment extends Fragment implements SCTResultContract.Vie
 	}
 
 	@Override
-	public void setScore(int score) {
-		((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+	public void setScore(final int score) {
+		mClientCanvas.post(new Runnable() {
+			@Override
+			public void run() {
+				((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+			}
+		});
 	}
 
 	@Override
