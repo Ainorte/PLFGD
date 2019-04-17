@@ -80,7 +80,7 @@ public class RecogForme {
 			&& convexRectangleRatio < 0.89) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.57 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.78) {
+		} else if (convexRectangleRatio > 0.57 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.8) {
 			if (convexRectangleRatio > 0.90 && convexRectangleRatio < 1.05
 				&& convexTriangleRatio < 1.3) {
 				Point G = utils.barycentre(convexHull);
