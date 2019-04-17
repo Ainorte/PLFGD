@@ -73,16 +73,16 @@ public class RecogForme {
 
 
 
-		if (thinnessRatio > 21 || distStartToEnd > 150) {
+		if (thinnessRatio > 50 || distStartToEnd > 150) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(pts.get(0), pts.get(pts.size() - 1)));
-		} else if (convexTriangleRatio > 1.18 && convexTriangleRatio < 2.4
+		} else if (convexTriangleRatio > 1.6 && convexTriangleRatio < 2.4
 			&& convexRectangleRatio < 0.89) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.6 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.78) {
+		} else if (convexRectangleRatio > 0.57 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.78) {
 			if (convexRectangleRatio > 0.90 && convexRectangleRatio < 1.05
-				&& convexTriangleRatio < 1) {
+				&& convexTriangleRatio < 1.3) {
 				Point G = utils.barycentre(convexHull);
 				Carre carre = new Carre(G, rectanglePerim / 4, 0);
 				res.add(Forme.SQUARE);
@@ -92,8 +92,8 @@ public class RecogForme {
 				res.add(rectangle);
 			}
 		} else if (thinnessRatio > 1
-			&& convexRectangleRatio > 0.5 && convexRectangleRatio < 1.25
-			&& convexTriangleRatio > 0.2 && convexTriangleRatio < 1.1) {
+			&& convexRectangleRatio > 0.45 && convexRectangleRatio < 1.25
+			&& convexTriangleRatio > 0.5 && convexTriangleRatio < 1.5) {
 			res.add(Forme.CIRCLE);
 			res.add(new Cercle(utils.barycentre(convexHull), Math.sqrt(convexHullArea / Math.PI), 0));
 		} else {
