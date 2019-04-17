@@ -12,7 +12,6 @@ import unice.plfgd.common.forme.forme.Point;
 import unice.plfgd.common.forme.forme.Quadrilatere;
 import unice.plfgd.common.forme.forme.Segment;
 import unice.plfgd.common.forme.forme.Triangle;
-import unice.plfgd.common.forme.forme.Ellipse;
 
 public class RecogForme {
 
@@ -50,8 +49,6 @@ public class RecogForme {
 		Quadrilatere rectangle = new Quadrilatere(encRectangle.get(0), encRectangle.get(1), encRectangle.get(2), encRectangle.get(3));
 		double rectangleArea = rectangle.getAire();
 		double rectanglePerim = rectangle.getPerim();
-		Ellipse ellipse = new Ellipse(new Point(0,0), utils.norme(encRectangle.get(0), encRectangle.get(1)),utils.norme(encRectangle.get(1),encRectangle.get(2)), 0);
-		double ellipseArea = ellipse.getAire();
 
 		double convexHullArea = 0;
 		double convexHullPerim = 0;
@@ -68,7 +65,6 @@ public class RecogForme {
 		double thinnessRatio = convexHullPerim * convexHullPerim / convexHullArea2;
 		double convexTriangleRatio = triangleArea / convexHullArea2;
 		double convexRectangleRatio = convexHullPerim / rectanglePerim;
-		//double ratioCHellipse = convexHullArea2/ellipseArea;
 		double ratioCHrectangle = convexHullArea2/rectangleArea;
 
 

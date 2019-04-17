@@ -374,39 +374,4 @@ public class TraitementPoints {
         }
         return listSeg;
     }
-
-    public static List<Object> findVertex(List<Point> pts) {
-        int cpt = 0;
-        List<Object> finalList = new ArrayList<>();
-        List<Point> vertices = new ArrayList<>();
-        List<Integer> verticesIndices = new ArrayList<>();
-        int listSize = pts.size();
-        if (listSize < 3) {
-            finalList.add(verticesIndices);
-            finalList.add(vertices);
-            finalList.add(0);
-            return finalList;
-        }
-        double cptDegrees = 0.0;
-        for (int i = 2; i < pts.size()-3; i++) {
-            double halfPI = Math.PI/2;
-            double courbure = utils.courbure(pts.get(i - 1), pts.get(i % listSize), pts.get((i + 1) % listSize));
-            courbure = courbure > halfPI ?  courbure - halfPI : courbure;
-            double courbure2 = utils.courbure(pts.get(i - 2), pts.get(i % listSize), pts.get((i + 2) % listSize));
-            courbure2 = courbure2 > halfPI ?  courbure2 - halfPI : courbure2;
-            cptDegrees += Math.abs(Math.toDegrees(courbure));
-
-            if (courbure > 0.50 || courbure2 > 1.2) {
-
-                cpt += 1;
-                verticesIndices.add(i % listSize);
-                vertices.add(pts.get(i % listSize));
-            }
-        }
-        finalList.add(verticesIndices);
-        finalList.add(vertices);
-        finalList.add(cpt);
-        finalList.add(cptDegrees);
-        return finalList;
-    }
 }
