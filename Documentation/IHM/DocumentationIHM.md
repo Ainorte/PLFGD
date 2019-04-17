@@ -25,7 +25,7 @@ Dessiner une forme : Création à l'itération 3 et mise à jour jusqu'a l'itération
 	- D-Gagne : Le joueur a reussi à dessiner la forme.
 	- D-Perdu : Le joueur a dessiner une autre forme que la forme demande.
 
-Memoire de forme : Création et livraison à l'itération 7
+Memoire de forme : Création et livraison à l'itération finale
 	- MDF-NbForme : Le joueur choisi le nombre de forme qu'il aura à memoriser (ici 2).
 	- MDF-Forme1 : L'application affiche la 1ere forme à memoriser, avec un chrono de 10 secondes.
 	- MDF-Forme2 : Aprés 10 secondes, l'application change de forme (ou non) et le chrono se remet à 10 secondes.
@@ -38,15 +38,6 @@ Rectangle Rond Triangle : Création et livraison à l'itération 7
 	- RRT-Action : Le joueur dessine un carre (pierre), un rond (papier) ou un triangle (ciseau).
 	- RRT-Gagne : Le joueur a gagne (ici : rectangle vs triangle = pierre vs ciseau = pierre gagne)
 	- RRT-Perdu : Le joueur a perdu (ici : rectangle vs rond = pierre vs papier = papier gagne)
-
-Itération 8 :
-	- Ajout de nouvel forme pouvant être reconnut (pentagone....)
-	- Mise à jour de Dessiner une forme, Memoire de forme en conséquence.
-
-Itération 9 :
-	- A-iter9 : Mise en place d'un rectangle rond triangle en ligne (ajout d'un bouton à l'écran d'accueil)
-	- RRT-Multi : On choisit un joueur avec qui jouez.
-	La façon de jouer sera la même (voir Rectangle Rond Triangle)
 
 Mode entrainement (hors ligne uniquement) :
 	- Le joueur dessine librement des formes
