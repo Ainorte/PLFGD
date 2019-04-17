@@ -28,7 +28,7 @@
 	<string name="vs">VS</string>
 	<string name="sct">Rectangle Rond Triangle</string>
 	<string name="drawforme">Dessiner une forme</string>
-	<string name="title_activity_preferences">PreferencesActivity</string>
+	<string name="title_activity_preferences">Préferences</string>
 	<string name="preferences">Préférences</string>
 	<string name="server_url">Adresse du serveur</string>
 	<string name="username_label">Nom d\'utilisateur</string>
@@ -40,4 +40,6 @@
 	<string name="you_loose">Vous avez perdu</string>
 	<string name="equality">Égalité</string>
 	<string name="deviner_la_forme">Deviner la forme</string>
+	<string name="menu">Menu</string>
+	<string name="result">Résultat</string>
 </resources>

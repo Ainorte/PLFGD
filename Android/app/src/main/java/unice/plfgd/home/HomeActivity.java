@@ -3,6 +3,7 @@ package unice.plfgd.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import unice.plfgd.BuildConfig;
 import unice.plfgd.R;
 import unice.plfgd.tool.ActivityTools;
@@ -25,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_activity);
+		setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
+		getSupportActionBar().setTitle(R.string.app_name);
 
 		if (!conf.has("username")) {
 			//Set up the fragment

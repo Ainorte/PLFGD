@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		AppCompatActivity activity = (AppCompatActivity) getActivity();
 		switch (APIService.getInstance().getActualGame()) {
 			case DRAWFORME:
 				if (getArguments() != null && mPresenter != null) {
@@ -63,6 +65,7 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 						mPresenter.setOrder(forme.getForme());
 					}
 				}
+				activity.getSupportActionBar().setTitle(R.string.drawforme);
 				break;
 			case DEVINER:
 				Serializable serializable = getArguments().getSerializable("payload");
@@ -70,6 +73,13 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 					DevinerFormeResult devine = (DevinerFormeResult) serializable;
 					mPresenter.setDevine(devine);
 				}
+				activity.getSupportActionBar().setTitle(R.string.deviner_la_forme);
+				break;
+			case SCT:
+				activity.getSupportActionBar().setTitle(R.string.sct);
+				break;
+			default:
+				activity.getSupportActionBar().setTitle(R.string.app_name);
 		}
 	}
 

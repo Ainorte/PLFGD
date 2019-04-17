@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class ResultFragment extends Fragment implements ResultContract.View {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.result);
 		if (getArguments() != null && mPresenter != null) {
 			if (getArguments().getSerializable("result") != null) {
 				mPresenter.setResult((Packet) getArguments().getSerializable("result"));
