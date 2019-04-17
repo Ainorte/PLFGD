@@ -9,7 +9,7 @@ LIVRAISON 08 :
 -Mise ne place du jeu "Rectangle Rond Triangle"
 -Amélioration de la reconnaissance de forme.
 -Amélioration de perfomance et de poids de l'application et du serveur.
+- Création d'un mode d'emploi : user-manual.md
 
 LIVRAISON FINALE :
 
-- Création d'un mode d'emploi : user-manual.md
