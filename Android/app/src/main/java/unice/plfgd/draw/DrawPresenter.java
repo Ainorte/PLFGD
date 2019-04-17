@@ -16,7 +16,6 @@ import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DrawPresenter implements DrawContract.Presenter {
@@ -57,12 +56,18 @@ public class DrawPresenter implements DrawContract.Presenter {
 				mView.showOrder(APIService.getInstance().getActualGame());
 		}
 		APIService.getInstance().setPresenter(this);
+		APIService.getInstance().sendMessage("scoreUpdate",null);
 	}
 
 	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		stopTimer();
 		mView.onSocketReset(message);
+	}
+
+	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
 	}
 
 	@Override

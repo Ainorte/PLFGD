@@ -35,6 +35,7 @@ public class Main {
 		handlers.put("devinerCheckDraw", new DevinerCheckDrawHandler());
 		handlers.put("sct",new SCTHandler());
 		handlers.put("resultSCT", new ResultSCTHandler());
+		handlers.put("scoreUpdate", new ScoreUpdateHandler());
 
 		var server = new Server(config, handlers);
 		server.start();

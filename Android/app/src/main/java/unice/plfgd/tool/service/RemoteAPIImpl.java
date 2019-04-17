@@ -91,6 +91,7 @@ public class RemoteAPIImpl implements API {
 		socket.on("resultSCT",new ResultSCTHandler(svc));
 		socket.on( "devinerFormeInit" ,new DevinerFormeInitHandler(svc));
 		socket.on("devinerCheckDraw", new DevinerCheckDrawHandler(svc));
+		socket.on("setScore", new ScoreUpdateHandler(svc));
 	}
 
 	public enum ResetSocketMessage {
