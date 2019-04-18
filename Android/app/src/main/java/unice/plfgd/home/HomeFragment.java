@@ -54,6 +54,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 	}
 
 	@Override
+	public void setScore(int score) {
+		//nothing
+	}
+
+	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 
 		switch (message) {

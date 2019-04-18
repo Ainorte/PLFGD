@@ -31,6 +31,11 @@ public class HomePresenter implements HomeContract.Presenter {
 	}
 
 	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
+	}
+
+	@Override
 	public void initSocket() {
         mView.blockInteraction();
 		final RemoteAPIImpl conn = RemoteAPIImpl.getInstance();

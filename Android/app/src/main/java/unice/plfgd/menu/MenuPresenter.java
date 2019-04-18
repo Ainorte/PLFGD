@@ -24,11 +24,17 @@ public class MenuPresenter implements MenuContract.Presenter {
 	@Override
 	public void start() {
 		APIService.getInstance().setPresenter(this);
+		APIService.getInstance().sendMessage("scoreUpdate",null);
 	}
 
 	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
+	}
+
+	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import unice.plfgd.R;
 import unice.plfgd.tool.ActivityTools;
+import unice.plfgd.tool.service.APIService;
 
 public class MenuActivity extends AppCompatActivity {
 

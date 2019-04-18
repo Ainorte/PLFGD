@@ -42,6 +42,11 @@ public class UsernameFragment extends Fragment implements UsernameContract.View 
 	}
 
 	@Override
+	public void setScore(int score) {
+		//nothing
+	}
+
+	@Override
 	public void setPresenter(UsernameContract.Presenter presenter) {
 		mPresenter = presenter;
 	}
