@@ -68,7 +68,6 @@ public class RecogForme {
 		double ratioCHrectangle = convexHullArea2/rectangleArea;
 
 
-
 		if (thinnessRatio > 50 || distStartToEnd > 150) {
 			res.add(Forme.SEGMENT);
 			res.add(new Segment(pts.get(0), pts.get(pts.size() - 1)));
@@ -76,7 +75,7 @@ public class RecogForme {
 			&& convexRectangleRatio < 0.89) {
 			res.add(Forme.TRIANGLE);
 			res.add(triangle);
-		} else if (convexRectangleRatio > 0.57 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.83) {
+		} else if (convexRectangleRatio > 0.57 && convexRectangleRatio < 1.25 && ratioCHrectangle > 0.77) {
 			if (convexRectangleRatio > 0.95 && convexRectangleRatio < 1.05) {
 				Point G = utils.barycentre(convexHull);
 				Carre carre = new Carre(G, rectanglePerim / 4, 0);
