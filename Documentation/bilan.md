@@ -13,3 +13,7 @@ LIVRAISON 08 :
 
 LIVRAISON FINALE :
 
+-Implémentation du dernier jeu : "Deviner une forme"
+-Implémentation d'un systhéme de score
+-Créations de tests sur la reconaissance de forme, android, fonctionement du jeu deviner une forme
+
