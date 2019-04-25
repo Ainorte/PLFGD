@@ -26,23 +26,24 @@
 			android:layout_height="match_parent"
 			android:paddingTop="?attr/actionBarSize">
 		<TextView
-				android:id="@+id/server_tv"
-				android:layout_width="match_parent" android:layout_height="wrap_content"
-				android:text="@string/server_url"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"/>
+			android:id="@+id/server_tv"
+			android:layout_width="match_parent" android:layout_height="wrap_content"
+			android:text="@string/server_url"
+			android:layout_marginTop="15dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="15dp"/>
 		<EditText
-				android:id="@+id/server_field"
-				android:layout_marginTop="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/server_tv"
-				android:hint="@string/server_address_port"
-				android:singleLine="true"
-				android:inputType="text"/>
+			android:id="@+id/server_field"
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="15dp"
+			android:layout_marginBottom="15dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/server_tv"
+			android:hint="@string/server_address_port"
+			android:singleLine="true"
+			android:inputType="text"/>
 		<TextView
 				android:id="@+id/username_tv"
 				android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -51,17 +52,17 @@
 				android:layout_marginLeft="15dp"
 				android:layout_marginRight="15dp"/>
 		<EditText
-				android:id="@+id/name_field"
-				android:layout_marginTop="15dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginRight="15dp"
-				android:layout_marginBottom="15dp"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/username_tv"
-				android:hint="@string/username"
-				android:singleLine="true"
-				android:inputType="text"
+			android:id="@+id/name_field"
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="15dp"
+			android:layout_marginBottom="15dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/username_tv"
+			android:hint="@string/username"
+			android:singleLine="true"
+			android:inputType="text"
 		/>
 	</RelativeLayout>
 

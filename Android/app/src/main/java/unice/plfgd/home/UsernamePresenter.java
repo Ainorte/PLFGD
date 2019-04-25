@@ -30,6 +30,11 @@ public class UsernamePresenter implements UsernameContract.Presenter {
 	}
 
 	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
+	}
+
+	@Override
 	public void onValid(String name) {
 		Configuration.getInstance().set("username", name);
 		mView.onValid();

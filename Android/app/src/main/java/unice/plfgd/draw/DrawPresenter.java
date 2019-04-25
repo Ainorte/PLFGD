@@ -1,17 +1,22 @@
 package unice.plfgd.draw;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.forme.forme.Point;
+import unice.plfgd.common.forme.generation.GenerationFormes;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.service.API;
 import unice.plfgd.tool.service.APIService;
 import unice.plfgd.tool.service.RemoteAPIImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrawPresenter implements DrawContract.Presenter {
 
@@ -22,6 +27,18 @@ public class DrawPresenter implements DrawContract.Presenter {
 	private VelocityTracker velocityTracker;
 
 	private Forme order;
+	private List<Forme> formeList;
+
+	private int numberFormes;
+	private int counterForme;
+
+	private Handler handler;
+	private Runnable runnable;
+
+	private int time;
+	private boolean white;
+
+	private String textForDevine;
 
 	public DrawPresenter(@NonNull DrawContract.View view) {
 		this.mView = view;
@@ -39,11 +56,18 @@ public class DrawPresenter implements DrawContract.Presenter {
 				mView.showOrder(APIService.getInstance().getActualGame());
 		}
 		APIService.getInstance().setPresenter(this);
+		APIService.getInstance().sendMessage("scoreUpdate",null);
 	}
 
 	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
+		stopTimer();
 		mView.onSocketReset(message);
+	}
+
+	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
 	}
 
 	@Override
@@ -156,5 +180,81 @@ public class DrawPresenter implements DrawContract.Presenter {
 				return false;
 			}
 		};
+	}
+
+	@Override
+	public void setDevine(DevinerFormeResult devine) {
+		formeList = new ArrayList<>(devine.getFormes());
+		numberFormes = devine.getScoreToReach();
+		mDraw = new Draw(new ArrayList<List<Point>>(){{ add(GenerationFormes.generateEnumForme(formeList.remove(0), 1000, 1000));}},1000,1000);
+		counterForme++;
+		time = 0;
+	}
+
+	@Override
+	public void startTimer() {
+
+		if (formeList.size() > 0) {
+
+			mView.hideButtons();
+
+			white = false;
+
+			handler = new Handler();
+			runnable = new Runnable() {
+				@Override
+				public void run() {
+					if (white) {
+						mDraw = new Draw(new ArrayList<List<Point>>() {{
+							add(GenerationFormes.generateEnumForme(formeList.remove(0), 1000, 1000));
+						}}, 1000, 1000);
+						mView.getCanvas().drawResult(mDraw);
+						handler.postDelayed(this, 0);
+						white = false;
+					} else if (time <= 2) {
+						mView.showText(2 - time + "s : " + counterForme + "/" + numberFormes);
+						time++;
+						handler.postDelayed(this, 1000);
+					} else if (counterForme < numberFormes) {
+						counterForme++;
+						time = 0;
+						mView.getCanvas().clear();
+						handler.postDelayed(this, 500);
+						white = true;
+					} else {
+						counterForme = 1;
+						handler.removeCallbacks(this);
+						mView.showButtons();
+						textForDevine = "A toi de jouer !";
+						mView.showOrder(APIService.getInstance().getActualGame());
+						onResetCanvas();
+						mView.getCanvas().setActive(true);
+					}
+				}
+			};
+
+			handler.postDelayed(runnable, 0);
+		}
+	}
+
+	@Override
+	public void switchNext() {
+		onResetCanvas();
+		counterForme++;
+		textForDevine = "Bien ! " + counterForme + "/" + numberFormes;
+		mView.showOrder(APIService.getInstance().getActualGame());
+		mView.unlockButtons();
+	}
+
+	@Override
+	public void stopTimer() {
+		if (handler != null && runnable != null) {
+			handler.removeCallbacks(runnable);
+		}
+	}
+
+	@Override
+	public String getTextForDevine() {
+		return textForDevine;
 	}
 }

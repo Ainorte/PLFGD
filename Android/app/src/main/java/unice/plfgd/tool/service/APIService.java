@@ -1,6 +1,5 @@
 package unice.plfgd.tool.service;
 
-import android.util.Log;
 import unice.plfgd.base.BasePresenter;
 import unice.plfgd.common.data.Game;
 import unice.plfgd.common.data.UserStore;
@@ -9,9 +8,9 @@ import unice.plfgd.common.net.Packet;
 public class APIService {
 	private static APIService instance;
 
-    //
-    private API client;
-    private UserStore localCache = new UserStore();
+	//
+	private API client;
+	private UserStore localCache = new UserStore();
 	private BasePresenter presenter;
 	private Game actualGame;
 
@@ -27,9 +26,9 @@ public class APIService {
 	}
 
 	public void setClient(API client) {
-        if (client instanceof LocalAPIImpl) {
-            ((LocalAPIImpl) client).setCache(localCache);
-        }
+		if (client instanceof LocalAPIImpl) {
+			((LocalAPIImpl) client).setCache(localCache);
+		}
 		this.client = client;
 	}
 
@@ -37,15 +36,18 @@ public class APIService {
 		this.presenter = presenter;
 	}
 
-	public void lauchGame(Game game){
+	public void launchGame(Game game) {
 		actualGame = game;
 
-		switch (actualGame){
+		switch (actualGame) {
 			case DRAWFORME:
-				sendMessage("drawForme",null);
+				sendMessage("drawForme", null);
 				break;
 			case SCT:
 				sendMessage("sct", null);
+				break;
+			case DEVINER:
+                sendMessage("devinerFormeInit", null);
 				break;
 			default:
 				//nothing
@@ -53,14 +55,20 @@ public class APIService {
 		}
 	}
 
-	public void sendResponse(Packet packet){
+	public void sendResponse(Packet packet) {
 		switch (actualGame) {
 			case DRAWFORME:
 				sendMessage("resultDrawForme", packet);
 				break;
 			case SCT:
-				sendMessage("resultSCT",packet);
+				sendMessage("resultSCT", packet);
 				break;
+            case DEVINER:
+                sendMessage("devinerCheckDraw",packet);
+                break;
+            default:
+                //nothing
+                break;
 		}
 	}
 
@@ -68,7 +76,7 @@ public class APIService {
 		return actualGame;
 	}
 
-	public void resetGame(){
+	public void resetGame() {
 		actualGame = Game.NONE;
 	}
 

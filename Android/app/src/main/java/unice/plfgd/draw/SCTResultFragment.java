@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,16 @@ public class SCTResultFragment extends Fragment implements SCTResultContract.Vie
 	}
 
 	@Override
+	public void setScore(final int score) {
+		mClientCanvas.post(new Runnable() {
+			@Override
+			public void run() {
+				((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+			}
+		});
+	}
+
+	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -64,6 +75,7 @@ public class SCTResultFragment extends Fragment implements SCTResultContract.Vie
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.result);
 		if (getArguments() != null && mPresenter != null) {
 			if (getArguments().getSerializable("result") != null) {
 				mPresenter.setServerResult((Packet) getArguments().getSerializable("result"));

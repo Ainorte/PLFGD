@@ -4,10 +4,7 @@ import android.util.Log;
 import unice.plfgd.common.action.*;
 import unice.plfgd.common.data.UserStore;
 import unice.plfgd.common.net.Packet;
-import unice.plfgd.tool.responsehandler.DrawFormeHandler;
-import unice.plfgd.tool.responsehandler.ResultDrawFormeHandler;
-import unice.plfgd.tool.responsehandler.ResultSCTHandler;
-import unice.plfgd.tool.responsehandler.SCTHandler;
+import unice.plfgd.tool.responsehandler.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,5 +45,8 @@ public class LocalAPIImpl implements API {
 		this.routes.put("resultDrawForme", new ResultDrawFormeAction(new ResultDrawFormeHandler(APIService.getInstance())));
 		this.routes.put("sct", new SCTAction(new SCTHandler(APIService.getInstance())));
 		this.routes.put("resultSCT",new ResultSCTAction(new ResultSCTHandler(APIService.getInstance())));
+		this.routes.put("devinerFormeInit", new DevinerFormeInitAction(new DevinerFormeInitHandler(APIService.getInstance())));
+		this.routes.put("devinerCheckDraw", new DevinerCheckDrawAction(new DevinerCheckDrawHandler(APIService.getInstance())));
+		this.routes.put("scoreUpdate", new ScoreUpdateAction(new ScoreUpdateHandler(APIService.getInstance())));
 	}
 }

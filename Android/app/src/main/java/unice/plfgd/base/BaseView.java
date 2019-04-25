@@ -8,5 +8,7 @@ public interface BaseView<T extends BasePresenter> {
 	void onSocketReset(RemoteAPIImpl.ResetSocketMessage message);
 
 	T getPresenter();
+
+	void setScore(int score);
 }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,7 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	private MenuContract.Presenter mPresenter;
 
 	private TextView mText;
-	private Button mDrawForme;
-	private Button mSCT;
+	private Button mDrawForme, mSCT, mDeviner;
 
 	public MenuFragment() {
 		//Required
@@ -51,6 +51,16 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	}
 
 	@Override
+	public void setScore(final int score) {
+		mDeviner.post(new Runnable() {
+			@Override
+			public void run() {
+				((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+			}
+		});
+	}
+
+	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		Intent intent = new Intent(getContext(), HomeActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -63,7 +73,7 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 
 		mText = view.findViewById(R.id.accueil_text);
-		mText.setText(String.format("%s %s %s", getResources().getString(R.string.welcome), mPresenter.getUserName(), getResources().getString(R.string.exclamationPoint)));
+		mText.setText(String.format(getResources().getString(R.string.welcome), mPresenter.getUserName()));
 
 		mDrawForme = view.findViewById(R.id.but_des);
 		mDrawForme.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +90,15 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 				mPresenter.launchGame(Game.SCT);
 			}
 		});
+
+		mDeviner = view.findViewById(R.id.but_dev);
+		mDeviner.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.launchGame(Game.DEVINER);
+			}
+		});
+
 		return view;
 	}
 
@@ -87,12 +106,14 @@ public class MenuFragment extends Fragment implements MenuContract.View {
 	public void blockInteration() {
 		mDrawForme.setEnabled(false);
 		mSCT.setEnabled(false);
+		mDeviner.setEnabled(false);
 	}
 
 	@Override
 	public void resetInteraction() {
 		mDrawForme.setEnabled(true);
 		mSCT.setEnabled(true);
+		mDeviner.setEnabled(true);
 	}
 
 	@Override

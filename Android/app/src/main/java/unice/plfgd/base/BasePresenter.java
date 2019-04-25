@@ -6,4 +6,6 @@ public interface BasePresenter {
 	void start();
 
 	void onSocketReset(RemoteAPIImpl.ResetSocketMessage message);
+
+	void setScore(int score);
 }

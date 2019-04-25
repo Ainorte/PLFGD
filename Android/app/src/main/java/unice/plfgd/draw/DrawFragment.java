@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import unice.plfgd.R;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.FormeRequest;
 import unice.plfgd.common.forme.forme.Forme;
 import unice.plfgd.common.net.Packet;
@@ -44,12 +46,16 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	public void onResume() {
 		super.onResume();
 		mPresenter.start();
+		if (APIService.getInstance().getActualGame() == Game.DEVINER) {
+			mPresenter.startTimer();
+		}
 	}
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		AppCompatActivity activity = (AppCompatActivity) getActivity();
 		switch (APIService.getInstance().getActualGame()) {
 			case DRAWFORME:
 				if (getArguments() != null && mPresenter != null) {
@@ -59,7 +65,21 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 						mPresenter.setOrder(forme.getForme());
 					}
 				}
+				activity.getSupportActionBar().setTitle(R.string.drawforme);
 				break;
+			case DEVINER:
+				Serializable serializable = getArguments().getSerializable("payload");
+				if (serializable != null) {
+					DevinerFormeResult devine = (DevinerFormeResult) serializable;
+					mPresenter.setDevine(devine);
+				}
+				activity.getSupportActionBar().setTitle(R.string.deviner_la_forme);
+				break;
+			case SCT:
+				activity.getSupportActionBar().setTitle(R.string.sct);
+				break;
+			default:
+				activity.getSupportActionBar().setTitle(R.string.app_name);
 		}
 	}
 
@@ -71,6 +91,16 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	@Override
 	public DrawContract.Presenter getPresenter() {
 		return mPresenter;
+	}
+
+	@Override
+	public void setScore(final int score) {
+		mReset.post(new Runnable() {
+			@Override
+			public void run() {
+				((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(String.format(getText(R.string.score).toString(), score));
+			}
+		});
 	}
 
 	@Override
@@ -87,22 +117,23 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 
 		mOrder = view.findViewById(R.id.draw_order);
 		mReset = view.findViewById(R.id.draw_reset);
+		mValid = view.findViewById(R.id.draw_valid);
+		draw = view.findViewById(R.id.draw_canvas);
+		draw.setOnSizeChange(mPresenter.onDrawSizeChange());
+
 		mReset.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mPresenter.onResetCanvas();
 			}
 		});
-		mValid = view.findViewById(R.id.draw_valid);
+		draw.setOnTouchListener(mPresenter.onCanvasTouch());
 		mValid.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mPresenter.onValid();
 			}
 		});
-		draw = view.findViewById(R.id.draw_canvas);
-		draw.setOnSizeChange(mPresenter.onDrawSizeChange());
-		draw.setOnTouchListener(mPresenter.onCanvasTouch());
 
 		return view;
 	}
@@ -120,6 +151,43 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 	}
 
 	@Override
+	public void showText(final String s){
+		Objects.requireNonNull(getView()).post(new Runnable() {
+			@Override
+			public void run() {
+				mOrder.setText(s);
+			}
+		});
+	}
+
+	public void hideButtons() {
+		mReset.setVisibility(View.INVISIBLE);
+		mValid.setVisibility(View.INVISIBLE);
+		draw.setActive(false);
+	}
+
+	@Override
+	public void showButtons() {
+		mReset.setVisibility(View.VISIBLE);
+		mValid.setVisibility(View.VISIBLE);
+		draw.clear();
+		draw.setActive(true);
+	}
+
+	@Override
+	public void unlockButtons() {
+		Objects.requireNonNull(getView()).post(new Runnable() {
+			@Override
+			public void run() {
+				draw.setActive(true);
+				mValid.setEnabled(true);
+				mReset.setEnabled(true);
+				mValid.setText(R.string.valid);
+			}
+		});
+	}
+
+	@Override
 	public void showOrder(final Game game) {
 		Objects.requireNonNull(getView()).post(new Runnable() {
 			@Override
@@ -128,6 +196,8 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 					case SCT:
 						mOrder.setText(R.string.sct);
 						break;
+					case DEVINER:
+						mOrder.setText(mPresenter.getTextForDevine());
 				}
 			}
 		});
@@ -153,6 +223,12 @@ public class DrawFragment extends Fragment implements DrawContract.View {
 				mValid.setText(R.string.wait);
 			}
 		});
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mPresenter.stopTimer();
 	}
 
 	@Override

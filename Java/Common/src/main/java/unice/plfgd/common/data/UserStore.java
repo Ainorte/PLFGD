@@ -10,6 +10,10 @@ public class UserStore {
 	private Game currentGame;
 	private HashMap<String, Packet> data;
 
+	public void incrementScore() {
+		this.score++;
+	}
+
 	public UserStore() {
 		currentGame = Game.NONE;
 		data = new HashMap<>();
@@ -49,8 +53,8 @@ public class UserStore {
 	}
 
 	public <T extends Packet> T getData(String name, Class<T> clazz) {
-		Packet packet = data.getOrDefault(name, null);
-		if (clazz.isInstance(packet)) {
+		Packet packet = data.get(name);
+		if (packet != null && clazz.isInstance(packet)) {
 			return (T) packet;
 		}
 		return null;

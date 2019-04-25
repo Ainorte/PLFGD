@@ -32,12 +32,14 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
 
         result.setEnemy(enemy);
         result.setEnemyF(forme);
-        result.setPlayer(payload);
+        result.setPlayer(recog.getDraw());
         result.setPlayerF(player);
 
         switch (player) {
+            case SQUARE:
             case RECTANGLE:
                 switch (forme) {
+                    case SQUARE:
                     case RECTANGLE:
                         result.setWin(null);
                         break;
@@ -62,6 +64,7 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
                 break;
             case TRIANGLE:
                 switch (forme) {
+                    case SQUARE:
 					case RECTANGLE:
                         result.setWin(false);
                         break;
@@ -75,6 +78,11 @@ public class ResultSCTAction extends Action<Draw, ResultSCT> {
 			default:
 				result.setWin(false);
         }
+
+        final Boolean win = result.getWin();
+        if (win != null && win) {
+			store.incrementScore();
+		}
 
         store.resetGame();
         return result;

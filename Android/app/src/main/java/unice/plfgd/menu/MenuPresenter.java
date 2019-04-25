@@ -24,6 +24,7 @@ public class MenuPresenter implements MenuContract.Presenter {
 	@Override
 	public void start() {
 		APIService.getInstance().setPresenter(this);
+		APIService.getInstance().sendMessage("scoreUpdate",null);
 	}
 
 	@Override
@@ -32,14 +33,19 @@ public class MenuPresenter implements MenuContract.Presenter {
 	}
 
 	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
+	}
+
+	@Override
 	public void launchGame(Game game) {
 		mView.blockInteration();
-		APIService.getInstance().lauchGame(game);
+		APIService.getInstance().launchGame(game);
 	}
 
 	@Override
 	public void displayGame(Packet payload) {
-        mView.setActivity(DrawActivity.class, payload);
+		mView.setActivity(DrawActivity.class, payload);
 	}
 
 	@Override

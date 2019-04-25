@@ -22,9 +22,8 @@
 		</activity>
 		<activity android:name=".draw.DrawActivity"/>
 		<activity
-				android:name=".PreferencesActivity"
-				android:label="@string/title_activity_preferences"
-				android:theme="@style/AppTheme.NoActionBar">
+			android:name=".PreferencesActivity"
+			android:label="@string/title_activity_preferences">
 		</activity>
         <activity android:name=".menu.MenuActivity"/>
     </application>

@@ -2,6 +2,7 @@ package unice.plfgd.draw;
 
 import android.support.annotation.NonNull;
 import unice.plfgd.common.data.Game;
+import unice.plfgd.common.data.packet.DevinerFormeResult;
 import unice.plfgd.common.data.packet.Draw;
 import unice.plfgd.common.data.packet.ResultDrawForme;
 import unice.plfgd.common.forme.forme.Forme;
@@ -25,11 +26,17 @@ public class ResultPresenter implements ResultContract.Presenter {
 	@Override
 	public void start() {
 		APIService.getInstance().setPresenter(this);
+		APIService.getInstance().sendMessage("scoreUpdate",null);
 	}
 
 	@Override
 	public void onSocketReset(RemoteAPIImpl.ResetSocketMessage message) {
 		mView.onSocketReset(message);
+	}
+
+	@Override
+	public void setScore(int score) {
+		mView.setScore(score);
 	}
 
 	@Override
@@ -39,7 +46,7 @@ public class ResultPresenter implements ResultContract.Presenter {
 
 	@Override
 	public void replay() {
-		APIService.getInstance().lauchGame(game);
+		APIService.getInstance().launchGame(game);
 	}
 
     @Override
@@ -53,6 +60,8 @@ public class ResultPresenter implements ResultContract.Presenter {
 			case DRAWFORME:
 				mView.setCommentary(game, win, expected);
 				break;
+			case DEVINER:
+				mView.setCommentary(game, win, Forme.UNKNOWN);
 		}
 	}
 
@@ -64,6 +73,10 @@ public class ResultPresenter implements ResultContract.Presenter {
 			this.result = recogForme.getDraw();
 			this.win = recogForme.isValidate();
 			this.expected = recogForme.getExpected();
+		}
+		if (result instanceof DevinerFormeResult) {
+			DevinerFormeResult devine = (DevinerFormeResult) result;
+			this.win = devine.getHasWon();
 		}
 	}
 
